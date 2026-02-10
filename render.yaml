@@ -1,0 +1,58 @@
+services:
+  - type: web
+    name: invite-uz
+    env: node
+    region: oregon
+    plan: starter
+    buildCommand: npm install --legacy-peer-deps && npx prisma generate && npm run build
+    startCommand: npm start
+    envVars:
+      # Database
+      - key: DATABASE_URL
+        sync: false
+      
+      # Supabase
+      - key: NEXT_PUBLIC_SUPABASE_URL
+        sync: false
+      - key: NEXT_PUBLIC_SUPABASE_ANON_KEY
+        sync: false
+      
+      # AI
+      - key: GEMINI_API_KEY
+        sync: false
+      
+      # Telegram
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+      
+      # Payments
+      - key: CLICK_MERCHANT_ID
+        sync: false
+      - key: CLICK_SECRET_KEY
+        sync: false
+      - key: PAYME_MERCHANT_ID
+        sync: false
+      - key: PAYME_SECRET_KEY
+        sync: false
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      - key: STRIPE_WEBHOOK_SECRET
+        sync: false
+      
+      # Email
+      - key: EMAIL_SERVER_HOST
+        sync: false
+      - key: EMAIL_SERVER_PORT
+        sync: false
+      - key: EMAIL_SERVER_USER
+        sync: false
+      - key: EMAIL_SERVER_PASSWORD
+        sync: false
+      - key: EMAIL_FROM
+        sync: false
+      
+      # App
+      - key: NODE_ENV
+        value: production
+      - key: NEXT_PUBLIC_APP_URL
+        sync: false

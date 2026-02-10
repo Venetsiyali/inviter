@@ -1,0 +1,105 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// SQLite doesn't support enums - using String with defaults instead
+// UserRole: 'ADMIN' | 'USER'
+// UserPlan: 'FREE' | 'PREMIUM'
+
+model User {
+  id                      String    @id @default(cuid())
+  email                   String    @unique
+  name                    String?
+  passwordHash            String
+  emailVerified           Boolean   @default(false)
+  role                    String    @default("USER")
+  plan                    String    @default("FREE")
+  telegramChatId          String?
+  telegramUsername        String?
+  createdAt               DateTime  @default(now())
+  updatedAt               DateTime  @updatedAt
+  
+  sessions                Session[]
+  events                  Event[]
+  emailVerificationCodes  EmailVerificationCode[]
+  
+  @@index([email])
+}
+
+model Session {
+  id        String   @id
+  userId    String
+  expiresAt DateTime
+  
+  user      User     @relation(references: [id], fields: [userId], onDelete: Cascade)
+  
+  @@index([userId])
+}
+
+model EmailVerificationCode {
+  id        String   @id @default(cuid())
+  code      String
+  userId    String
+  eventType String   @default("wedding") // wedding, birthday, engagement, etc.
+  email     String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  
+  user      User     @relation(references: [id], fields: [userId], onDelete: Cascade)
+  
+  @@unique([userId, email])
+  @@index([userId])
+}
+
+model Event {
+  id            String   @id @default(cuid())
+  slug          String   @default(cuid()) @unique
+  userId        String
+  type          String   // 'wedding', 'osh', 'birthday', 'lutf', 'engagement', 'circumcision', 'anniversary'
+  title         String
+  date          DateTime
+  time          String?
+  location      String?
+  description   String?
+  locale        String   @default("UZ_LAT") // 'UZ_LAT', 'UZ_CYR', 'RU'
+  contentJson   String   // Event-specific content (JSON as string)
+  designConfig  String   // AI-generated design configuration (JSON as string)
+  imageUrl      String?  // Event image from Supabase Storage
+  isPublished   Boolean  @default(false)
+  views         Int      @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  user          User     @relation(references: [id], fields: [userId], onDelete: Cascade)
+  guests        Guest[]
+  
+  @@index([userId])
+  @@index([slug])
+}
+
+model Guest {
+  id                    String   @id @default(cuid())
+  eventId               String
+  name                  String
+  phone                 String?
+  email                 String?
+  rsvpStatus            String   @default("pending") // 'pending', 'confirmed', 'declined', 'maybe'
+  message               String?
+  rsvpAt                DateTime?
+  donationAmount        Float?
+  paymentProvider       String?  // 'click', 'payme', 'stripe'
+  paymentTransactionId  String?
+  paymentStatus         String   @default("pending") // 'pending', 'completed', 'failed'
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+  
+  event                 Event    @relation(references: [id], fields: [eventId], onDelete: Cascade)
+  
+  @@index([eventId])
+  @@index([rsvpStatus])
+}
