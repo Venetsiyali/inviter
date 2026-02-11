@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import bcrypt from "bcryptjs";
 import { generateEmailVerificationCode } from "@/lib/auth/email-verification";
-import { sendVerificationEmail } from "@/lib/email/send";
+import { sendVerificationEmail } from "@/lib/mail";
 
 export async function POST(request: NextRequest) {
     try {
@@ -105,7 +105,7 @@ export async function POST(request: NextRequest) {
 
         // Send verification email (non-blocking)
         try {
-            await sendVerificationEmail(user.email, code, name);
+            await sendVerificationEmail(user.email, code);
         } catch (emailError: any) {
             console.error("Email send error:", emailError);
             // Email failed but user exists - return success with warning
