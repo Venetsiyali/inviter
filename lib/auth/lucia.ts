@@ -16,6 +16,8 @@ export const lucia = new Lucia(adapter, {
             email: attributes.email,
             name: attributes.name,
             emailVerified: attributes.emailVerified,
+            plan: attributes.plan,
+            role: attributes.role,
             telegramChatId: attributes.telegramChatId,
         };
     },
@@ -36,4 +38,4 @@ interface DatabaseUserAttributes {
     role: string;
     telegramChatId: string | null;
 }
-```
+
