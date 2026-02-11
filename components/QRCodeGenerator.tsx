@@ -41,7 +41,8 @@ export default function QRCodeGenerator({ url, size = 200 }: QRCodeGeneratorProp
 
     return (
         <div className="flex flex-col items-center gap-3">
-            <img src={qrDataUrl} alt="QR Code" className="rounded-lg shadow-md" />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={qrDataUrl} alt="QR Code" className="rounded-lg shadow-md" unoptimized />
             <button
                 onClick={downloadQR}
                 className="text-sm text-blue-600 hover:text-blue-700 font-medium"
