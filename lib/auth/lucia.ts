@@ -32,5 +32,8 @@ interface DatabaseUserAttributes {
     email: string;
     name: string | null;
     emailVerified: boolean;
+    plan: string;
+    role: string;
     telegramChatId: string | null;
 }
+```
