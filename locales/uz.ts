@@ -31,6 +31,7 @@ export const uz = {
         welcome: "Xush kelibsiz",
         welcomeBack: "Qaytganingizdan xursandmiz",
         createFirst: "Birinchi taklifnomangizni yarating",
+        myEvents: "Mening tadbirlarim",
         guests: "Mehmonlar",
         rsvps: "Javoblar",
         donations: "Xayriyalar",
