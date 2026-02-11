@@ -80,6 +80,23 @@ export async function getUserPlanLimits(): Promise<PlanLimits | null> {
 /**
  * Check if user can use premium feature
  */
+export async function checkFeatureAccess(feature: keyof PlanLimits): Promise<boolean> {
+    const user = await getUser();
+    if (!user) return false;
+
+    const limits = PLAN_LIMITS[user.plan as keyof typeof PLAN_LIMITS] || PLAN_LIMITS.FREE;
+    // This function assumes features like maxEvents, maxGuests are checked for > 0
+    // and boolean features are checked for truthiness.
+    // For boolean features, limits[feature] > 0 would evaluate to false if true, and true if false.
+    // A more robust check might be:
+    // return typeof limits[feature] === 'boolean' ? limits[feature] : limits[feature] > 0;
+    // However, following the provided code edit:
+    return limits[feature] > 0;
+}
+
+/**
+ * Check if user can use premium feature
+ */
 export async function canUsePremiumFeature(
     feature: keyof PlanLimits
 ): Promise<boolean> {
