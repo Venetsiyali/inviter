@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { getUser } from "@/lib/auth/get-user";
-import { redirect } from "next/navigation";
 
 const inter = Inter({
     subsets: ["latin", "cyrillic"],
@@ -10,8 +8,54 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-    title: "Invite.uz - AI bilan Professional Taklifnomalar",
-    description: "O'zbekiston uchun AI-powered taklifnoma platformasi. To'y, Osh, Tug'ilgan kun va boshqa tadbirlar uchun professional taklifnomalar yarating.",
+    title: "Invite.uz - Onlayn Taklifnomalar va Tadbirlarni Boshqarish | AI Yordamida",
+    description: "O'zbekistondagi ilk AI yordamida taklifnoma yaratish platformasi. To'y, tug'ilgan kun va marosimlar uchun raqamli taklifnomalarni onlayn yarating.",
+    keywords: [
+        "taklifnoma",
+        "online taklifnoma",
+        "invite uz",
+        "to'y taklifnomasi",
+        "raqamli taklifnoma",
+        "o'zbekcha taklifnomalar",
+        "onlayn taklifnoma yaratish",
+        "AI taklifnoma",
+        "tug'ilgan kun taklifnomasi",
+        "nikoh taklifnomasi",
+        "sunnat to'yi",
+        "digital invitation",
+        "uzbekistan invitation",
+    ],
+    authors: [{ name: "Invite.uz Team" }],
+    creator: "Invite.uz",
+    publisher: "Invite.uz",
+    metadataBase: new URL("https://inviter.uz"),
+    alternates: {
+        canonical: "/",
+    },
+    openGraph: {
+        title: "Invite.uz - Onlayn Taklifnomalar | AI Yordamida",
+        description: "O'zbekistondagi ilk AI yordamida taklifnoma yaratish platformasi. Professional raqamli taklifnomalar bir necha daqiqada.",
+        url: "https://inviter.uz",
+        siteName: "Invite.uz",
+        locale: "uz_UZ",
+        type: "website",
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "Invite.uz - AI Yordamida Taklifnomalar",
+        description: "Professional raqamli taklifnomalar bir necha daqiqada yarating",
+    },
+    robots: {
+        index: true,
+        follow: true,
+        googleBot: {
+            index: true,
+            follow: true,
+            "max-video-preview": -1,
+            "max-image-preview": "large",
+            "max-snippet": -1,
+        },
+    },
 };
 
 export default function RootLayout({
