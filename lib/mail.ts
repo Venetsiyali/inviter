@@ -8,7 +8,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 export async function sendVerificationEmail(email: string, code: string) {
     try {
         const { data, error } = await resend.emails.send({
-            from: 'Invite.uz <noreply@invite.uz>',
+            from: 'Invite.uz <info@inviter.uz>',
             to: email,
             subject: 'Elektron pochtangizni tasdiqlang - Invite.uz',
             html: `
@@ -84,7 +84,7 @@ export async function sendVerificationEmail(email: string, code: string) {
 export async function sendPasswordResetEmail(email: string, resetUrl: string) {
     try {
         const { data, error } = await resend.emails.send({
-            from: 'Invite.uz <noreply@invite.uz>',
+            from: 'Invite.uz <info@inviter.uz>',
             to: email,
             subject: 'Parolni tiklash - Invite.uz',
             html: `
