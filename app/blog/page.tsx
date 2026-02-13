@@ -1,9 +1,30 @@
 import Link from "next/link";
 import { BookOpen, TrendingUp, Sparkles } from "lucide-react";
-import { getAllBlogPosts } from "@/constants/blog";
+import { prisma } from "@/lib/db";
 
-export default function BlogPage() {
-    const blogPosts = getAllBlogPosts();
+export default async function BlogPage() {
+    // Fetch blog posts from database
+    const blogPosts = await prisma.post.findMany({
+        where: { published: true },
+        orderBy: { createdAt: "desc" },
+        select: {
+            slug: true,
+            title: true,
+            excerpt: true,
+            category: true,
+            readTime: true,
+            createdAt: true,
+        },
+    });
+
+    const formattedPosts = blogPosts.map((post) => ({
+        ...post,
+        date: new Date(post.createdAt).toLocaleDateString("uz-UZ", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+        }),
+    }));
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">

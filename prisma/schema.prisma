@@ -27,6 +27,7 @@ model User {
   sessions                Session[]
   events                  Event[]
   emailVerificationCodes  EmailVerificationCode[]
+  posts                   Post[]
   
   @@index([email])
 }
@@ -116,4 +117,27 @@ model MediaUpload {
   event         Event    @relation(references: [id], fields: [eventId], onDelete: Cascade)
   
   @@index([eventId])
+}
+
+model Post {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  excerpt     String
+  content     String   @db.Text
+  author      String
+  authorId    String?
+  category    String
+  keywords    String[]
+  readTime    String
+  published   Boolean  @default(true)
+  views       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  user        User?    @relation(references: [id], fields: [authorId], onDelete: SetNull)
+  
+  @@index([slug])
+  @@index([published])
+  @@index([authorId])
 }

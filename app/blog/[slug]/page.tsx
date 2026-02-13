@@ -2,18 +2,24 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Calendar, Clock, User, Tag } from "lucide-react";
-import { getBlogPost, getAllBlogPosts } from "@/constants/blog";
+import { prisma } from "@/lib/db";
 import ReactMarkdown from 'react-markdown';
 
 export async function generateStaticParams() {
-    const posts = getAllBlogPosts();
+    const posts = await prisma.post.findMany({
+        where: { published: true },
+        select: { slug: true },
+    });
+
     return posts.map((post) => ({
         slug: post.slug,
     }));
 }
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-    const post = getBlogPost(params.slug);
+    const post = await prisma.post.findUnique({
+        where: { slug: params.slug, published: true },
+    });
 
     if (!post) {
         return {
@@ -42,12 +48,26 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     };
 }
 
-export default function BlogPostPage({ params }: { params: { slug: string } }) {
-    const post = getBlogPost(params.slug);
+export default async function BlogPostPage({ params }: { params: { slug: string } }) {
+    const post = await prisma.post.findUnique({
+        where: { slug: params.slug, published: true },
+    });
 
     if (!post) {
         notFound();
     }
+
+    // Increment view count
+    await prisma.post.update({
+        where: { id: post.id },
+        data: { views: { increment: 1 } },
+    });
+
+    const formattedDate = new Date(post.createdAt).toLocaleDateString('uz-UZ', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
@@ -86,12 +106,8 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
                         </span>
                         <div className="flex items-center gap-2 text-gray-600 text-sm">
                             <Calendar className="w-4 h-4" />
-                            <time dateTime={post.date}>
-                                {new Date(post.date).toLocaleDateString('uz-UZ', {
-                                    year: 'numeric',
-                                    month: 'long',
-                                    day: 'numeric'
-                                })}
+                            <time dateTime={post.createdAt.toISOString()}>
+                                {formattedDate}
                             </time>
                         </div>
                         <div className="flex items-center gap-2 text-gray-600 text-sm">
