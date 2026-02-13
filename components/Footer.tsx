@@ -28,6 +28,11 @@ export function Footer() {
                                 </Link>
                             </li>
                             <li>
+                                <Link href="/blog" className="text-gray-400 hover:text-white transition-colors">
+                                    Blog va Maqolalar
+                                </Link>
+                            </li>
+                            <li>
                                 <Link href="#" className="text-gray-400 hover:text-white transition-colors">
                                     Foydalanish shartlari
                                 </Link>

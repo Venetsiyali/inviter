@@ -55,11 +55,12 @@ export default function HomePage() {
                     </motion.div>
 
                     <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-                        {uz.landing.hero.title}
+                        AI bilan Professional Taklifnoma Yaratish - Onlayn va Bepul
                     </h1>
 
                     <p className="text-lg md:text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-                        {uz.landing.hero.subtitle}
+                        To&apos;y, tug&apos;ilgan kun va tadbirlar uchun raqamli taklifnomalarni onlayn yarating.
+                        Sun&apos;iy intellekt yordamida bir necha daqiqada professional dizayn.
                     </p>
 
                     <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -87,9 +88,9 @@ export default function HomePage() {
                     className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto"
                 >
                     {[
-                        { title: "To'y", gradient: "from-pink-400 to-rose-600" },
-                        { title: "Osh", gradient: "from-emerald-400 to-teal-600" },
-                        { title: "Tug'ilgan kun", gradient: "from-blue-400 to-indigo-600" },
+                        { title: "To'y", gradient: "from-pink-400 to-rose-600", alt: "To'y taklifnomasi generatori - AI bilan onlayn yaratish" },
+                        { title: "Osh", gradient: "from-emerald-400 to-teal-600", alt: "Osh taklifnomasi namunasi - Bepul online dizayn" },
+                        { title: "Tug'ilgan kun", gradient: "from-blue-400 to-indigo-600", alt: "Tug'ilgan kun taklifnomasi - Raqamli taklifnoma yaratish" },
                     ].map((card, i) => (
                         <motion.div
                             key={i}
@@ -97,6 +98,8 @@ export default function HomePage() {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.5 + i * 0.1 }}
                             className="relative h-64 rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-shadow cursor-pointer group"
+                            role="img"
+                            aria-label={card.alt}
                         >
                             <div className={`absolute inset-0 bg-gradient-to-br ${card.gradient} opacity-90`} />
                             <div className="relative z-10 h-full flex items-center justify-center">
