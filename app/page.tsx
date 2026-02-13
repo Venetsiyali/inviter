@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { uz } from "@/locales/uz";
 import { Sparkles, Smartphone, Globe, Share2, ArrowRight } from "lucide-react";
+import { Footer } from "@/components/Footer";
 
 export default function HomePage() {
     return (
@@ -18,12 +19,20 @@ export default function HomePage() {
                     >
                         Invite.uz
                     </motion.div>
-                    <Link
-                        href="/auth/login"
-                        className="px-6 py-2.5 bg-blue-600 text-white rounded-full font-medium hover:bg-blue-700 transition-all active:scale-95"
-                    >
-                        {uz.nav.login}
-                    </Link>
+                    <div className="flex items-center gap-4">
+                        <Link
+                            href="/about"
+                            className="hidden sm:block text-gray-600 hover:text-gray-900 font-medium transition-colors"
+                        >
+                            Loyiha haqida
+                        </Link>
+                        <Link
+                            href="/auth/login"
+                            className="px-6 py-2.5 bg-blue-600 text-white rounded-full font-medium hover:bg-blue-700 transition-all active:scale-95"
+                        >
+                            {uz.nav.login}
+                        </Link>
+                    </div>
                 </div>
             </header>
 
@@ -60,6 +69,12 @@ export default function HomePage() {
                         >
                             {uz.landing.hero.cta}
                             <ArrowRight className="w-5 h-5" />
+                        </Link>
+                        <Link
+                            href="/about"
+                            className="w-full sm:w-auto px-8 py-4 bg-white text-gray-700 border-2 border-gray-300 rounded-xl font-semibold text-lg hover:border-gray-400 hover:bg-gray-50 transition-all active:scale-95 flex items-center justify-center gap-2"
+                        >
+                            Loyiha muallifi haqida
                         </Link>
                     </div>
                 </motion.div>
