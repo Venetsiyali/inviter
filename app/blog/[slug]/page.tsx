@@ -36,9 +36,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
             title: post.title,
             description: post.excerpt,
             type: "article",
-            publishedTime: post.date,
+            publishedTime: post.createdAt.toISOString(),
             authors: [post.author],
-            tags: post.keywords,
+            tags: post.keywords || [],
         },
         twitter: {
             card: "summary_large_image",
@@ -139,7 +139,6 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
                 <div className="prose prose-lg max-w-none">
                     <div className="bg-white rounded-2xl shadow-lg p-8 md:p-12">
                         <ReactMarkdown
-                            className="markdown-content"
                             components={{
                                 h2: ({ children }) => (
                                     <h2 className="text-3xl font-bold text-gray-900 mt-12 mb-6 first:mt-0">
