@@ -1,4 +1,4 @@
-import { redirect } from "next/navigation";
+﻿import { redirect } from "next/navigation";
 import { getUser } from "@/lib/auth/get-user";
 import Link from "next/link";
 import { uz } from "@/locales/uz";
@@ -25,7 +25,7 @@ export default async function DashboardPage() {
             <header className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
                 <div className="container mx-auto px-4 h-16 flex items-center justify-between">
                     <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                        Invite.uz
+                        Inviter.uz
                     </h1>
                     <form action="/api/auth/logout" method="POST">
                         <Button variant="ghost" size="icon">

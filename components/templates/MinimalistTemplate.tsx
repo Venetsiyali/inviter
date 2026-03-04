@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+﻿import { ReactNode } from "react";
 
 interface MinimalistTemplateProps {
     children: ReactNode;
@@ -47,7 +47,7 @@ export default function MinimalistTemplate({
                 <div className="mt-24 text-center">
                     <div className="w-16 h-px bg-gray-300 mx-auto mb-8" />
                     <p className="text-sm text-gray-500 tracking-widest uppercase">
-                        Invite.uz
+                        Inviter.uz
                     </p>
                 </div>
             </div>

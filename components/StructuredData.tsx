@@ -1,8 +1,8 @@
-export function StructuredData() {
+﻿export function StructuredData() {
     const organizationSchema = {
         "@context": "https://schema.org",
         "@type": "Organization",
-        "name": "Invite.uz",
+        "name": "Inviter.uz",
         "url": "https://inviter.uz",
         "logo": "https://inviter.uz/logo.png",
         "description": "O'zbekistondagi ilk AI yordamida taklifnoma yaratish platformasi",
@@ -36,7 +36,7 @@ export function StructuredData() {
     const softwareSchema = {
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
-        "name": "Invite.uz",
+        "name": "Inviter.uz",
         "applicationCategory": "WebApplication",
         "applicationSubCategory": "Event Planning",
         "operatingSystem": "Web Browser",

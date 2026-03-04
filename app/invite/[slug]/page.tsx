@@ -1,4 +1,4 @@
-import { prisma } from "@/lib/db";
+﻿import { prisma } from "@/lib/db";
 import { notFound } from "next/navigation";
 import { getInvitationUrl } from "@/utils/getUrl";
 import MilliyTemplate from "@/components/templates/MilliyTemplate";
@@ -153,7 +153,7 @@ export default async function PublicInvitationPage({
                         target="_blank"
                         rel="noopener noreferrer"
                     >
-                        Invite.uz
+                        Inviter.uz
                     </a>
                     {" "}— AI bilan professional taklifnomalar
                 </p>

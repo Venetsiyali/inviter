@@ -1,4 +1,4 @@
-import { Resend } from 'resend';
+﻿import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -8,9 +8,9 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 export async function sendVerificationEmail(email: string, code: string) {
     try {
         const { data, error } = await resend.emails.send({
-            from: 'Invite.uz <info@inviter.uz>',
+            from: 'Inviter.uz <info@inviter.uz>',
             to: email,
-            subject: 'Elektron pochtangizni tasdiqlang - Invite.uz',
+            subject: 'Elektron pochtangizni tasdiqlang - Inviter.uz',
             html: `
                 <!DOCTYPE html>
                 <html>
@@ -24,7 +24,7 @@ export async function sendVerificationEmail(email: string, code: string) {
                         <!-- Header -->
                         <div style="text-align: center; margin-bottom: 40px;">
                             <h1 style="margin: 0; font-size: 32px; font-weight: bold; background: linear-gradient(to right, #2563eb, #9333ea); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
-                                Invite.uz
+                                Inviter.uz
                             </h1>
                         </div>
 
@@ -35,7 +35,7 @@ export async function sendVerificationEmail(email: string, code: string) {
                             </h2>
                             
                             <p style="margin: 0 0 24px 0; color: #6b7280; font-size: 16px; line-height: 1.5;">
-                                Salom! Invite.uz'da ro'yxatdan o'tganingiz uchun rahmat. Tasdiqlash kodingiz:
+                                Salom! Inviter.uz'da ro'yxatdan o'tganingiz uchun rahmat. Tasdiqlash kodingiz:
                             </p>
 
                             <!-- Verification Code -->
@@ -56,7 +56,7 @@ export async function sendVerificationEmail(email: string, code: string) {
                         <!-- Footer -->
                         <div style="text-align: center; color: #9ca3af; font-size: 12px;">
                             <p style="margin: 0;">
-                                © 2026 Invite.uz. Barcha huquqlar himoyalangan.
+                                © 2026 Inviter.uz. Barcha huquqlar himoyalangan.
                             </p>
                         </div>
                     </div>
@@ -84,9 +84,9 @@ export async function sendVerificationEmail(email: string, code: string) {
 export async function sendPasswordResetEmail(email: string, resetUrl: string) {
     try {
         const { data, error } = await resend.emails.send({
-            from: 'Invite.uz <info@inviter.uz>',
+            from: 'Inviter.uz <info@inviter.uz>',
             to: email,
-            subject: 'Parolni tiklash - Invite.uz',
+            subject: 'Parolni tiklash - Inviter.uz',
             html: `
                 <!DOCTYPE html>
                 <html>
@@ -99,7 +99,7 @@ export async function sendPasswordResetEmail(email: string, resetUrl: string) {
                     <div style="max-width: 600px; margin: 0 auto; padding: 40px 20px;">
                         <div style="text-align: center; margin-bottom: 40px;">
                             <h1 style="margin: 0; font-size: 32px; font-weight: bold; background: linear-gradient(to right, #2563eb, #9333ea); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
-                                Invite.uz
+                                Inviter.uz
                             </h1>
                         </div>
 
@@ -124,7 +124,7 @@ export async function sendPasswordResetEmail(email: string, resetUrl: string) {
                         </div>
 
                         <div style="text-align: center; color: #9ca3af; font-size: 12px; margin-top: 20px;">
-                            <p style="margin: 0;">© 2026 Invite.uz. Barcha huquqlar himoyalangan.</p>
+                            <p style="margin: 0;">© 2026 Inviter.uz. Barcha huquqlar himoyalangan.</p>
                         </div>
                     </div>
                 </body>

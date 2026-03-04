@@ -1,6 +1,6 @@
-# 🎉 Invite.uz - Raqamli Taklifnoma Platformasi
+﻿# 🎉 Inviter.uz - Raqamli Taklifnoma Platformasi
 
-**Invite.uz** - bu zamonaviy, AI texnologiyalari bilan jihozlangan raqamli taklifnoma yaratish platformasi. To'ylar, tug'ilgan kunlar va boshqa tadbirlar uchun chiroyli taklifnomalarni bir necha daqiqada yarating!
+**Inviter.uz** - bu zamonaviy, AI texnologiyalari bilan jihozlangan raqamli taklifnoma yaratish platformasi. To'ylar, tug'ilgan kunlar va boshqa tadbirlar uchun chiroyli taklifnomalarni bir necha daqiqada yarating!
 
 ## ✨ Asosiy Imkoniyatlar
 
@@ -76,19 +76,19 @@ Brauzeringizda `http://localhost:3000` ochiladi.
 
 ## 🔑 Default Admin Login
 
-- **Email:** admin@invite.uz
+- **Email:** admin@Inviter.uz
 - **Parol:** InviteUz2024#
 
 ## 📂 Loyiha Strukturasi
 
 ```
-invite.uz/
+Inviter.uz/
 ├── app/
 │   ├── api/          # API routes
 │   ├── auth/         # Authentication pages
 │   ├── dashboard/    # User dashboard
 │   ├── events/       # Event management
-│   └── invite/       # Public invitation pages
+│   └── Inviter/       # Public invitation pages
 ├── components/       # React components
 ├── lib/
 │   ├── ai/          # AI design generation
@@ -160,8 +160,8 @@ MIT License
 
 ## 👨‍💻 Muallif
 
-**Invite.uz Team**
+**Inviter.uz Team**
 
 ---
 
-**🎉 Taklifnomalaringizni yanada chiroyli qiling! Invite.uz bilan.**
+**🎉 Taklifnomalaringizni yanada chiroyli qiling! Inviter.uz bilan.**

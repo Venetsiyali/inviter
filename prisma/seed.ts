@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+﻿import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
@@ -11,7 +11,7 @@ const blogPosts = [
         keywords: ["to'y taklifnomasi", "nikoh taklifnomasi", "taklifnoma matnlari", "o'zbekcha taklifnoma", "to'y", "nikoh"],
         readTime: "5 daqiqa",
         author: "Rustamjon Nasridinov",
-        content: `To'y — inson hayotidagi eng hayajonli va unutilmas damlardan biri. Ushbu tantananing ilk qadami esa yaqinlaringizga yuboriladigan taklifnomadan boshlanadi. To'g'ri tanlangan so'zlar mehmonda tantanangiz haqida ilk ijobiy taassurotni uyg'otadi. Bugun biz Invite.uz jamoasi bilan birgalikda turli uslubdagi eng sara taklifnoma matnlarini to'pladik.
+        content: `To'y — inson hayotidagi eng hayajonli va unutilmas damlardan biri. Ushbu tantananing ilk qadami esa yaqinlaringizga yuboriladigan taklifnomadan boshlanadi. To'g'ri tanlangan so'zlar mehmonda tantanangiz haqida ilk ijobiy taassurotni uyg'otadi. Bugun biz Inviter.uz jamoasi bilan birgalikda turli uslubdagi eng sara taklifnoma matnlarini to'pladik.
 
 ## 1. Klassik va an'anaviy matnlar (Ota-onalar nomidan)
 
@@ -54,9 +54,9 @@ O'zbek xalqi she'riyatni sevadi. Chiroyli to'rtliklar taklifnomaga alohida fayz 
 
 ## 4. Nima uchun matn tanlashda AI texnologiyasidan foydalanish kerak?
 
-An'anaviy qog'oz taklifnomalarda matnni o'zgartirish imkoniyati yo'q. Ammo **Invite.uz platformasi** orqali siz Sun'iy intellekt yordamida har bir mehmonga alohida, personalizatsiya qilingan matnlar yaratishingiz mumkin.
+An'anaviy qog'oz taklifnomalarda matnni o'zgartirish imkoniyati yo'q. Ammo **Inviter.uz platformasi** orqali siz Sun'iy intellekt yordamida har bir mehmonga alohida, personalizatsiya qilingan matnlar yaratishingiz mumkin.
 
-### Invite.uz afzalliklari:
+### Inviter.uz afzalliklari:
 
 ✅ **Tezlik:** 2 daqiqa ichida tayyor taklifnoma yaratish
 ✅ **Ekspertiza:** TATU mutaxassislari tomonidan ishlab chiqilgan algoritm
@@ -75,7 +75,7 @@ An'anaviy qog'oz taklifnomalarda matnni o'zgartirish imkoniyati yo'q. Ammo **Inv
 
 ## Hoziroq o'z taklifnomangizni yarating!
 
-Invite.uz platformasi yordamida yuqoridagi matnlardan birini tanlab, uni professional dizayn bilan birlashtirishingiz mumkin. AI texnologiyasi sizga eng mos matnni tavsiya qiladi va uni chiroyli qilib bezatadi.
+Inviter.uz platformasi yordamida yuqoridagi matnlardan birini tanlab, uni professional dizayn bilan birlashtirishingiz mumkin. AI texnologiyasi sizga eng mos matnni tavsiya qiladi va uni chiroyli qilib bezatadi.
 
 **[Bepul boshlash →](/auth/signup)**`,
     },
@@ -87,7 +87,7 @@ Invite.uz platformasi yordamida yuqoridagi matnlardan birini tanlab, uni profess
         keywords: ["AI dizayn", "sun'iy intellekt", "generativ dizayn", "taklifnoma dizayni", "Google Gemini", "personalizatsiya"],
         readTime: "7 daqiqa",
         author: "Rustamjon Nasridinov",
-        content: `An'anaviy dizayn jarayoni uzoq vaqt va katta resurslarni talab qiladi. Biroq, bugungi kunda Sun'iy intellekt (AI) nafaqat matn yozish, balki grafik dizayn va shaxsiy kommunikatsiya sohalarida ham inqilob yasamoqda. Invite.uz platformasi misolida biz AI texnologiyalarining taklifnomalar olamini qanday o'zgartirayotganini tahlil qilamiz.
+        content: `An'anaviy dizayn jarayoni uzoq vaqt va katta resurslarni talab qiladi. Biroq, bugungi kunda Sun'iy intellekt (AI) nafaqat matn yozish, balki grafik dizayn va shaxsiy kommunikatsiya sohalarida ham inqilob yasamoqda. Inviter.uz platformasi misolida biz AI texnologiyalarining taklifnomalar olamini qanday o'zgartirayotganini tahlil qilamiz.
 
 ## 1. Generativ dizayn: Cheksiz ijod imkoniyati
 
@@ -102,7 +102,7 @@ Ilgari dizayner bitta taklifnoma ustida soatlab ishlagan bo'lsa, bugun **generat
 
 ## 2. Giper-personalizatsiya (Hyper-personalization)
 
-AI dizaynning eng katta ustunligi — **har bir mehmon uchun individual yondashuvdir**. Invite.uz tizimi yordamida har bir taklifnoma mehmonga xos bo'lgan ohang va uslubda yaratiladi.
+AI dizaynning eng katta ustunligi — **har bir mehmon uchun individual yondashuvdir**. Inviter.uz tizimi yordamida har bir taklifnoma mehmonga xos bo'lgan ohang va uslubda yaratiladi.
 
 **[O'z AI taklifnomangizni yarating →](/auth/signup)**`,
     },

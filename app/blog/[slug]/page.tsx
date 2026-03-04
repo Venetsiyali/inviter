@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+﻿import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Calendar, Clock, User, Tag } from "lucide-react";
@@ -23,12 +23,12 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 
     if (!post) {
         return {
-            title: "Maqola topilmadi - Invite.uz",
+            title: "Maqola topilmadi - Inviter.uz",
         };
     }
 
     return {
-        title: `${post.title} | Invite.uz Blog`,
+        title: `${post.title} | Inviter.uz Blog`,
         description: post.excerpt,
         keywords: post.keywords,
         authors: [{ name: post.author }],
@@ -75,7 +75,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
             <header className="sticky top-0 z-50 backdrop-blur-xl bg-white/80 border-b border-gray-200">
                 <div className="container mx-auto px-4 h-16 flex items-center justify-between">
                     <Link href="/" className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                        Invite.uz
+                        Inviter.uz
                     </Link>
                     <div className="flex items-center gap-4">
                         <Link href="/blog" className="text-gray-600 hover:text-gray-900 font-medium transition-colors">

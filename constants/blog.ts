@@ -1,4 +1,4 @@
-export interface BlogPost {
+﻿export interface BlogPost {
     slug: string;
     title: string;
     excerpt: string;
@@ -21,7 +21,7 @@ export const blogPosts: BlogPost[] = [
         readTime: "5 daqiqa",
         author: "Rustamjon Nasridinov",
         content: `
-To'y — inson hayotidagi eng hayajonli va unutilmas damlardan biri. Ushbu tantananing ilk qadami esa yaqinlaringizga yuboriladigan taklifnomadan boshlanadi. To'g'ri tanlangan so'zlar mehmonda tantanangiz haqida ilk ijobiy taassurotni uyg'otadi. Bugun biz Invite.uz jamoasi bilan birgalikda turli uslubdagi eng sara taklifnoma matnlarini to'pladik.
+To'y — inson hayotidagi eng hayajonli va unutilmas damlardan biri. Ushbu tantananing ilk qadami esa yaqinlaringizga yuboriladigan taklifnomadan boshlanadi. To'g'ri tanlangan so'zlar mehmonda tantanangiz haqida ilk ijobiy taassurotni uyg'otadi. Bugun biz Inviter.uz jamoasi bilan birgalikda turli uslubdagi eng sara taklifnoma matnlarini to'pladik.
 
 ## 1. Klassik va an'anaviy matnlar (Ota-onalar nomidan)
 
@@ -64,9 +64,9 @@ O'zbek xalqi she'riyatni sevadi. Chiroyli to'rtliklar taklifnomaga alohida fayz 
 
 ## 4. Nima uchun matn tanlashda AI texnologiyasidan foydalanish kerak?
 
-An'anaviy qog'oz taklifnomalarda matnni o'zgartirish imkoniyati yo'q. Ammo **Invite.uz platformasi** orqali siz Sun'iy intellekt yordamida har bir mehmonga alohida, personalizatsiya qilingan matnlar yaratishingiz mumkin.
+An'anaviy qog'oz taklifnomalarda matnni o'zgartirish imkoniyati yo'q. Ammo **Inviter.uz platformasi** orqali siz Sun'iy intellekt yordamida har bir mehmonga alohida, personalizatsiya qilingan matnlar yaratishingiz mumkin.
 
-### Invite.uz afzalliklari:
+### Inviter.uz afzalliklari:
 
 ✅ **Tezlik:** 2 daqiqa ichida tayyor taklifnoma yaratish
 ✅ **Ekspertiza:** TATU mutaxassislari tomonidan ishlab chiqilgan algoritm
@@ -85,7 +85,7 @@ An'anaviy qog'oz taklifnomalarda matnni o'zgartirish imkoniyati yo'q. Ammo **Inv
 
 ## Hoziroq o'z taklifnomangizni yarating!
 
-Invite.uz platformasi yordamida yuqoridagi matnlardan birini tanlab, uni professional dizayn bilan birlashtirishingiz mumkin. AI texnologiyasi sizga eng mos matnni tavsiya qiladi va uni chiroyli qilib bezatadi.
+Inviter.uz platformasi yordamida yuqoridagi matnlardan birini tanlab, uni professional dizayn bilan birlashtirishingiz mumkin. AI texnologiyasi sizga eng mos matnni tavsiya qiladi va uni chiroyli qilib bezatadi.
 
 **[Bepul boshlash →](/auth/signup)**
         `
@@ -100,7 +100,7 @@ Invite.uz platformasi yordamida yuqoridagi matnlardan birini tanlab, uni profess
         readTime: "7 daqiqa",
         author: "Rustamjon Nasridinov",
         content: `
-An'anaviy dizayn jarayoni uzoq vaqt va katta resurslarni talab qiladi. Biroq, bugungi kunda Sun'iy intellekt (AI) nafaqat matn yozish, balki grafik dizayn va shaxsiy kommunikatsiya sohalarida ham inqilob yasamoqda. Invite.uz platformasi misolida biz AI texnologiyalarining taklifnomalar olamini qanday o'zgartirayotganini tahlil qilamiz.
+An'anaviy dizayn jarayoni uzoq vaqt va katta resurslarni talab qiladi. Biroq, bugungi kunda Sun'iy intellekt (AI) nafaqat matn yozish, balki grafik dizayn va shaxsiy kommunikatsiya sohalarida ham inqilob yasamoqda. Inviter.uz platformasi misolida biz AI texnologiyalarining taklifnomalar olamini qanday o'zgartirayotganini tahlil qilamiz.
 
 ## 1. Generativ dizayn: Cheksiz ijod imkoniyati
 
@@ -115,7 +115,7 @@ Ilgari dizayner bitta taklifnoma ustida soatlab ishlagan bo'lsa, bugun **generat
 
 ## 2. Giper-personalizatsiya (Hyper-personalization)
 
-AI dizaynning eng katta ustunligi — **har bir mehmon uchun individual yondashuvdir**. Invite.uz tizimi yordamida har bir taklifnoma mehmonga xos bo'lgan ohang va uslubda yaratiladi. Bu nafaqat ism-sharifni o'zgartirish, balki AI algoritmlari yordamida mehmonga bo'lgan ehtiromni yuqori darajada ifodalash imkonini beradi.
+AI dizaynning eng katta ustunligi — **har bir mehmon uchun individual yondashuvdir**. Inviter.uz tizimi yordamida har bir taklifnoma mehmonga xos bo'lgan ohang va uslubda yaratiladi. Bu nafaqat ism-sharifni o'zgartirish, balki AI algoritmlari yordamida mehmonga bo'lgan ehtiromni yuqori darajada ifodalash imkonini beradi.
 
 ### Personalizatsiya darajalari:
 
@@ -166,7 +166,7 @@ Kelajakda taklifnomalar faqatgina "ko'rinish" emas, balki to'liq **interaktiv ek
 
 ## Real foydalanuvchi tajribasi
 
-> "Ilgari dizayner topish va taklifnoma yaratish uchun bir hafta kerak edi. Invite.uz bilan 5 daqiqada tayyor bo'ldi!" - Dilnoza, Toshkent
+> "Ilgari dizayner topish va taklifnoma yaratish uchun bir hafta kerak edi. Inviter.uz bilan 5 daqiqada tayyor bo'ldi!" - Dilnoza, Toshkent
 
 > "AI mening xohishimni tushundi va men tasavvur qilgan dizayndan ham chiroyliroq qildi." - Sherzod, Samarqand
 
@@ -199,7 +199,7 @@ Zamonaviy ta'lim va xizmat ko'rsatish sohalari raqamli transformatsiya davriga q
 
 Tadbirlarni boshqarish (Event Management) uzoq vaqt davomida faqat inson resursiga tayanib kelgan. Biroq, **raqamli pedagogika tamoyillarini** ushbu sohaga tatbiq etish jarayonlarni optimallashtirish imkonini beradi. 
 
-Invite.uz platformasining yaratilishi — bu shunchaki tijoriy loyiha emas, balki **sun'iy intellekt texnologiyalarini real hayot ehtiyojlari bilan bog'lash** bo'yicha ilmiy-amaliy tajribadir. Bu yerda asosiy e'tibor axborotni uzatishning eng samarali va xatosiz usulini topishga qaratilgan.
+Inviter.uz platformasining yaratilishi — bu shunchaki tijoriy loyiha emas, balki **sun'iy intellekt texnologiyalarini real hayot ehtiyojlari bilan bog'lash** bo'yicha ilmiy-amaliy tajribadir. Bu yerda asosiy e'tibor axborotni uzatishning eng samarali va xatosiz usulini topishga qaratilgan.
 
 ### Raqamli pedagogika tamoyillari:
 
@@ -274,7 +274,7 @@ Ushbu loyiha muallifining **TATU "Axborot va ta'lim texnologiyalari" kafedrasi**
 
 🔬 **"Eco-Balance Edu XR"** - Virtual reallikda ekologik ta'lim
 
-🔬 **"Invite.uz"** - AI va QR texnologiyalarini tadbirlar boshqaruviga tatbiq etish
+🔬 **"Inviter.uz"** - AI va QR texnologiyalarini tadbirlar boshqaruviga tatbiq etish
 
 ### Ilmiy faoliyat:
 
@@ -285,7 +285,7 @@ Ushbu loyiha muallifining **TATU "Axborot va ta'lim texnologiyalari" kafedrasi**
 
 ## 5. Texnik stack va arxitektura
 
-Invite.uz platformasi quyidagi zamonaviy texnologiyalar asosida qurilgan:
+Inviter.uz platformasi quyidagi zamonaviy texnologiyalar asosida qurilgan:
 
 ### Frontend Layer:
 - **Next.js 14:** React framework with SSR
@@ -360,7 +360,7 @@ Web3 va Metaverse texnologiyalarining rivojlanishi bilan tadbirlarni boshqarish 
 
 Raqamli pedagogika tamoyillarini tadbirlarni boshqarish sohasiga tatbiq etish — bu nafaqat texnologik innovatsiya, balki ijtimoiy-madaniy transformatsiyadir. Sun'iy intellekt, QR texnologiyalari va zamonaviy veb-arxitektura birlashib, tadbirlarni tashkil etish jarayonini tubdan o'zgartirmoqda.
 
-Invite.uz platformasi bu yo'nalishda olingan ilmiy-amaliy tajribaning yaqqol namunasi bo'lib, raqamli xizmatlar yaratishda akademik yondashuvning ahamiyatini ko'rsatadi.
+Inviter.uz platformasi bu yo'nalishda olingan ilmiy-amaliy tajribaning yaqqol namunasi bo'lib, raqamli xizmatlar yaratishda akademik yondashuvning ahamiyatini ko'rsatadi.
 
 ---
 
@@ -379,7 +379,7 @@ Invite.uz platformasi bu yo'nalishda olingan ilmiy-amaliy tajribaning yaqqol nam
 📌 **Yutuqlar:**
 - **Agrobank AI500! Hackathon 2025** - Top-50 finalistlar safida
 - **Eco-Balance Edu XR** loyihasi muallifi
-- **Invite.uz** platformasi yaratuvchisi
+- **Inviter.uz** platformasi yaratuvchisi
 
 📌 **Ilmiy hamkorlik:**
 J.X. Djumanov bilan hammualliflikda matematik modellashtirish, suv resurslarini boshqarish va AI-powered tahlil tizimlari bo'yicha tadqiqotlar olib borilmoqda.

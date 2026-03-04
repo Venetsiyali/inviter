@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 
 export function Footer() {
     return (
@@ -7,7 +7,7 @@ export function Footer() {
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                     {/* About Section */}
                     <div className="col-span-1 md:col-span-2">
-                        <h3 className="text-white text-lg font-bold mb-4">Invite.uz</h3>
+                        <h3 className="text-white text-lg font-bold mb-4">Inviter.uz</h3>
                         <p className="text-gray-400 text-sm mb-4">
                             O&apos;zbekistondagi ilk AI yordamida taklifnoma yaratish platformasi.
                             Professional raqamli taklifnomalar bir necha daqiqada.
@@ -70,7 +70,7 @@ export function Footer() {
 
                 {/* Bottom Bar */}
                 <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-500 text-sm">
-                    <p>© 2026 Invite.uz. Barcha huquqlar himoyalangan.</p>
+                    <p>© 2026 Inviter.uz. Barcha huquqlar himoyalangan.</p>
                     <p className="mt-2 text-xs">
                         Built with Next.js, TypeScript, and Gemini AI
                     </p>

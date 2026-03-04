@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { BookOpen, TrendingUp, Sparkles } from "lucide-react";
 import { prisma } from "@/lib/db";
 
@@ -32,7 +32,7 @@ export default async function BlogPage() {
             <header className="sticky top-0 z-50 backdrop-blur-xl bg-white/80 border-b border-gray-200">
                 <div className="container mx-auto px-4 h-16 flex items-center justify-between">
                     <Link href="/" className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                        Invite.uz
+                        Inviter.uz
                     </Link>
                     <div className="flex items-center gap-4">
                         <Link href="/" className="text-gray-600 hover:text-gray-900 font-medium transition-colors">
@@ -113,7 +113,7 @@ export default async function BlogPage() {
                             tobora ommalashib bormoqda, chunki ular tez, arzon va ekologik jihatdan xavfsizdir.
                         </p>
                         <p className="mb-4">
-                            Invite.uz platformasi <strong>AI yordamida taklifnoma yaratish</strong> imkoniyatini
+                            Inviter.uz platformasi <strong>AI yordamida taklifnoma yaratish</strong> imkoniyatini
                             taqdim etadi. Bizning xizmatimiz orqali siz quyidagi tadbirlar uchun professional
                             raqamli taklifnomalar yaratishingiz mumkin:
                         </p>

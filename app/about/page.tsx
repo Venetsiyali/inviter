@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -76,7 +76,7 @@ export default function AboutPage() {
                                         Loyiha Maqsadi
                                     </h2>
                                     <p className="text-gray-700 leading-relaxed">
-                                        Invite.uz platformasi sun&apos;iy intellekt texnologiyalarini ta&apos;lim va real hayot
+                                        Inviter.uz platformasi sun&apos;iy intellekt texnologiyalarini ta&apos;lim va real hayot
                                         ehtiyojlari bilan bog&apos;lash maqsadida yaratilgan. Loyihaning asosiy yo&apos;nalishi —
                                         foydalanuvchilarga professional va chiroyli taklifnomalarni bir necha daqiqada
                                         yaratish imkoniyatini berish orqali tadbirlarni yanada oson va samarali
@@ -272,7 +272,7 @@ export default function AboutPage() {
                         >
                             <h2 className="text-2xl font-bold mb-4">Texnologiyalar</h2>
                             <p className="text-blue-100 mb-6">
-                                Invite.uz zamonaviy veb-texnologiyalar va sun&apos;iy intellekt yordamida ishlab chiqilgan:
+                                Inviter.uz zamonaviy veb-texnologiyalar va sun&apos;iy intellekt yordamida ishlab chiqilgan:
                             </p>
                             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                                 {["Next.js 14", "TypeScript", "Prisma ORM", "Neon PostgreSQL",
@@ -287,7 +287,7 @@ export default function AboutPage() {
 
                     {/* Footer */}
                     <div className="text-center mt-12 text-gray-600">
-                        <p>© 2026 Invite.uz. Barcha huquqlar himoyalangan.</p>
+                        <p>© 2026 Inviter.uz. Barcha huquqlar himoyalangan.</p>
                     </div>
                 </div>
             </div>

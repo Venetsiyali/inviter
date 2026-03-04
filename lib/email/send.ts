@@ -1,4 +1,4 @@
-import nodemailer from "nodemailer";
+﻿import nodemailer from "nodemailer";
 
 const transporter = nodemailer.createTransport({
   host: process.env.EMAIL_SERVER_HOST,
@@ -22,20 +22,20 @@ export async function sendVerificationEmail(
   }
 
   const mailOptions = {
-    from: process.env.EMAIL_FROM || "noreply@invite.uz",
+    from: process.env.EMAIL_FROM || "noreply@Inviter.uz",
     to: email,
-    subject: "Invite.uz - Elektron pochtani tasdiqlang",
+    subject: "Inviter.uz - Elektron pochtani tasdiqlang",
     html: `
       <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
         <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; border-radius: 16px 16px 0 0; text-align: center;">
-          <h1 style="color: white; margin: 0; font-size: 28px;">Invite.uz</h1>
+          <h1 style="color: white; margin: 0; font-size: 28px;">Inviter.uz</h1>
         </div>
         
         <div style="background: white; padding: 40px; border-radius: 0 0 16px 16px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
           <h2 style="color: #1a202c; margin-top: 0;">Salom, ${name}!</h2>
           
           <p style="color: #4a5568; font-size: 16px; line-height: 1.6;">
-            Invite.uz platformasidan foydalanishni boshlash uchun quyidagi tasdiqlash kodini kiriting:
+            Inviter.uz platformasidan foydalanishni boshlash uchun quyidagi tasdiqlash kodini kiriting:
           </p>
           
           <div style="background: #f7fafc; border: 2px solid #667eea; border-radius: 12px; padding: 24px; text-align: center; margin: 30px 0;">
@@ -50,7 +50,7 @@ export async function sendVerificationEmail(
           
           <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #e2e8f0;">
             <p style="color: #a0aec0; font-size: 12px; text-align: center; margin: 0;">
-              © 2026 Invite.uz. Barcha huquqlar himoyalangan.
+              © 2026 Inviter.uz. Barcha huquqlar himoyalangan.
             </p>
           </div>
         </div>

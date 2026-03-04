@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Get the base URL for the application
  * Uses NEXT_PUBLIC_BASE_URL from environment variables
  * Falls back to production URL if not set
@@ -17,7 +17,7 @@ export function getBaseUrl(): string {
  * Get the full URL for an invitation
  */
 export function getInvitationUrl(invitationId: string): string {
-    return `${getBaseUrl()}/invite/${invitationId}`;
+    return `${getBaseUrl()}/Inviter/${invitationId}`;
 }
 
 /**

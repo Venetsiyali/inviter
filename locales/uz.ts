@@ -1,4 +1,4 @@
-// Navigation
+﻿// Navigation
 export const uz = {
     nav: {
         home: "Bosh sahifa",
@@ -177,7 +177,7 @@ export const uz = {
             watchDemo: "Demoni ko'rish",
         },
         features: {
-            title: "Nima uchun Invite.uz?",
+            title: "Nima uchun Inviter.uz?",
             ai: {
                 title: "AI dizayn",
                 description: "Sun'iy intellekt har safar noyob dizayn yaratadi",

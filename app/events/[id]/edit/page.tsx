@@ -1,4 +1,4 @@
-import { redirect } from "next/navigation";
+﻿import { redirect } from "next/navigation";
 import { getUser } from "@/lib/auth/get-user";
 import { prisma } from "@/lib/db";
 import { notFound } from "next/navigation";
@@ -41,7 +41,7 @@ export default async function EventEditPage({
     }
 
     const design: DesignConfig = JSON.parse(event.designConfig as string);
-    const inviteUrl = `${process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"}/invite/${event.slug}`;
+    const inviteUrl = `${process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"}/Inviter/${event.slug}`;
 
     const formattedDate = new Date(event.date).toLocaleDateString("uz-UZ", {
         day: "numeric",

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { StructuredData } from "@/components/StructuredData";
@@ -9,12 +9,12 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-    title: "Invite.uz - Onlayn Taklifnomalar va Tadbirlarni Boshqarish | AI Yordamida",
+    title: "Inviter.uz - Onlayn Taklifnomalar va Tadbirlarni Boshqarish | AI Yordamida",
     description: "O'zbekistondagi ilk AI yordamida taklifnoma yaratish platformasi. To'y, tug'ilgan kun va marosimlar uchun raqamli taklifnomalarni onlayn yarating.",
     keywords: [
         "taklifnoma",
         "online taklifnoma",
-        "invite uz",
+        "Inviter uz",
         "to'y taklifnomasi",
         "raqamli taklifnoma",
         "o'zbekcha taklifnomalar",
@@ -26,24 +26,24 @@ export const metadata: Metadata = {
         "digital invitation",
         "uzbekistan invitation",
     ],
-    authors: [{ name: "Invite.uz Team" }],
-    creator: "Invite.uz",
-    publisher: "Invite.uz",
+    authors: [{ name: "Inviter.uz Team" }],
+    creator: "Inviter.uz",
+    publisher: "Inviter.uz",
     metadataBase: new URL("https://inviter.uz"),
     alternates: {
         canonical: "/",
     },
     openGraph: {
-        title: "Invite.uz - Onlayn Taklifnomalar | AI Yordamida",
+        title: "Inviter.uz - Onlayn Taklifnomalar | AI Yordamida",
         description: "O'zbekistondagi ilk AI yordamida taklifnoma yaratish platformasi. Professional raqamli taklifnomalar bir necha daqiqada.",
         url: "https://inviter.uz",
-        siteName: "Invite.uz",
+        siteName: "Inviter.uz",
         locale: "uz_UZ",
         type: "website",
     },
     twitter: {
         card: "summary_large_image",
-        title: "Invite.uz - AI Yordamida Taklifnomalar",
+        title: "Inviter.uz - AI Yordamida Taklifnomalar",
         description: "Professional raqamli taklifnomalar bir necha daqiqada yarating",
     },
     robots: {

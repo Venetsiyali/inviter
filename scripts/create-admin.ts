@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+﻿import { PrismaClient } from '@prisma/client';
 import * as bcrypt from 'bcryptjs';
 
 const prisma = new PrismaClient();
@@ -9,7 +9,7 @@ async function main() {
     try {
         // Check if admin already exists
         const existingAdmin = await prisma.user.findUnique({
-            where: { email: 'admin@invite.uz' },
+            where: { email: 'admin@Inviter.uz' },
         });
 
         if (existingAdmin) {
@@ -20,7 +20,7 @@ async function main() {
 
             // Update to ensure ADMIN role and PREMIUM plan
             const updated = await prisma.user.update({
-                where: { email: 'admin@invite.uz' },
+                where: { email: 'admin@Inviter.uz' },
                 data: {
                     role: 'ADMIN',
                     plan: 'PREMIUM',
@@ -38,7 +38,7 @@ async function main() {
         // Create admin user
         const admin = await prisma.user.create({
             data: {
-                email: 'admin@invite.uz',
+                email: 'admin@Inviter.uz',
                 name: 'Super Admin',
                 passwordHash: passwordHash,
                 emailVerified: true,
@@ -49,7 +49,7 @@ async function main() {
 
         console.log('✅ Admin foydalanuvchi muvaffaqiyatli yaratildi!\n');
         console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
-        console.log('📧 Email:    admin@invite.uz');
+        console.log('📧 Email:    admin@Inviter.uz');
         console.log('🔑 Parol:    InviteUz2024#');
         console.log('👤 Role:     ADMIN');
         console.log('💎 Plan:     PREMIUM');

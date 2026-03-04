@@ -1,4 +1,4 @@
-# Environment Variables - Setup Guide
+﻿# Environment Variables - Setup Guide
 
 ## ⚠️ IMPORTANT: Configure Before Running
 
@@ -67,7 +67,7 @@ EMAIL_SERVER_HOST="smtp.gmail.com"
 EMAIL_SERVER_PORT="587"
 EMAIL_SERVER_USER="your-email@gmail.com"
 EMAIL_SERVER_PASSWORD="abcd efgh ijkl mnop"  # 16 chars from step 3
-EMAIL_FROM="noreply@invite.uz"
+EMAIL_FROM="noreply@Inviter.uz"
 ```
 
 ### Option B: Skip Email (Development)
@@ -135,7 +135,7 @@ EMAIL_SERVER_HOST="smtp.gmail.com"
 EMAIL_SERVER_PORT="587"
 EMAIL_SERVER_USER="your-email@gmail.com"
 EMAIL_SERVER_PASSWORD="your-app-password"
-EMAIL_FROM="noreply@invite.uz"
+EMAIL_FROM="noreply@Inviter.uz"
 
 # ========================================
 # Already Configured

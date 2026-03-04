@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -17,7 +17,7 @@ export default function HomePage() {
                         animate={{ opacity: 1, x: 0 }}
                         className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"
                     >
-                        Invite.uz
+                        Inviter.uz
                     </motion.div>
                     <div className="flex items-center gap-4">
                         <Link
@@ -233,7 +233,7 @@ export default function HomePage() {
             {/* Footer */}
             <footer className="container mx-auto px-4 py-8 border-t border-gray-200">
                 <div className="text-center text-gray-600">
-                    <p>© 2026 Invite.uz. Barcha huquqlar himoyalangan.</p>
+                    <p>© 2026 Inviter.uz. Barcha huquqlar himoyalangan.</p>
                 </div>
             </footer>
         </div>
