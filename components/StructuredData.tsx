@@ -1,4 +1,4 @@
-﻿export function StructuredData() {
+export function StructuredData() {
     const organizationSchema = {
         "@context": "https://schema.org",
         "@type": "Organization",

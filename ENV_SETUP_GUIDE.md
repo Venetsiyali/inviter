@@ -1,4 +1,4 @@
-﻿# Environment Variables - Setup Guide
+# Environment Variables - Setup Guide
 
 ## ⚠️ IMPORTANT: Configure Before Running
 

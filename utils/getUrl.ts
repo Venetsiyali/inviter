@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Get the base URL for the application
  * Uses NEXT_PUBLIC_BASE_URL from environment variables
  * Falls back to production URL if not set

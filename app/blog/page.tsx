@@ -1,4 +1,4 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 import { BookOpen, TrendingUp, Sparkles } from "lucide-react";
 import { prisma } from "@/lib/db";
 

@@ -1,4 +1,4 @@
-﻿// Navigation
+// Navigation
 export const uz = {
     nav: {
         home: "Bosh sahifa",

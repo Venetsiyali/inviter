@@ -1,4 +1,4 @@
-﻿import { redirect } from "next/navigation";
+import { redirect } from "next/navigation";
 import { getUser } from "@/lib/auth/get-user";
 import { prisma } from "@/lib/db";
 import { notFound } from "next/navigation";

@@ -1,4 +1,4 @@
-﻿# 🎉 Inviter.uz - Raqamli Taklifnoma Platformasi
+# 🎉 Inviter.uz - Raqamli Taklifnoma Platformasi
 
 **Inviter.uz** - bu zamonaviy, AI texnologiyalari bilan jihozlangan raqamli taklifnoma yaratish platformasi. To'ylar, tug'ilgan kunlar va boshqa tadbirlar uchun chiroyli taklifnomalarni bir necha daqiqada yarating!
 

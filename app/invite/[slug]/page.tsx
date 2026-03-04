@@ -1,4 +1,4 @@
-﻿import { prisma } from "@/lib/db";
+import { prisma } from "@/lib/db";
 import { notFound } from "next/navigation";
 import { getInvitationUrl } from "@/utils/getUrl";
 import MilliyTemplate from "@/components/templates/MilliyTemplate";
