@@ -8,7 +8,7 @@ import RSVPBlock from "@/components/guest/RSVPBlock";
 import LocationBlock from "@/components/guest/LocationBlock";
 import GiftBlock from "@/components/guest/GiftBlock";
 import MediaGallery from "@/components/guest/MediaGallery";
-import QRCodeDisplay from "@/components/QRCodeDisplay";
+import QRCodeGenerator from "@/components/QRCodeGenerator";
 import ShareButtons from "@/components/ShareButtons";
 
 export default async function PublicInvitationPage({
@@ -91,11 +91,11 @@ export default async function PublicInvitationPage({
             )}
 
             {/* QR Code Section */}
-            <div className="flex justify-center">
-                <QRCodeDisplay
-                    value={inviteUrl}
+            <div className="flex flex-col flex-center items-center gap-2">
+                <h3 className="text-xl font-semibold text-gray-800">QR Kod</h3>
+                <QRCodeGenerator
+                    url={inviteUrl}
                     size={200}
-                    title="QR Kod"
                 />
             </div>
 
