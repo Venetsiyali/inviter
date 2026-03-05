@@ -10,6 +10,7 @@ import {
     Eye,
     Plus,
     LogOut,
+    Sparkles,
 } from "lucide-react";
 
 export default async function DashboardPage() {
@@ -72,6 +73,30 @@ export default async function DashboardPage() {
                         color="rose"
                     />
                 </div>
+
+                {/* AI Create CTA - NEW */}
+                <Link href="/dashboard/ai-create">
+                    <div className="relative bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 rounded-3xl p-8 text-center text-white shadow-xl mb-6 overflow-hidden hover:shadow-2xl transition-all group cursor-pointer border border-purple-500/30">
+                        {/* Glow effect */}
+                        <div className="absolute inset-0 bg-gradient-to-r from-yellow-400/10 to-pink-400/10 group-hover:from-yellow-400/20 group-hover:to-pink-400/20 transition-all" />
+                        <div className="relative z-10">
+                            <div className="flex items-center justify-center gap-2 mb-3">
+                                <Sparkles className="w-8 h-8 text-yellow-400 group-hover:animate-spin" />
+                                <span className="text-xs bg-yellow-400 text-black font-bold px-2 py-0.5 rounded-full uppercase tracking-wide">YANGI</span>
+                            </div>
+                            <h3 className="text-2xl md:text-3xl font-bold mb-2">
+                                AI bilan taklifnoma yarat
+                            </h3>
+                            <p className="text-white/70 mb-4 max-w-sm mx-auto">
+                                O'z xohishingizni yozing — AI siz uchun 4 ta noyob dizayn taklif qilsin
+                            </p>
+                            <div className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-yellow-400 to-orange-500 text-black font-bold rounded-2xl group-hover:shadow-lg transition-all">
+                                <Sparkles className="w-4 h-4" />
+                                Hozir boshlash
+                            </div>
+                        </div>
+                    </div>
+                </Link>
 
                 {/* Create Event CTA */}
                 <div className="bg-gradient-to-br from-blue-600 to-purple-600 rounded-3xl p-8 md:p-12 text-center text-white shadow-xl mb-8">
