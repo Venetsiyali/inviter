@@ -1,24 +1,22 @@
 import { redirect } from "next/navigation";
 import { getUser } from "@/lib/auth/get-user";
+import { DashboardNav } from "@/components/dashboard-nav";
 
-/**
- * Dashboard Layout - Server Component
- * Session validation Node.js runtime da ishlaydi
- */
 export default async function DashboardLayout({
     children,
 }: {
     children: React.ReactNode;
 }) {
-    // Server Component - Node.js runtime
-    // Prisma va Lucia validation bu yerda xavfsiz
     const user = await getUser();
+    if (!user) redirect("/auth/login");
 
-    if (!user) {
-        // Session noto'g'ri yoki yo'q - login ga yo'naltir
-        redirect("/auth/login");
-    }
-
-    // User mavjud - dashboard ko'rsatish
-    return <>{children}</>;
+    return (
+        <div className="min-h-screen bg-gradient-to-br from-slate-50 to-violet-50/30">
+            <DashboardNav userName={user.name || "Foydalanuvchi"} />
+            {/* Desktop: shift content right of sidebar, Mobile: add top padding for header */}
+            <div className="lg:ml-64 pt-16 lg:pt-0">
+                {children}
+            </div>
+        </div>
+    );
 }
