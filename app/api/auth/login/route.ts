@@ -32,7 +32,13 @@ export async function POST(request: NextRequest) {
 
         console.log('✅ User found:', user.email, 'Role:', user.role);
 
-        // Verify password
+        // Verify password - Google OAuth users may not have a password
+        if (!user.passwordHash) {
+            return NextResponse.json(
+                { error: "Bu hisob Google orqali yaratilgan. Iltimos, Google bilan kiring." },
+                { status: 401 }
+            );
+        }
         const validPassword = await bcrypt.compare(password, user.passwordHash);
         if (!validPassword) {
             console.log('❌ Invalid password for:', email);
