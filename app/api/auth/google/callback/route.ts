@@ -5,6 +5,8 @@ import { prisma } from "@/lib/db";
 import { cookies } from "next/headers";
 import { decodeIdToken, type OAuth2Tokens } from "arctic";
 
+export const dynamic = "force-dynamic";
+
 interface GoogleUserInfo {
     sub: string;
     email: string;
@@ -24,7 +26,11 @@ export async function GET(request: NextRequest) {
 
     // Validate state and code verifier
     if (!code || !state || !storedState || !codeVerifier || state !== storedState) {
-        return NextResponse.json({ error: "OAuth state mismatch" }, { status: 400 });
+        console.error("OAuth mismatch detail:", { code: !!code, state, storedState, hasVerifier: !!codeVerifier });
+        return NextResponse.json({
+            error: "OAuth state mismatch",
+            details: "Please try cleaning your cookies or checking if your browser is blocking third-party cookies."
+        }, { status: 400 });
     }
 
     let tokens: OAuth2Tokens;
