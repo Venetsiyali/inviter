@@ -1,0 +1,1 @@
+﻿app/events/[id]/edit/page.tsx(195,136): error TS2339: Property 'template' does not exist on type 'DesignConfig'.

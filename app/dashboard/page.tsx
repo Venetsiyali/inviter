@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { getUser } from "@/lib/auth/get-user";
+import { prisma } from "@/lib/db";
 import Link from "next/link";
 import {
     Sparkles,
@@ -11,6 +12,9 @@ import {
     CalendarDays,
     Clock,
     ChevronRight,
+    Settings,
+    Eye,
+    Users,
 } from "lucide-react";
 
 // Free templates gallery data
@@ -119,6 +123,23 @@ const QUICK_ACTIONS = [
 export default async function DashboardPage() {
     const user = await getUser();
     if (!user) redirect("/auth/login");
+
+    // Fetch user's recent events from DB
+    const recentEvents = await prisma.event.findMany({
+        where: { userId: user.id },
+        orderBy: { createdAt: "desc" },
+        take: 3,
+        select: {
+            id: true,
+            title: true,
+            slug: true,
+            date: true,
+            isPublished: true,
+            _count: {
+                select: { guests: true }
+            }
+        }
+    });
 
     const hour = new Date().getHours();
     const greeting = hour < 12 ? "Xayrli tong" : hour < 17 ? "Xayrli kun" : "Xayrli kech";
@@ -281,24 +302,68 @@ export default async function DashboardPage() {
                     </div>
                 </section>
 
-                {/* ===== RECENT EVENTS (empty state) ===== */}
+                {/* ===== RECENT EVENTS ===== */}
                 <section>
                     <div className="flex items-center justify-between mb-4">
                         <h2 className="text-xl font-bold text-gray-800">So'nggi taklifnomalarim</h2>
+                        {recentEvents.length > 0 && (
+                            <Link href="/dashboard/events" className="text-sm font-semibold text-violet-600 hover:text-violet-800 flex items-center gap-1 transition-colors">
+                                Barchasi <ChevronRight className="w-4 h-4" />
+                            </Link>
+                        )}
                     </div>
-                    <div className="bg-white border border-gray-100 rounded-3xl p-10 text-center shadow-sm">
-                        <div className="w-16 h-16 bg-violet-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                            <CalendarDays className="w-8 h-8 text-violet-400" />
+
+                    {recentEvents.length === 0 ? (
+                        <div className="bg-white border border-gray-100 rounded-3xl p-10 text-center shadow-sm">
+                            <div className="w-16 h-16 bg-violet-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                                <CalendarDays className="w-8 h-8 text-violet-400" />
+                            </div>
+                            <h3 className="font-bold text-gray-700 mb-1">Hali taklifnomalar yo'q</h3>
+                            <p className="text-gray-400 text-sm mb-6">Birinchi taklifnomangizni yarating va mehmonlaringizni taklif qiling!</p>
+                            <Link href="/dashboard/ai-create"
+                                className="inline-flex items-center gap-2 bg-gradient-to-r from-violet-600 to-indigo-600 text-white font-bold px-6 py-3 rounded-2xl hover:shadow-lg transition-all hover:scale-105"
+                            >
+                                <Sparkles className="w-4 h-4" />
+                                Birinchisini yaratish
+                            </Link>
                         </div>
-                        <h3 className="font-bold text-gray-700 mb-1">Hali taklifnomalar yo'q</h3>
-                        <p className="text-gray-400 text-sm mb-6">Birinchi taklifnomangizni yarating va mehmonlaringizni taklif qiling!</p>
-                        <Link href="/dashboard/ai-create"
-                            className="inline-flex items-center gap-2 bg-gradient-to-r from-violet-600 to-indigo-600 text-white font-bold px-6 py-3 rounded-2xl hover:shadow-lg transition-all hover:scale-105"
-                        >
-                            <Sparkles className="w-4 h-4" />
-                            Birinchisini yaratish
-                        </Link>
-                    </div>
+                    ) : (
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            {recentEvents.map((event) => (
+                                <div key={event.id} className="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm hover:shadow-xl transition-all group">
+                                    <div className="flex justify-between items-start mb-4">
+                                        <div className="w-12 h-12 rounded-2xl bg-indigo-50 flex items-center justify-center text-indigo-600">
+                                            <CalendarDays className="w-6 h-6" />
+                                        </div>
+                                        <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${event.isPublished ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600'}`}>
+                                            {event.isPublished ? 'Ommaviy' : 'Qoralama'}
+                                        </span>
+                                    </div>
+                                    <h3 className="font-bold text-gray-900 text-lg mb-1 truncate">{event.title}</h3>
+                                    <p className="text-sm text-gray-500 flex items-center gap-1.5 mb-5">
+                                        <Clock className="w-3.5 h-3.5" />
+                                        {new Date(event.date).toLocaleDateString("uz-UZ", { day: "numeric", month: "short", year: "numeric" })}
+                                    </p>
+
+                                    <div className="flex items-center gap-3 mb-5">
+                                        <div className="flex items-center gap-1.5 text-sm text-gray-600 bg-gray-50 px-3 py-1.5 rounded-xl">
+                                            <Users className="w-4 h-4 text-violet-500" />
+                                            <span className="font-medium">{event._count.guests}</span> mehmon
+                                        </div>
+                                    </div>
+
+                                    <div className="grid grid-cols-2 gap-2 mt-auto">
+                                        <Link href={`/events/${event.id}/edit`} className="flex items-center justify-center gap-1.5 bg-gray-50 hover:bg-violet-50 text-gray-700 hover:text-violet-700 font-medium py-2.5 rounded-xl transition-colors text-sm">
+                                            <Settings className="w-4 h-4" /> Tahrirlash
+                                        </Link>
+                                        <Link href={`/invite/${event.slug}`} target="_blank" className="flex items-center justify-center gap-1.5 bg-gray-50 hover:bg-emerald-50 text-gray-700 hover:text-emerald-700 font-medium py-2.5 rounded-xl transition-colors text-sm">
+                                            <Eye className="w-4 h-4" /> Ko'rish
+                                        </Link>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    )}
                 </section>
 
             </main>

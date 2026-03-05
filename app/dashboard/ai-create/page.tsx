@@ -187,7 +187,7 @@ export default function AICreatePage() {
                 description,
             })
         );
-        router.push(`/dashboard/create?ai=true&type=${eventType}`);
+        router.push(`/events/create?ai=true&type=${eventType}`);
     };
 
     const handleSelectCanvas = () => {
@@ -202,7 +202,7 @@ export default function AICreatePage() {
                 fromCanvas: true,
             })
         );
-        router.push(`/dashboard/create?ai=true&type=${eventType}`);
+        router.push(`/events/create?ai=true&type=${eventType}`);
     };
 
     return (

@@ -18,7 +18,7 @@ import { useState } from "react";
 const NAV_LINKS = [
     { href: "/dashboard", label: "Bosh sahifa", icon: Home },
     { href: "/dashboard/events", label: "Taklifnomalarim", icon: CalendarDays },
-    { href: "/dashboard/templates", label: "Shablonlar", icon: LayoutGrid },
+    { href: "/dashboard/ai-create", label: "Shablonlar", icon: LayoutGrid },
     { href: "/dashboard/ai-create", label: "AI Yaratish", icon: Sparkles },
     { href: "/pricing", label: "Premium", icon: Crown },
 ];
@@ -50,8 +50,8 @@ export function DashboardNav({ userName }: { userName: string }) {
                                 key={href}
                                 href={href}
                                 className={`flex items-center gap-3 px-4 py-3 rounded-2xl font-medium transition-all group ${active
-                                        ? "bg-gradient-to-r from-violet-600 to-indigo-600 text-white shadow-md shadow-violet-200"
-                                        : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+                                    ? "bg-gradient-to-r from-violet-600 to-indigo-600 text-white shadow-md shadow-violet-200"
+                                    : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
                                     }`}
                             >
                                 <Icon className={`w-5 h-5 ${active ? "text-white" : "text-gray-400 group-hover:text-gray-600"}`} />

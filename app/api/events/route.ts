@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        const { eventType, title, date, location, description } =
+        const { eventType, title, date, location, description, aiDesign: preGeneratedAiDesign } =
             await request.json();
 
         // Validate input
@@ -42,18 +42,21 @@ export async function POST(request: NextRequest) {
             }
         }
 
-        console.log("🎨 Generating AI design for:", eventType, title);
+        let aiDesign = preGeneratedAiDesign;
 
-        // Generate AI design (this will take ~30 seconds)
-        const aiDesign = await generateInvitationDesign({
-            eventType,
-            title,
-            date: new Date(date),
-            location,
-            description: description || "",
-        });
-
-        console.log("✅ AI design generated successfully");
+        if (!aiDesign) {
+            console.log("🎨 Generating AI design for:", eventType, title);
+            aiDesign = await generateInvitationDesign({
+                eventType,
+                title,
+                date: new Date(date),
+                location,
+                description: description || "",
+            });
+            console.log("✅ AI design generated successfully");
+        } else {
+            console.log("✅ Using pre-selected UI design");
+        }
 
         // Create event in database
         const event = await prisma.event.create({
