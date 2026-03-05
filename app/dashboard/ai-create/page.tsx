@@ -1,9 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { uz } from "@/locales/uz";
+import { CANVAS_TEMPLATES } from "@/lib/design/templates";
 import {
     Sparkles,
     ChevronRight,
@@ -25,73 +27,6 @@ const EVENT_TYPES = [
     { id: "anniversary", label: "Yubiley", emoji: "🥂", desc: "Nikoh yubileyi" },
 ];
 
-// Canva-style static templates using Unsplash curated images
-const CANVAS_TEMPLATES = [
-    {
-        id: "uzbek-gold",
-        name: "O'zbek Oltin",
-        mood: "An'anaviy va hashamatli",
-        imageUrl: "https://image.pollinations.ai/prompt/luxury%20uzbek%20traditional%20invitation%20card%20with%20gold%20ornaments%20and%20dark%20background%20portrait?width=576&height=1024&nologo=true",
-        gradient: "from-yellow-900 to-amber-700",
-        tags: ["wedding", "osh", "sunnat", "anniversary"],
-    },
-    {
-        id: "floral-white",
-        name: "Oq Gullar",
-        mood: "Romantik va nafis",
-        imageUrl: "https://image.pollinations.ai/prompt/elegant%20white%20wedding%20invitation%20card%20with%20pink%20watercolor%20floral%20border%20portrait?width=576&height=1024&nologo=true",
-        gradient: "from-pink-200 to-rose-100",
-        tags: ["wedding", "engagement", "birthday", "anniversary"],
-    },
-    {
-        id: "luxury-dark",
-        name: "Qoʻngʻir Hashamat",
-        mood: "Tantanali va ulug'vor",
-        imageUrl: "https://image.pollinations.ai/prompt/premium%20dark%20minimalist%20invitation%20card%20with%20gold%20foil%20typography%20portrait?width=576&height=1024&nologo=true",
-        gradient: "from-stone-900 to-stone-700",
-        tags: ["wedding", "osh", "anniversary"],
-    },
-    {
-        id: "blue-elegant",
-        name: "Ko'k Zafarlik",
-        mood: "Milliy va nafis",
-        imageUrl: "https://image.pollinations.ai/prompt/royal%20navy%20blue%20invitation%20card%20with%20silver%20geometric%20patterns%20portrait?width=576&height=1024&nologo=true",
-        gradient: "from-blue-900 to-indigo-700",
-        tags: ["wedding", "osh", "sunnat"],
-    },
-    {
-        id: "rose-gold",
-        name: "Atirgul Oltin",
-        mood: "Romantik va zamonaviy",
-        imageUrl: "https://image.pollinations.ai/prompt/modern%20rose%20gold%20invitation%20card%20with%20glitter%20and%20marble%20texture%20portrait?width=576&height=1024&nologo=true",
-        gradient: "from-rose-300 to-pink-400",
-        tags: ["wedding", "engagement", "birthday"],
-    },
-    {
-        id: "green-botanical",
-        name: "Yashil Botanika",
-        mood: "Tabiiy va fresh",
-        imageUrl: "https://image.pollinations.ai/prompt/botanical%20emerald%20green%20invitation%20card%20with%20gold%20leaves%20portrait?width=576&height=1024&nologo=true",
-        gradient: "from-green-800 to-emerald-600",
-        tags: ["wedding", "birthday", "anniversary"],
-    },
-    {
-        id: "purple-luxury",
-        name: "Binafsha Hashamat",
-        mood: "Qirolona va nafis",
-        imageUrl: "https://image.pollinations.ai/prompt/luxurious%20deep%20purple%20invitation%20card%20with%20gold%20mandala%20portrait?width=576&height=1024&nologo=true",
-        gradient: "from-purple-900 to-violet-700",
-        tags: ["wedding", "birthday", "anniversary"],
-    },
-    {
-        id: "minimal-cream",
-        name: "Krem Minimal",
-        mood: "Sodda va zamonaviy",
-        imageUrl: "https://image.pollinations.ai/prompt/minimalist%20cream%20color%20invitation%20card%20with%20elegant%20typography%20and%20blind%20embossing%20portrait?width=576&height=1024&nologo=true",
-        gradient: "from-amber-50 to-stone-100",
-        tags: ["wedding", "engagement", "birthday"],
-    },
-];
 
 interface DesignOption {
     prompt: string;

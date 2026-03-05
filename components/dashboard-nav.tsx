@@ -18,7 +18,7 @@ import { useState } from "react";
 const NAV_LINKS = [
     { href: "/dashboard", label: "Bosh sahifa", icon: Home },
     { href: "/dashboard/events", label: "Taklifnomalarim", icon: CalendarDays },
-    { href: "/dashboard/ai-create", label: "Shablonlar", icon: LayoutGrid },
+    { href: "/dashboard/templates", label: "Shablonlar", icon: LayoutGrid },
     { href: "/dashboard/ai-create", label: "AI Yaratish", icon: Sparkles },
     { href: "/pricing", label: "Premium", icon: Crown },
 ];
