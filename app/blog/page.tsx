@@ -17,14 +17,6 @@ export default async function BlogPage() {
         },
     });
 
-    const formattedPosts = blogPosts.map((post) => ({
-        ...post,
-        date: new Date(post.createdAt).toLocaleDateString("uz-UZ", {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-        }),
-    }));
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
@@ -82,7 +74,7 @@ export default async function BlogPage() {
                                 </p>
                                 <div className="flex items-center justify-between">
                                     <span className="text-sm text-gray-500">
-                                        {new Date(post.date).toLocaleDateString('uz-UZ', {
+                                        {new Date(post.createdAt).toLocaleDateString('uz-UZ', {
                                             year: 'numeric',
                                             month: 'long',
                                             day: 'numeric'
