@@ -15,15 +15,17 @@ export async function GET(request: NextRequest) {
         "email",
     ]);
 
-    const cookieStore = cookies();
-    cookieStore.set("google_oauth_state", state, {
+    const response = NextResponse.redirect(url);
+
+    response.cookies.set("google_oauth_state", state, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
         maxAge: 60 * 10, // 10 minutes
         path: "/",
         sameSite: "lax",
     });
-    cookieStore.set("google_code_verifier", codeVerifier, {
+
+    response.cookies.set("google_code_verifier", codeVerifier, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
         maxAge: 60 * 10,
@@ -31,5 +33,5 @@ export async function GET(request: NextRequest) {
         sameSite: "lax",
     });
 
-    return NextResponse.redirect(url);
+    return response;
 }

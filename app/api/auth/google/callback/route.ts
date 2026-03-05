@@ -92,11 +92,13 @@ export async function GET(request: NextRequest) {
     const session = await lucia.createSession(user.id, {});
     const sessionCookie = lucia.createSessionCookie(session.id);
 
-    cookieStore.set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes);
+    const response = NextResponse.redirect(new URL("/dashboard", request.url));
+
+    response.cookies.set(sessionCookie.name, sessionCookie.value, sessionCookie.attributes);
 
     // Clear OAuth cookies
-    cookieStore.delete("google_oauth_state");
-    cookieStore.delete("google_code_verifier");
+    response.cookies.delete("google_oauth_state");
+    response.cookies.delete("google_code_verifier");
 
-    return NextResponse.redirect(new URL("/dashboard", request.url));
+    return response;
 }
