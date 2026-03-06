@@ -1,6 +1,7 @@
 "use client";
 
 import { DesignConfig } from "@/lib/ai/design-generator";
+import NextImage from "next/image";
 
 interface InvitationCardProps {
     event: {
@@ -36,7 +37,7 @@ export default function InvitationCard({ event, design }: InvitationCardProps) {
     };
 
     // Handle new Pollinations Image-based AI designs
-    if ("imageUrl" in design && (design as any).imageUrl) {
+    if (design && "imageUrl" in design && (design as any).imageUrl) {
         return (
             <div className="max-w-2xl text-white mx-auto rounded-3xl shadow-2xl overflow-hidden relative" style={{ aspectRatio: '9/16' }}>
                 {/* @ts-ignore */}
