@@ -41,7 +41,13 @@ export default async function CreateEventPage() {
                     </p>
                 </div>
 
-                <EventCreateForm user={user} />
+                <EventCreateForm user={{
+                    id: user.id,
+                    email: user.email,
+                    name: user.name,
+                    role: user.role,
+                    plan: user.plan
+                }} />
             </div>
         </div>
     );
