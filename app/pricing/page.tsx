@@ -123,7 +123,7 @@ export default function PricingPage() {
                         </ul>
 
                         <Link
-                            href="/auth/signup?plan=pro"
+                            href="/pricing/success"
                             className="flex items-center justify-center gap-2 w-full py-4 px-6 bg-white text-blue-700 rounded-2xl font-bold hover:bg-blue-50 transition-all shadow-xl"
                         >
                             PRO ni sinab ko'ring
