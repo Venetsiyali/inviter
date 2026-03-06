@@ -197,7 +197,7 @@ export default async function EventEditPage({
                             <div className="p-5 flex-1 flex justify-center items-center bg-gray-50 relative">
                                 <div className="absolute inset-0 pattern-opacity-10 pattern-dots text-gray-400"></div>
                                 <div className="relative z-10 w-full max-w-[280px]">
-                                    <InvitationCard event={event} design={design} />
+                                    <InvitationCard event={JSON.parse(JSON.stringify(event))} design={design} />
                                 </div>
                             </div>
                         </div>
