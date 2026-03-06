@@ -46,11 +46,11 @@ export default async function PublicInvitationPage({
 
     const inviteUrl = getInvitationUrl(event.slug);
 
-    // Extract venue info from content
-    const venueName = content?.venue?.name || event.location;
-    const venueAddress = content?.venue?.address || event.location;
-    const latitude = content?.venue?.coordinates?.lat;
-    const longitude = content?.venue?.coordinates?.lng;
+    // Extract venue info — prefer DB fields, fallback to contentJson
+    const venueName = event.location || content?.venue?.name;
+    const venueAddress = event.venueAddress || content?.venue?.address || event.location;
+    const latitude = event.venueLat || content?.venue?.coordinates?.lat;
+    const longitude = event.venueLng || content?.venue?.coordinates?.lng;
 
     // Extract gift info
     const cardNumber = content?.giftInfo?.cardNumber;

@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        const { eventType, title, date, location, description, aiDesign: preGeneratedAiDesign } =
+        const { eventType, title, date, location, venueAddress, description, aiDesign: preGeneratedAiDesign } =
             await request.json();
 
         // Validate input
@@ -76,11 +76,13 @@ export async function POST(request: NextRequest) {
                 title,
                 date: new Date(date),
                 location,
+                venueAddress: venueAddress || null,
                 description,
                 contentJson: JSON.stringify({
                     title,
                     date,
                     location,
+                    venueAddress,
                     description,
                 }),
                 designConfig: JSON.stringify(aiDesign),

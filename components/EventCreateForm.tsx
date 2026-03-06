@@ -25,6 +25,7 @@ export default function EventCreateForm({ user }: EventCreateFormProps) {
         title: "",
         date: "",
         location: "",
+        venueAddress: "",
         description: "",
     });
 
@@ -243,16 +244,30 @@ export default function EventCreateForm({ user }: EventCreateFormProps) {
                     </div>
 
                     {/* Location */}
-                    <div className="space-y-2 sm:col-span-2">
+                    <div className="space-y-2 sm:col-span-2 lg:col-span-1">
                         <label htmlFor="location" className="text-sm font-medium text-white/80">
-                            Manzil
+                            To'yxona nomi
                         </label>
                         <input
                             id="location"
                             value={formData.location}
                             onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                            placeholder="Masalan: Toshkent, Yakkasaroy to'yxonasi"
+                            placeholder="Masalan: Yakkasaroy to'yxonasi"
                             required
+                            className="w-full bg-white/5 border border-white/10 hover:border-white/30 rounded-xl px-4 py-3 text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-yellow-400/50 transition-all"
+                        />
+                    </div>
+
+                    {/* Venue Address */}
+                    <div className="space-y-2 sm:col-span-2 lg:col-span-1">
+                        <label htmlFor="venueAddress" className="text-sm font-medium text-white/80">
+                            To'liq manzil
+                        </label>
+                        <input
+                            id="venueAddress"
+                            value={formData.venueAddress}
+                            onChange={(e) => setFormData({ ...formData, venueAddress: e.target.value })}
+                            placeholder="Masalan: Toshkent sh., Yakkasaroy tumani, Bobur ko'chasi 5"
                             className="w-full bg-white/5 border border-white/10 hover:border-white/30 rounded-xl px-4 py-3 text-white placeholder-white/30 focus:outline-none focus:ring-2 focus:ring-yellow-400/50 transition-all"
                         />
                     </div>

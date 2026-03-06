@@ -68,11 +68,16 @@ model Event {
   date          DateTime
   time          String?
   location      String?
+  venueAddress  String?  // Full venue address
+  venueLat      Float?   // Venue latitude for Google Maps
+  venueLng      Float?   // Venue longitude for Google Maps
   description   String?
   locale        String   @default("UZ_LAT") // 'UZ_LAT', 'UZ_CYR', 'RU'
   contentJson   String   // Event-specific content (JSON as string)
   designConfig  String   // AI-generated design configuration (JSON as string)
   imageUrl      String?  // Event image from Supabase Storage
+  giftEnabled   Boolean  @default(false)  // Enable gift/donation feature
+  photoEnabled  Boolean  @default(true)   // Enable photo gallery
   isPublished   Boolean  @default(false)
   views         Int      @default(0)
   createdAt     DateTime @default(now())
