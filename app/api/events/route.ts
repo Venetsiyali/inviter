@@ -26,6 +26,14 @@ export async function POST(request: NextRequest) {
             );
         }
 
+        const parsedDate = new Date(date);
+        if (isNaN(parsedDate.getTime())) {
+            return NextResponse.json(
+                { error: "Noto'g'ri sana kiritildi. Iltimos sanani tekshiring." },
+                { status: 400 }
+            );
+        }
+
         // Check plan limits (Free = 1 event, Premium = unlimited)
         if (user.plan === "FREE") {
             const eventCount = await prisma.event.count({

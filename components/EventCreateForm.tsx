@@ -236,6 +236,7 @@ export default function EventCreateForm({ user }: EventCreateFormProps) {
                             value={formData.date}
                             onChange={(e) => setFormData({ ...formData, date: e.target.value })}
                             required
+                            max="2030-12-31T23:59"
                             className="w-full bg-white/5 border border-white/10 hover:border-white/30 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-yellow-400/50 transition-all"
                             style={{ colorScheme: "dark" }}
                         />
