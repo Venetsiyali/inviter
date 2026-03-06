@@ -8,6 +8,12 @@ import confetti from "canvas-confetti";
 
 export default function PricingSuccessPage() {
     useEffect(() => {
+        // Upgrade the user to PREMIUM in the database
+        fetch("/api/user/mock-upgrade", { method: "POST" })
+            .then(res => res.json())
+            .then(data => console.log("Upgrade status:", data))
+            .catch(err => console.error("Failed to mock upgrade:", err));
+
         // Fire confetti animation on load
         const duration = 3 * 1000;
         const animationEnd = Date.now() + duration;
@@ -76,16 +82,16 @@ export default function PricingSuccessPage() {
                     </p>
 
                     <div className="space-y-4">
-                        <Link href="/dashboard" className="block">
+                        <a href="/dashboard" className="block">
                             <button className="w-full bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white font-bold py-4 px-8 rounded-2xl shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2 group">
                                 Boshqaruv paneliga qaytish
                                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                             </button>
-                        </Link>
+                        </a>
 
-                        <Link href="/dashboard/ai-create" className="block text-gray-500 hover:text-gray-900 font-medium py-2 transition-colors">
+                        <a href="/dashboard/ai-create" className="block text-gray-500 hover:text-gray-900 font-medium py-2 transition-colors">
                             Yangi taklifnoma yaratish
-                        </Link>
+                        </a>
                     </div>
                 </div>
             </motion.div>
