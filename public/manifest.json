@@ -1,0 +1,22 @@
+{
+    "name": "inviter.uz",
+    "short_name": "Inviter",
+    "description": "Raqamli taklifnomalar — AI bilan 1 daqiqada yarating",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#0F1B2D",
+    "theme_color": "#F59E0B",
+    "orientation": "portrait-primary",
+    "icons": [
+        {
+            "src": "/favicon-96x96.png",
+            "sizes": "96x96",
+            "type": "image/png"
+        },
+        {
+            "src": "/apple-touch-icon.png",
+            "sizes": "180x180",
+            "type": "image/png"
+        }
+    ]
+}

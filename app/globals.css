@@ -78,7 +78,7 @@
   }
 }
 
-/* Custom animations for smooth, Apple-like feel */
+/* ─── Custom Animations ──────────────────────────────────────────────────────── */
 @layer utilities {
   .animate-fade-in {
     animation: fadeIn 0.3s ease-in;
@@ -88,42 +88,168 @@
     animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-
-    to {
-      opacity: 1;
-    }
-  }
-
-  @keyframes slideUp {
-    from {
-      transform: translateY(10px);
-      opacity: 0;
-    }
-
-    to {
-      transform: translateY(0);
-      opacity: 1;
-    }
-  }
-
   .animate-fade-in-up {
     animation: fade-in-up 0.6s ease-out forwards;
     opacity: 0;
   }
 
-  @keyframes fade-in-up {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
+  /* Floating animation for phone mockup */
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
 
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  /* Glow pulse for CTA badges */
+  .animate-glow-pulse {
+    animation: glowPulse 2s ease-in-out infinite;
+  }
+
+  /* Infinite marquee scroll */
+  .animate-marquee {
+    animation: marquee 30s linear infinite;
+  }
+
+  .animate-marquee-reverse {
+    animation: marquee 30s linear infinite reverse;
+  }
+
+  /* Shimmer loading skeleton */
+  .animate-shimmer {
+    animation: shimmer 2s ease-in-out infinite;
+    background: linear-gradient(110deg,
+        transparent 33%,
+        rgba(255, 255, 255, 0.06) 50%,
+        transparent 67%);
+    background-size: 200% 100%;
+  }
+
+  /* Scroll indicator bounce */
+  .animate-scroll-hint {
+    animation: scrollHint 2s ease-in-out infinite;
+  }
+
+  /* Subtle gradient shift */
+  .animate-gradient {
+    animation: gradientShift 8s ease-in-out infinite;
+    background-size: 200% 200%;
+  }
+}
+
+/* ─── Keyframes ──────────────────────────────────────────────────────────────── */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-20px) rotate(1deg);
+  }
+}
+
+@keyframes glowPulse {
+
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(245, 158, 11, 0.15);
+  }
+
+  50% {
+    box-shadow: 0 0 40px rgba(245, 158, 11, 0.35);
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes shimmer {
+  from {
+    background-position: 200% 0;
+  }
+
+  to {
+    background-position: -200% 0;
+  }
+}
+
+@keyframes scrollHint {
+
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.6;
+  }
+
+  50% {
+    transform: translateY(8px);
+    opacity: 1;
+  }
+}
+
+@keyframes gradientShift {
+
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* ─── Glassmorphism utility ──────────────────────────────────────────────────── */
+@layer utilities {
+  .glass {
+    @apply bg-white/[0.06] backdrop-blur-xl border border-white/[0.1];
+  }
+
+  .glass-card {
+    @apply bg-white/[0.06] backdrop-blur-xl border border-white/[0.1] rounded-2xl;
+  }
+
+  .font-serif {
+    font-family: var(--font-serif), 'Cormorant Garamond', Georgia, serif;
   }
 }

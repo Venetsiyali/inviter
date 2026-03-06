@@ -16,6 +16,10 @@ const config: Config = {
             },
         },
         extend: {
+            fontFamily: {
+                sans: ["var(--font-sans)", "Inter", "system-ui", "sans-serif"],
+                serif: ["var(--font-serif)", "Cormorant Garamond", "Georgia", "serif"],
+            },
             colors: {
                 border: "hsl(var(--border))",
                 input: "hsl(var(--input))",
@@ -49,6 +53,21 @@ const config: Config = {
                 card: {
                     DEFAULT: "hsl(var(--card))",
                     foreground: "hsl(var(--card-foreground))",
+                },
+                // Brand colors
+                navy: {
+                    DEFAULT: "#0F1B2D",
+                    light: "#162236",
+                    dark: "#0a1220",
+                },
+                gold: {
+                    DEFAULT: "#F59E0B",
+                    dark: "#D97706",
+                    light: "#FCD34D",
+                },
+                cream: {
+                    DEFAULT: "#FEF3C7",
+                    dark: "#FDE68A",
                 },
             },
             borderRadius: {
