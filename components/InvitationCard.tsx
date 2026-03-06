@@ -35,12 +35,62 @@ export default function InvitationCard({ event, design }: InvitationCardProps) {
         other: "Tadbir",
     };
 
+    // Handle new Pollinations Image-based AI designs
+    if ("imageUrl" in design && (design as any).imageUrl) {
+        return (
+            <div className="max-w-2xl text-white mx-auto rounded-3xl shadow-2xl overflow-hidden relative" style={{ aspectRatio: '9/16' }}>
+                <img src={(design as any).imageUrl} alt="Invitation Background" className="absolute inset-0 w-full h-full object-cover" />
+                <div className="absolute inset-0 bg-black/40 p-8 flex flex-col justify-center items-center text-center">
+                    <p className="text-sm font-medium uppercase tracking-wider mb-3 text-white/80" style={{ textShadow: "0 2px 4px rgba(0,0,0,0.8)" }}>{eventTypeNames[event.type] || "Tadbir"}</p>
+                    <h1 className="text-4xl md:text-5xl font-extrabold mb-6 leading-tight" style={{ textShadow: "0 2px 8px rgba(0,0,0,0.8)", fontFamily: "serif" }}>
+                        {event.title}
+                    </h1>
+                    <div className="w-12 h-1 bg-white/50 mb-6 rounded-full" />
+                    <p className="text-lg font-semibold mb-2" style={{ textShadow: "0 1px 4px rgba(0,0,0,0.9)" }}>Sana va vaqt</p>
+                    <p className="text-xl font-bold mb-6 text-yellow-300" style={{ textShadow: "0 2px 6px rgba(0,0,0,1)" }}>{formattedDate}</p>
+
+                    {event.location && (
+                        <>
+                            <p className="text-lg font-semibold mb-2" style={{ textShadow: "0 1px 4px rgba(0,0,0,0.9)" }}>Manzil</p>
+                            <p className="text-lg mb-6" style={{ textShadow: "0 1px 6px rgba(0,0,0,1)" }}>{event.location}</p>
+                        </>
+                    )}
+
+                    {event.description && (
+                        <p className="text-sm italic opacity-90 leading-relaxed mt-4 max-w-sm" style={{ textShadow: "0 1px 4px rgba(0,0,0,0.9)" }}>{event.description}</p>
+                    )}
+                </div>
+            </div>
+        );
+    }
+
+    const safeDesign = {
+        colorPalette: {
+            background: design?.colorPalette?.background || "#ffffff",
+            text: design?.colorPalette?.text || "#1a1a1a",
+            primary: design?.colorPalette?.primary || "#4F46E5",
+            secondary: design?.colorPalette?.secondary || "#818CF8",
+            accent: design?.colorPalette?.accent || "#FBBF24"
+        },
+        typography: {
+            primaryFont: design?.typography?.primaryFont || "serif",
+            secondaryFont: design?.typography?.secondaryFont || "sans-serif",
+            fontWeights: {
+                heading: design?.typography?.fontWeights?.heading || 700,
+                body: design?.typography?.fontWeights?.body || 400
+            }
+        },
+        patterns: {
+            style: design?.patterns?.style || "minimal"
+        }
+    };
+
     return (
         <div
             className="max-w-2xl mx-auto rounded-3xl shadow-2xl overflow-hidden"
             style={{
-                backgroundColor: design.colorPalette.background,
-                color: design.colorPalette.text,
+                backgroundColor: safeDesign.colorPalette.background,
+                color: safeDesign.colorPalette.text,
             }}
         >
             {/* Header Pattern */}
