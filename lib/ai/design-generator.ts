@@ -99,52 +99,57 @@ function buildDesignPrompt(
     };
 
     const eventDescriptions = {
-        wedding: "Traditional Uzbek wedding (to'y) - festive, colorful, elegant",
-        osh: "Osh ceremony - warm, inviting, family-oriented",
-        lutf: "Lutf gathering - respectful, gracious, refined",
-        birthday: "Birthday celebration - joyful, vibrant, modern",
-        engagement: "Engagement ceremony (fotiha) - romantic, traditional",
-        circumcision: "Sunnat toy - celebratory, cultural, joyful",
+        wedding: "Hashamatli O'zbek to'yi (Wedding) - Premium, elegant, romantic, with rich cultural heritage. High-end modern aesthetic with traditional touches.",
+        osh: "Osh marosimi - Traditional, warm, family-oriented morning plov gathering. Use rich, warm colors inspired by Uzbek national cuisine and textiles.",
+        lutf: "Lutf/Ma'raka - Respectful, deeply cultural, gracious gathering. Muted, sophisticated tones.",
+        birthday: "Tug'ilgan kun - Joyful, dynamic, modern birthday celebration. Fun but elegant and premium.",
+        engagement: "Unashtiruv (Engagement) - Romantic, fresh, intimate. Soft pastels combined with rich gold or rose gold accents.",
+        circumcision: "Sunnat to'yi - Joyful, culturally significant milestone for a boy. Royal blue, gold, and vibrant colors.",
     };
 
-    return `Generate a beautiful, professional invitation design configuration for a ${eventType} event.
+    return `Siz professionallik darajasida "Premium" web-dizaynersiz. Quyidagi tadbir uchun mukammal va hayratlanarli elektron taklifnoma dizaynini yarating. Qaytarilgan javob FAqat JSON formatida bo'lsin:
 
-Cultural Context: ${culturalContext[locale as keyof typeof culturalContext] || culturalContext.UZ_LAT}
-Event Style: ${eventDescriptions[eventType as keyof typeof eventDescriptions] || "Elegant celebration"}
+Tadbir: ${eventType} (${eventDescriptions[eventType as keyof typeof eventDescriptions] || "Elegant celebration"})
+Til Context: ${culturalContext[locale as keyof typeof culturalContext] || culturalContext.UZ_LAT}
+
+Dizayn talablari:
+1. Juda hashamatli va mukammal (Premium) ranglar palitrasini tanlang. Hech qachon oddiy qizil yoki oddiy ko'k ranglarni tanlamang.
+2. O'zbekona ruhni (Adras, Atlas naqshlari) yoki Zamonaviy Geometrik naqshlarni to'g'ri integratsiya qiling.
+3. Tipografiya mukammal o'qilishi va chiroyli serif/sans-serif uyg'unligiga ega bo'lishi kerak.
 
 ${userPreferences ? `User Preferences: ${JSON.stringify(userPreferences)}` : ""}
 
-Generate a JSON object with the following structure:
+Generate a strict JSON object exactly following this structure:
 {
   "typography": {
-    "primaryFont": "Choose from: Playfair Display, Cormorant Garamond, Crimson Text, Lora",
-    "secondaryFont": "Choose from: Montserrat, Inter, Open Sans, Raleway",
+    "primaryFont": "Choose exclusively from: Playfair Display, Cormorant Garamond, Crimson Text, Lora",
+    "secondaryFont": "Choose exclusively from: Montserrat, Inter, Open Sans, Raleway",
     "fontWeights": { "heading": 700, "body": 400 }
   },
   "colorPalette": {
     "style": "One of: us-minimalist, uk-royal, euro-botanical, uzbek-modern",
-    "primary": "#hex color",
-    "secondary": "#hex color",
-    "accent": "#hex color",
-    "background": "#hex color (light, soft)",
-    "text": "#hex color (dark, readable)"
+    "primary": "#hex color (Rich, Deep, Elegant)",
+    "secondary": "#hex color (Complementary to primary)",
+    "accent": "#hex color (Used for buttons/highlights, often Gold #D4AF37 or Silver #C0C0C0)",
+    "background": "#hex color (Very light, elegant, easy on eyes)",
+    "text": "#hex color (Very dark, high contrast to background)"
   },
   "layout": {
     "type": "One of: centered, left-aligned, grid",
     "spacing": "One of: compact, comfortable, spacious"
   },
   "patterns": {
-    "primary": "Pattern identifier",
-    "secondary": "Optional secondary pattern",
+    "primary": "Must be exactly one of: 'adras-1', 'atlas-1', 'geometric-1', 'floral-1', 'minimal-1'",
+    "secondary": "Optional secondary pattern identifier from the list above",
     "style": "One of: uzbek-adras, uzbek-atlas, geometric-western, minimal"
   }
 }
 
-Guidelines:
-- For Uzbek events, prefer uzbek-adras or uzbek-atlas patterns with warm, rich colors
-- For modern events, use minimal or geometric-western with contemporary palettes
-- Ensure high contrast between text and background for mobile readability
-- Choose Google Fonts that support Cyrillic and Latin scripts`;
+CRITICAL INSTRUCTIONS:
+- You must output VALID JSON only. Do not wrap in markdown \`\`\`json blocks.
+- The 'patterns.primary' field MUST exactly match the IDs provided.
+- Choose 'adras-1' or 'atlas-1' for traditional Uzbek events like 'osh' or 'sunnat'.
+- Choose 'floral-1' for 'wedding' or 'engagement'.`;
 }
 
 function getDefaultDesignConfig(eventType: string): DesignConfig {

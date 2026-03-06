@@ -28,6 +28,44 @@ export default function EventCreateForm({ user }: EventCreateFormProps) {
         description: "",
     });
 
+    // New AI styling options
+    const [selectedAiStyle, setSelectedAiStyle] = useState<string | null>(null);
+    const [instantPreviewUrl, setInstantPreviewUrl] = useState<string | null>(null);
+
+    const AI_STYLES = [
+        { id: "luxury", label: "Hashamatli", icon: "👑", prompt: "luxury premium upscale with gold accents" },
+        { id: "minimal", label: "Minimalist", icon: "⚪", prompt: "clean minimal ultra modern empty space" },
+        { id: "floral", label: "Romantik", icon: "🌸", prompt: "romantic beautiful watercolor floral pastel" },
+        { id: "traditional", label: "O'zbekona", icon: "🇺🇿", prompt: "traditional uzbek adras atlas national patterns" },
+    ];
+
+    const generatePreview = (styleId: string, eventType: string) => {
+        const style = AI_STYLES.find(s => s.id === styleId);
+        if (!style) return;
+
+        const typeDesc = eventType === 'wedding' ? 'wedding' :
+            eventType === 'birthday' ? 'birthday party' :
+                eventType === 'sunnat' ? 'circumcision traditional' : 'event';
+
+        const encodedPrompt = encodeURIComponent(`${style.prompt} ${typeDesc} invitation card portrait`);
+        setInstantPreviewUrl(`https://image.pollinations.ai/prompt/${encodedPrompt}?width=576&height=1024&nologo=true&seed=${Math.floor(Math.random() * 1000)}`);
+    };
+
+    const handleStyleSelect = (styleId: string) => {
+        if (selectedAiStyle === styleId) {
+            setSelectedAiStyle(null);
+            setInstantPreviewUrl(null);
+        } else {
+            setSelectedAiStyle(styleId);
+            generatePreview(styleId, formData.eventType);
+        }
+    };
+
+    // Update preview if event type changes while a style is selected
+    useEffect(() => {
+        if (selectedAiStyle) generatePreview(selectedAiStyle, formData.eventType);
+    }, [formData.eventType]);
+
     useEffect(() => {
         // Load the AI design that the user selected in the previous step
         const savedDesign = sessionStorage.getItem("ai_selected_design");
@@ -53,7 +91,12 @@ export default function EventCreateForm({ user }: EventCreateFormProps) {
         setError("");
 
         try {
-            const payload = { ...formData, aiDesign };
+            // Pre-fill description with requested AI style so Gemini picks it up
+            const finalDescription = selectedAiStyle
+                ? `[Tarjixon Dizayn Uslubi: ${AI_STYLES.find(s => s.id === selectedAiStyle)?.label}] ${formData.description}`
+                : formData.description;
+
+            const payload = { ...formData, description: finalDescription, aiDesign };
 
             const response = await fetch("/api/events", {
                 method: "POST",
@@ -98,6 +141,49 @@ export default function EventCreateForm({ user }: EventCreateFormProps) {
                                 <p className="text-white/60 text-sm line-clamp-2 italic">"{aiDesign.prompt}"</p>
                             )}
                         </div>
+                    </div>
+                )}
+
+                {/* 1-Click AI Styling Preferences (Shown only if no template is pre-selected) */}
+                {!aiDesign && (
+                    <div className="mb-8 p-6 bg-purple-900/20 border border-purple-500/20 rounded-2xl">
+                        <div className="flex items-center gap-2 mb-4">
+                            <Sparkles className="w-5 h-5 text-yellow-400" />
+                            <h3 className="text-white font-semibold flex-1">Sun'iy Intellekt dizayni (1 marta bosish)</h3>
+                        </div>
+                        <p className="text-white/60 text-sm mb-4">Taklifnomangiz qanday uslubda bo'lishini hohlaysiz? Tanlang va natijani darhol ko'ring!</p>
+
+                        <div className="flex flex-wrap gap-3 mb-6">
+                            {AI_STYLES.map(style => (
+                                <button
+                                    key={style.id}
+                                    type="button"
+                                    onClick={() => handleStyleSelect(style.id)}
+                                    className={`px-4 py-2.5 rounded-xl font-medium text-sm transition-all flex items-center gap-2 ${selectedAiStyle === style.id
+                                        ? "bg-gradient-to-r from-purple-500 to-indigo-500 text-white shadow-lg shadow-purple-500/30 border border-transparent"
+                                        : "bg-white/5 text-white/80 hover:bg-white/10 border border-white/10 hover:border-white/30"
+                                        }`}
+                                >
+                                    <span>{style.icon}</span>
+                                    {style.label}
+                                </button>
+                            ))}
+                        </div>
+
+                        {instantPreviewUrl && (
+                            <div className="mt-4 p-4 bg-black/40 rounded-xl border border-white/5 flex gap-6 items-center">
+                                <div className="w-24 h-36 bg-gray-900 rounded-lg overflow-hidden relative shadow-2xl flex-shrink-0 animate-pulse bg-cover"
+                                    style={{ backgroundImage: `url(${instantPreviewUrl})` }} />
+                                <div>
+                                    <h4 className="text-white font-bold mb-1 flex items-center gap-2">
+                                        <Check className="w-4 h-4 text-green-400" /> Ajoyib tanlov!
+                                    </h4>
+                                    <p className="text-white/60 text-sm">
+                                        Yuqoridagi rasm sizning taklifnomangizning taxminiy ko'rinishidir. "Taklifnomani yaratish" tugmasini bossangiz AI uni aynan shu uslubda tayyorlaydi.
+                                    </p>
+                                </div>
+                            </div>
+                        )}
                     </div>
                 )}
 
@@ -215,6 +301,6 @@ export default function EventCreateForm({ user }: EventCreateFormProps) {
                     Taklifnoma haqida SMS yoki xabarlar orqali do'stlaringizga ulasha olasiz.
                 </p>
             </div>
-        </form>
+        </form >
     );
 }

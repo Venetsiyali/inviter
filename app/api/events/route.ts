@@ -32,10 +32,10 @@ export async function POST(request: NextRequest) {
                 where: { userId: user.id },
             });
 
-            if (eventCount >= 1) {
+            if (eventCount >= 3) {
                 return NextResponse.json(
                     {
-                        error: "Bepul foydalanuvchilar faqat 1 ta tadbir yarata oladi. Premium ga o'tkazib oling!",
+                        error: "Bepul ta'rifda faqat 3 ta tadbir yaratish mumkin. Ilovadan cheksiz foydalanish uchun Premium xarid qiling!",
                     },
                     { status: 403 }
                 );
