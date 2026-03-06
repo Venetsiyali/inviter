@@ -10,12 +10,12 @@ function getModel() {
         }
         const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
         geminiModel = genAI.getGenerativeModel({
-            model: "gemini-1.5-pro",
+            model: "gemini-2.0-flash",  // Fast model - stays under Vercel timeout
             generationConfig: {
                 temperature: 0.9,
                 topP: 0.95,
                 topK: 40,
-                maxOutputTokens: 8192,
+                maxOutputTokens: 4096,
                 responseMimeType: "application/json",
             },
         });
@@ -84,23 +84,34 @@ export async function generateDesignConfig(
 ): Promise<DesignConfig> {
     const model = getModel();
     if (!model) {
+        console.log("[design-generator] No model available, using default config");
         return getDefaultDesignConfig(eventType);
     }
 
     const prompt = buildDesignPrompt(eventType, locale, userPreferences);
 
     try {
-        const result = await model.generateContent(prompt);
+        // 8-second timeout to stay under Vercel's function timeout
+        const timeoutPromise = new Promise<never>((_, reject) =>
+            setTimeout(() => reject(new Error("Gemini API timeout (8s)")), 8000)
+        );
+
+        const apiPromise = model.generateContent(prompt);
+        const result = await Promise.race([apiPromise, timeoutPromise]);
         const response = result.response;
         let text = response.text();
+
+        console.log("[design-generator] Raw Gemini response length:", text.length);
 
         // Defensive parsing: strip markdown json blocks if Gemini ignores instructions
         text = text.replace(/```json/g, "").replace(/```/g, "").trim();
 
         const config = JSON.parse(text) as DesignConfig;
+        console.log("[design-generator] ✅ Successfully parsed AI design config");
         return config;
-    } catch (error) {
-        console.error("[design-generator] JSON parse failed after sanitization:", error);
+    } catch (error: any) {
+        console.error("[design-generator] ❌ AI generation failed:", error?.message || error);
+        console.log("[design-generator] Falling back to default design for:", eventType);
         return getDefaultDesignConfig(eventType);
     }
 }

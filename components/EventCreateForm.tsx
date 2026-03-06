@@ -99,6 +99,8 @@ export default function EventCreateForm({ user }: EventCreateFormProps) {
 
             const payload = { ...formData, description: finalDescription, aiDesign };
 
+            console.log("[EventCreateForm] Submitting event:", { eventType: formData.eventType, title: formData.title });
+
             const response = await fetch("/api/events", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -107,17 +109,32 @@ export default function EventCreateForm({ user }: EventCreateFormProps) {
 
             const data = await response.json();
 
+            console.log("[EventCreateForm] API response:", response.status, data);
+
             if (!response.ok) {
-                throw new Error(data.error || "Xatolik yuz berdi");
+                if (response.status === 401) {
+                    throw new Error("Sessiya tugagan. Iltimos qayta kiring.");
+                } else if (response.status === 403) {
+                    throw new Error(data.error || "Bepul rejada faqat 3 ta tadbir mumkin. Premium sotib oling!");
+                } else {
+                    throw new Error(data.error || "Xatolik yuz berdi. Qayta urinib ko'ring.");
+                }
             }
 
-            // Clear session storage properly
+            if (!data.eventId) {
+                throw new Error("Server javobida eventId topilmadi. Qayta urinib ko'ring.");
+            }
+
+            // Clear session storage
             sessionStorage.removeItem("ai_selected_design");
 
-            // Redirect to event editor/preview
-            router.push(`/events/${data.eventId}/edit`);
+            console.log("[EventCreateForm] ✅ Event created:", data.eventId, "— redirecting...");
+
+            // Use hard redirect (not router.push) to avoid RSC fetch crashes
+            window.location.href = `/events/${data.eventId}/edit`;
         } catch (err: any) {
-            setError(err.message);
+            console.error("[EventCreateForm] ❌ Error:", err.message);
+            setError(err.message || "Noma'lum xatolik yuz berdi");
         } finally {
             setLoading(false);
         }
