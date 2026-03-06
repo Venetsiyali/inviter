@@ -40,7 +40,12 @@ export default async function EventEditPage({
         redirect("/dashboard");
     }
 
-    const design: DesignConfig = JSON.parse(event.designConfig as string);
+    let design: DesignConfig;
+    try {
+        design = JSON.parse(event.designConfig as string) || {};
+    } catch {
+        design = {} as DesignConfig;
+    }
     const inviteUrl = `${process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"}/invite/${event.slug}`;
 
     const formattedDate = new Date(event.date).toLocaleDateString("uz-UZ", {
@@ -192,7 +197,7 @@ export default async function EventEditPage({
                         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden flex flex-col">
                             <div className="px-5 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
                                 <h3 className="font-bold text-gray-900">Dizayn ko'rinishi</h3>
-                                <span className="text-xs font-semibold bg-violet-100 text-violet-700 px-2.5 py-1 rounded-full">{((design as any).style || "Avto").slice(0, 15)}</span>
+                                <span className="text-xs font-semibold bg-violet-100 text-violet-700 px-2.5 py-1 rounded-full">{((design as any)?.style || (design as any)?.name || "Avto").slice(0, 15)}</span>
                             </div>
                             <div className="p-5 flex-1 flex justify-center items-center bg-gray-50 relative">
                                 <div className="absolute inset-0 pattern-opacity-10 pattern-dots text-gray-400"></div>
