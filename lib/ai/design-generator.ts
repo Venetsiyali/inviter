@@ -1,17 +1,27 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY!);
+let geminiModel: any = null;
 
-export const geminiModel = genAI.getGenerativeModel({
-    model: "gemini-1.5-pro",
-    generationConfig: {
-        temperature: 0.9,
-        topP: 0.95,
-        topK: 40,
-        maxOutputTokens: 8192,
-        responseMimeType: "application/json",
-    },
-});
+function getModel() {
+    if (!geminiModel) {
+        if (!process.env.GEMINI_API_KEY) {
+            console.warn("⚠️ GEMINI_API_KEY is not set. AI design generation will use fallbacks.");
+            return null;
+        }
+        const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+        geminiModel = genAI.getGenerativeModel({
+            model: "gemini-1.5-pro",
+            generationConfig: {
+                temperature: 0.9,
+                topP: 0.95,
+                topK: 40,
+                maxOutputTokens: 8192,
+                responseMimeType: "application/json",
+            },
+        });
+    }
+    return geminiModel;
+}
 
 export interface DesignConfig {
     typography: {
@@ -72,13 +82,18 @@ export async function generateDesignConfig(
     locale: "UZ_LAT" | "UZ_CYR" | "RU" = "UZ_LAT",
     userPreferences?: Partial<DesignConfig>
 ): Promise<DesignConfig> {
+    const model = getModel();
+    if (!model) {
+        return getDefaultDesignConfig(eventType);
+    }
+
     const prompt = buildDesignPrompt(eventType, locale, userPreferences);
 
-    const result = await geminiModel.generateContent(prompt);
-    const response = result.response;
-    const text = response.text();
-
     try {
+        const result = await model.generateContent(prompt);
+        const response = result.response;
+        const text = response.text();
+
         const config = JSON.parse(text) as DesignConfig;
         return config;
     } catch (error) {

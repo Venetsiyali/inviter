@@ -89,11 +89,8 @@ export async function POST(request: NextRequest) {
         console.error("❌ Event creation error:", error);
         return NextResponse.json(
             {
-                error: "Xatolik yuz berdi",
-                details:
-                    process.env.NODE_ENV === "development"
-                        ? error.message
-                        : undefined,
+                error: `Xatolik yuz berdi: ${error.message || "Tizim xatosi"}`,
+                details: error.stack,
             },
             { status: 500 }
         );
