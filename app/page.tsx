@@ -2,7 +2,7 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import {
     Sparkles,
     Smartphone,
@@ -131,6 +131,16 @@ export default function HomePage() {
     const heroY = useTransform(scrollYProgress, [0, 1], [0, 100]);
     const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isLoadingUser, setIsLoadingUser] = useState(true);
+
+    useEffect(() => {
+        fetch("/api/user/profile")
+            .then(res => setIsLoggedIn(res.ok))
+            .catch(() => setIsLoggedIn(false))
+            .finally(() => setIsLoadingUser(false));
+    }, []);
+
     return (
         <div className="min-h-screen bg-[#0a0a0f] text-white overflow-x-hidden">
 
@@ -163,15 +173,28 @@ export default function HomePage() {
 
                         {/* CTA Buttons */}
                         <div className="flex items-center gap-3">
-                            <Link href="/auth/login" className="hidden sm:block text-sm text-white/70 hover:text-white font-medium transition-colors px-3 py-1.5">
-                                Kirish
-                            </Link>
-                            <Link href="/auth/signup"
-                                className="flex items-center gap-1.5 bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white text-sm font-semibold px-5 py-2.5 rounded-xl shadow-lg shadow-violet-500/25 transition-all hover:scale-105 active:scale-95"
-                            >
-                                Bepul boshlash
-                                <ArrowRight className="w-3.5 h-3.5" />
-                            </Link>
+                            {!isLoadingUser && (
+                                isLoggedIn ? (
+                                    <Link href="/dashboard"
+                                        className="flex items-center gap-2 bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white text-sm font-semibold px-4 py-2.5 rounded-xl shadow-lg shadow-violet-500/25 transition-all hover:scale-105 active:scale-95"
+                                    >
+                                        Boshqaruv paneli
+                                        <ArrowRight className="w-3.5 h-3.5" />
+                                    </Link>
+                                ) : (
+                                    <>
+                                        <Link href="/auth/login" className="hidden sm:block text-sm text-white/70 hover:text-white font-medium transition-colors px-3 py-1.5">
+                                            Kirish
+                                        </Link>
+                                        <Link href="/auth/signup"
+                                            className="flex items-center gap-1.5 bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white text-sm font-semibold px-5 py-2.5 rounded-xl shadow-lg shadow-violet-500/25 transition-all hover:scale-105 active:scale-95"
+                                        >
+                                            Bepul boshlash
+                                            <ArrowRight className="w-3.5 h-3.5" />
+                                        </Link>
+                                    </>
+                                )
+                            )}
                         </div>
                     </div>
                 </div>
@@ -238,11 +261,11 @@ export default function HomePage() {
                         transition={{ duration: 0.6, delay: 0.3 }}
                         className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
                     >
-                        <Link href="/auth/signup"
+                        <Link href={isLoggedIn ? "/dashboard" : "/auth/signup"}
                             className="group flex items-center gap-2 bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white font-bold px-8 py-4 rounded-2xl text-lg shadow-2xl shadow-violet-500/30 transition-all hover:scale-105 active:scale-95 hover:shadow-violet-500/50"
                         >
                             <Sparkles className="w-5 h-5" />
-                            Bepul taklifnoma yarat
+                            {isLoggedIn ? "Boshqaruv paneli" : "Bepul taklifnoma yarat"}
                             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                         </Link>
                         <Link href="/dashboard/ai-create"
@@ -585,11 +608,11 @@ export default function HomePage() {
                                 5,000+ foydalanuvchi ishonadi. Bepul boshlang, xohlasangiz Premium'ga o'ting.
                             </p>
                             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                                <Link href="/auth/signup"
+                                <Link href={isLoggedIn ? "/dashboard" : "/auth/signup"}
                                     className="group flex items-center gap-2 bg-white text-violet-700 font-bold px-10 py-4 rounded-2xl text-lg shadow-2xl hover:bg-violet-50 transition-all hover:scale-105 active:scale-95"
                                 >
                                     <Sparkles className="w-5 h-5 text-violet-600" />
-                                    Bepul ro'yxatdan o'tish
+                                    {isLoggedIn ? "Boshqaruv paneliga o'tish" : "Bepul ro'yxatdan o'tish"}
                                     <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                                 </Link>
                             </div>
