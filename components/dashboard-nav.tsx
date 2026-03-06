@@ -20,6 +20,7 @@ const NAV_LINKS = [
     { href: "/dashboard/events", label: "Taklifnomalarim", icon: CalendarDays },
     { href: "/dashboard/templates", label: "Shablonlar", icon: LayoutGrid },
     { href: "/dashboard/ai-create", label: "AI Yaratish", icon: Sparkles },
+    { href: "/dashboard/profile", label: "Sozlamalar", icon: User },
     { href: "/pricing", label: "Premium", icon: Crown },
 ];
 
