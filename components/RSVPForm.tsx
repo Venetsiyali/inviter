@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Check, Loader2 } from "lucide-react";
+import { toast } from "react-hot-toast";
 
 interface RSVPFormProps {
     eventId: string;
@@ -50,7 +51,7 @@ export default function RSVPForm({ eventId, eventTitle }: RSVPFormProps) {
         } catch (error) {
             console.error("RSVP error:", error);
             setStatus("idle");
-            alert("Xatolik yuz berdi. Qaytadan urinib ko'ring.");
+            toast.error("Xatolik yuz berdi. Qaytadan urinib ko'ring.");
         }
     };
 

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Loader2, Sparkles, Check, ChevronRight, ChevronLeft, MapPin, CalendarDays, Type } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import NextImage from "next/image";
 
 interface EventCreateFormProps {
     user: {
@@ -160,7 +161,10 @@ export default function EventCreateForm({ user }: EventCreateFormProps) {
                             {/* Pre-selected Template/AI Design Info */}
                             {aiDesign?.imageUrl && (
                                 <div className="p-4 bg-black/30 rounded-2xl flex items-center gap-4 border border-white/5">
-                                    <img src={aiDesign.imageUrl} alt="Design" className="w-16 h-20 rounded-lg object-cover" />
+                                    <div className="w-16 h-20 relative rounded-lg overflow-hidden shrink-0">
+                                        {/* @ts-ignore */}
+                                        <NextImage src={aiDesign.imageUrl} alt="Design" fill className="object-cover" unoptimized />
+                                    </div>
                                     <div>
                                         <div className="text-xs text-green-400 font-bold mb-1 flex items-center gap-1"><Check className="w-3 h-3" /> Tanlangan dizayn</div>
                                         <div className="text-white text-sm font-medium">{aiDesign.style}</div>

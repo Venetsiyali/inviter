@@ -2,6 +2,7 @@
 
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import NextImage from "next/image";
 import { useRef, useState, useEffect } from "react";
 import {
     Sparkles, ArrowRight, Check, Star, ChevronDown, ChevronRight,
@@ -423,7 +424,8 @@ export default function HomePage() {
                                 className="group relative rounded-2xl overflow-hidden cursor-pointer shadow-xl"
                                 style={{ aspectRatio: "2/3" }}
                             >
-                                <img src={tpl.img} alt={tpl.name} className="w-full h-full object-cover transition-transform group-hover:scale-110 duration-700" loading="lazy" />
+                                {/* @ts-ignore */}
+                                <NextImage src={tpl.img} alt={tpl.name} fill sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 16vw" className="object-cover transition-transform group-hover:scale-110 duration-700" unoptimized />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
                                 <span className={`absolute top-2.5 left-2.5 text-[10px] font-bold px-2 py-0.5 rounded-full ${tpl.badge === "Pro" ? "bg-gradient-to-r from-amber-400 to-orange-400 text-black" : "bg-green-400 text-black"}`}>
                                     {tpl.badge}

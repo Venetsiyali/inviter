@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 import { StructuredData } from "@/components/StructuredData";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({
     subsets: ["latin", "cyrillic"],
@@ -78,6 +79,7 @@ export default function RootLayout({
             <body className={inter.className}>
                 <StructuredData />
                 {children}
+                <Toaster position="bottom-center" toastOptions={{ className: 'font-medium text-sm' }} />
             </body>
         </html>
     );

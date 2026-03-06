@@ -1,6 +1,7 @@
 "use client";
 
 import { MapPin, Navigation, ExternalLink, Share2 } from "lucide-react";
+import { toast } from "react-hot-toast";
 
 interface LocationBlockProps {
     venueName?: string;
@@ -41,7 +42,17 @@ export default function LocationBlock({
         } else {
             // Fallback: copy to clipboard
             await navigator.clipboard.writeText(shareData.url);
-            alert("Manzil havolasi nusxalandi!");
+            toast.success("Manzil havolasi nusxalandi!", {
+                style: {
+                    background: '#1e293b',
+                    color: '#fff',
+                    borderRadius: '12px',
+                },
+                iconTheme: {
+                    primary: '#f59e0b',
+                    secondary: '#1e293b',
+                },
+            });
         }
     };
 

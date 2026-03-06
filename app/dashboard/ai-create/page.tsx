@@ -3,6 +3,7 @@
 import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
+import NextImage from "next/image";
 import Link from "next/link";
 import { uz } from "@/locales/uz";
 import { CANVAS_TEMPLATES } from "@/lib/design/templates";
@@ -306,7 +307,8 @@ export default function AICreatePage() {
                                                     <span className="text-white/40 text-xs">Yuklanmoqda...</span>
                                                 </div>
                                             ) : design.imageUrl ? (
-                                                <img src={design.imageUrl} alt={design.style} className="absolute inset-0 w-full h-full object-cover" />
+                                                /* @ts-ignore */
+                                                <NextImage src={design.imageUrl} alt={design.style} fill className="object-cover" unoptimized />
                                             ) : (
                                                 <div className="absolute inset-0 bg-gradient-to-br from-purple-800 to-pink-800 flex items-center justify-center">
                                                     <ImageIcon className="w-10 h-10 text-white/30" />

@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Mail, Loader2, CheckCircle2 } from "lucide-react";
+import { toast } from "react-hot-toast";
 
 function VerificationForm() {
     const router = useRouter();
@@ -61,7 +62,7 @@ function VerificationForm() {
             }
 
             // Show success message
-            alert(uz.auth.verificationCodeSent);
+            toast.success(uz.auth.verificationCodeSent);
         } catch (err: any) {
             setError(err.message);
         } finally {

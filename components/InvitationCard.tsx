@@ -39,7 +39,8 @@ export default function InvitationCard({ event, design }: InvitationCardProps) {
     if ("imageUrl" in design && (design as any).imageUrl) {
         return (
             <div className="max-w-2xl text-white mx-auto rounded-3xl shadow-2xl overflow-hidden relative" style={{ aspectRatio: '9/16' }}>
-                <img src={(design as any).imageUrl} alt="Invitation Background" className="absolute inset-0 w-full h-full object-cover" />
+                {/* @ts-ignore */}
+                <NextImage src={(design as any).imageUrl} alt="Invitation Background" fill className="object-cover" unoptimized />
                 <div className="absolute inset-0 bg-black/40 p-8 flex flex-col justify-center items-center text-center">
                     <p className="text-sm font-medium uppercase tracking-wider mb-3 text-white/80" style={{ textShadow: "0 2px 4px rgba(0,0,0,0.8)" }}>{eventTypeNames[event.type] || "Tadbir"}</p>
                     <h1 className="text-4xl md:text-5xl font-extrabold mb-6 leading-tight" style={{ textShadow: "0 2px 8px rgba(0,0,0,0.8)", fontFamily: "serif" }}>
