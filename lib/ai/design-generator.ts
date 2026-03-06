@@ -92,12 +92,15 @@ export async function generateDesignConfig(
     try {
         const result = await model.generateContent(prompt);
         const response = result.response;
-        const text = response.text();
+        let text = response.text();
+
+        // Defensive parsing: strip markdown json blocks if Gemini ignores instructions
+        text = text.replace(/```json/g, "").replace(/```/g, "").trim();
 
         const config = JSON.parse(text) as DesignConfig;
         return config;
     } catch (error) {
-        console.error("Failed to parse Gemini response:", error);
+        console.error("[design-generator] JSON parse failed after sanitization:", error);
         return getDefaultDesignConfig(eventType);
     }
 }
@@ -160,8 +163,7 @@ Generate a strict JSON object exactly following this structure:
   }
 }
 
-CRITICAL INSTRUCTIONS:
-- You must output VALID JSON only. Do not wrap in markdown \`\`\`json blocks.
+CRITICAL: Return ONLY raw valid JSON. Do NOT wrap in markdown code blocks. Do NOT add any explanation text.
 - The 'patterns.primary' field MUST exactly match the IDs provided.
 - Choose 'adras-1' or 'atlas-1' for traditional Uzbek events like 'osh' or 'sunnat'.
 - Choose 'floral-1' for 'wedding' or 'engagement'.`;

@@ -34,22 +34,8 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        // Check plan limits (Free = 1 event, Premium = unlimited)
-        if (user.plan === "FREE") {
-            const eventCount = await prisma.event.count({
-                where: { userId: user.id },
-            });
-
-            if (eventCount >= 3) {
-                return NextResponse.json(
-                    {
-                        error: "Bepul ta'rifda faqat 3 ta tadbir yaratish mumkin. Ilovadan cheksiz foydalanish uchun Premium xarid qiling!",
-                    },
-                    { status: 403 }
-                );
-            }
-        }
-
+        // Generate AI design first (before limit check), so retries after
+        // silent AI failures don't create ghost events toward the limit.
         let aiDesign = preGeneratedAiDesign;
 
         if (!aiDesign) {
@@ -64,6 +50,22 @@ export async function POST(request: NextRequest) {
             console.log("✅ AI design generated successfully");
         } else {
             console.log("✅ Using pre-selected UI design");
+        }
+
+        // Check plan limits AFTER AI generation succeeds (Free = 3 events, Premium = unlimited)
+        if (user.plan === "FREE") {
+            const eventCount = await prisma.event.count({
+                where: { userId: user.id },
+            });
+
+            if (eventCount >= 3) {
+                return NextResponse.json(
+                    {
+                        error: "Bepul ta'rifda faqat 3 ta tadbir yaratish mumkin. Ilovadan cheksiz foydalanish uchun Premium xarid qiling!",
+                    },
+                    { status: 403 }
+                );
+            }
         }
 
         // Create event in database
