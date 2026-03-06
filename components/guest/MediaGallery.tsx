@@ -7,9 +7,10 @@ import Image from "next/image";
 interface MediaGalleryProps {
     eventId: string;
     initialPhotos?: Array<{ id: string; imageUrl: string; uploaderName: string; caption?: string }>;
+    primaryColor?: string;
 }
 
-export default function MediaGallery({ eventId, initialPhotos = [] }: MediaGalleryProps) {
+export default function MediaGallery({ eventId, initialPhotos = [], primaryColor = "#F59E0B" }: MediaGalleryProps) {
     const [photos, setPhotos] = useState(initialPhotos);
     const [isUploading, setIsUploading] = useState(false);
     const [showUploadForm, setShowUploadForm] = useState(false);
@@ -53,11 +54,11 @@ export default function MediaGallery({ eventId, initialPhotos = [] }: MediaGalle
     };
 
     return (
-        <div className="bg-white rounded-2xl shadow-xl p-8">
-            <div className="flex items-center justify-between mb-6">
+        <div className="p-4 sm:p-6">
+            <div className="flex flex-col sm:flex-row items-center justify-between mb-6 gap-4">
                 <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center">
-                        <Camera className="w-6 h-6 text-pink-600" />
+                    <div className="w-12 h-12 rounded-full flex items-center justify-center shrink-0" style={{ backgroundColor: `${primaryColor}15` }}>
+                        <Camera className="w-6 h-6" style={{ color: primaryColor }} />
                     </div>
                     <div>
                         <h2 className="text-3xl font-bold text-gray-900">Fotogalereya</h2>
@@ -66,7 +67,8 @@ export default function MediaGallery({ eventId, initialPhotos = [] }: MediaGalle
                 </div>
                 <button
                     onClick={() => setShowUploadForm(!showUploadForm)}
-                    className="px-4 py-2 bg-gradient-to-r from-pink-500 to-rose-500 text-white rounded-xl font-semibold hover:from-pink-600 hover:to-rose-600 transition-all flex items-center gap-2"
+                    className="w-full sm:w-auto px-6 py-2.5 text-white rounded-xl font-semibold transition-all flex items-center justify-center gap-2 shadow-lg hover:opacity-90 active:scale-[0.98]"
+                    style={{ backgroundColor: primaryColor }}
                 >
                     <Upload className="w-5 h-5" />
                     Yuklash
@@ -75,7 +77,7 @@ export default function MediaGallery({ eventId, initialPhotos = [] }: MediaGalle
 
             {/* Upload Form */}
             {showUploadForm && (
-                <div className="mb-6 p-6 bg-gradient-to-br from-pink-50 to-rose-50 rounded-xl">
+                <div className="mb-6 p-4 sm:p-6 rounded-xl border" style={{ borderColor: `${primaryColor}20`, backgroundColor: `${primaryColor}05` }}>
                     <h3 className="font-semibold text-gray-900 mb-4">Rasm Yuklash</h3>
                     <div className="space-y-4">
                         <div>
@@ -103,14 +105,16 @@ export default function MediaGallery({ eventId, initialPhotos = [] }: MediaGalle
                                 onChange={(e) =>
                                     setUploadForm({ ...uploadForm, caption: e.target.value })
                                 }
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:border-transparent transition-shadow"
+                                style={{ outlineColor: primaryColor }}
                                 placeholder="Rasm haqida qisqacha"
                             />
                         </div>
                         <div>
                             <label className="block w-full cursor-pointer">
-                                <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-pink-500 transition-colors">
-                                    <Camera className="w-12 h-12 text-gray-400 mx-auto mb-3" />
+                                <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 sm:p-8 text-center transition-colors"
+                                    style={{ borderColor: isUploading ? primaryColor : undefined }}>
+                                    <Camera className="w-10 h-10 sm:w-12 sm:h-12 text-gray-400 mx-auto mb-3" />
                                     <p className="text-gray-600 font-medium">
                                         {isUploading ? "Yuklanmoqda..." : "Rasm tanlang"}
                                     </p>

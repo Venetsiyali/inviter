@@ -64,7 +64,7 @@ export default function RSVPBlock({ eventId, eventTitle }: RSVPBlockProps) {
     }
 
     return (
-        <div className="bg-white rounded-2xl shadow-xl p-8">
+        <div className="p-4 sm:p-6">
             <h2 className="text-3xl font-bold text-gray-900 mb-2 text-center">
                 Tashrifni Tasdiqlash
             </h2>
@@ -126,8 +126,8 @@ export default function RSVPBlock({ eventId, eventTitle }: RSVPBlockProps) {
                             type="button"
                             onClick={() => setFormData({ ...formData, status: "confirmed" })}
                             className={`p-4 rounded-xl border-2 transition-all ${formData.status === "confirmed"
-                                    ? "border-green-500 bg-green-50"
-                                    : "border-gray-300 hover:border-green-300"
+                                ? "border-green-500 bg-green-50"
+                                : "border-gray-300 hover:border-green-300"
                                 }`}
                         >
                             <Check className="w-6 h-6 mx-auto mb-2 text-green-600" />
@@ -137,8 +137,8 @@ export default function RSVPBlock({ eventId, eventTitle }: RSVPBlockProps) {
                             type="button"
                             onClick={() => setFormData({ ...formData, status: "declined" })}
                             className={`p-4 rounded-xl border-2 transition-all ${formData.status === "declined"
-                                    ? "border-red-500 bg-red-50"
-                                    : "border-gray-300 hover:border-red-300"
+                                ? "border-red-500 bg-red-50"
+                                : "border-gray-300 hover:border-red-300"
                                 }`}
                         >
                             <X className="w-6 h-6 mx-auto mb-2 text-red-600" />

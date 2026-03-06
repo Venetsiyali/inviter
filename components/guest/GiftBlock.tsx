@@ -7,9 +7,10 @@ interface GiftBlockProps {
     hostName: string;
     cardNumber?: string;
     cardHolder?: string;
+    primaryColor?: string;
 }
 
-export default function GiftBlock({ hostName, cardNumber, cardHolder }: GiftBlockProps) {
+export default function GiftBlock({ hostName, cardNumber, cardHolder, primaryColor = "#F59E0B" }: GiftBlockProps) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isCopied, setIsCopied] = useState(false);
 
@@ -31,14 +32,14 @@ export default function GiftBlock({ hostName, cardNumber, cardHolder }: GiftBloc
 
     return (
         <>
-            <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl shadow-xl p-8">
-                <div className="flex items-center gap-3 mb-6">
-                    <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
-                        <Gift className="w-6 h-6 text-purple-600" />
+            <div className="bg-slate-50/50 rounded-[20px] p-4 sm:p-6 text-center sm:text-left">
+                <div className="flex flex-col sm:flex-row items-center gap-3 mb-6">
+                    <div className="w-12 h-12 rounded-full flex items-center justify-center shrink-0" style={{ backgroundColor: `${primaryColor}15` }}>
+                        <Gift className="w-6 h-6" style={{ color: primaryColor }} />
                     </div>
                     <div>
-                        <h2 className="text-3xl font-bold text-gray-900">To&apos;yana</h2>
-                        <p className="text-gray-600">Moliyaviy yordam</p>
+                        <h2 className="text-2xl font-bold text-gray-900">To&apos;yana</h2>
+                        <p className="text-gray-500 text-sm">Moliyaviy yordam</p>
                     </div>
                 </div>
 
@@ -49,7 +50,8 @@ export default function GiftBlock({ hostName, cardNumber, cardHolder }: GiftBloc
 
                 <button
                     onClick={() => setIsModalOpen(true)}
-                    className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-4 rounded-xl font-semibold text-lg hover:from-purple-700 hover:to-pink-700 transition-all flex items-center justify-center gap-2"
+                    className="w-full text-white py-4 rounded-xl font-semibold text-lg transition-all flex items-center justify-center gap-2 shadow-lg hover:opacity-90 active:scale-[0.98]"
+                    style={{ backgroundColor: primaryColor }}
                 >
                     <CreditCard className="w-5 h-5" />
                     Karta Raqamini Ko&apos;rish
@@ -68,7 +70,7 @@ export default function GiftBlock({ hostName, cardNumber, cardHolder }: GiftBloc
                         </button>
 
                         <div className="text-center mb-6">
-                            <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style={{ backgroundColor: primaryColor }}>
                                 <Gift className="w-8 h-8 text-white" />
                             </div>
                             <h3 className="text-2xl font-bold text-gray-900 mb-2">
@@ -82,7 +84,8 @@ export default function GiftBlock({ hostName, cardNumber, cardHolder }: GiftBloc
                         {cardNumber ? (
                             <div className="space-y-4">
                                 {/* Card Mockup */}
-                                <div className="bg-gradient-to-br from-purple-600 to-pink-600 rounded-xl p-6 text-white shadow-xl">
+                                <div className="rounded-xl p-6 text-white shadow-xl relative overflow-hidden" style={{ backgroundColor: primaryColor }}>
+                                    <div className="absolute inset-0 bg-white/10 mix-blend-overlay" />
                                     <div className="mb-8">
                                         <div className="text-xs opacity-75 mb-1">Karta egasi</div>
                                         <div className="font-semibold text-lg">

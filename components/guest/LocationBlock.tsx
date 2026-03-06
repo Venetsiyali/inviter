@@ -46,7 +46,7 @@ export default function LocationBlock({
     };
 
     return (
-        <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
+        <div className="rounded-[20px] overflow-hidden">
             {/* Embedded Google Maps */}
             {hasCoordinates && (
                 <div className="w-full h-[220px] relative">
