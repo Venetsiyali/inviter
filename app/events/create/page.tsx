@@ -14,40 +14,30 @@ export default async function CreateEventPage() {
     // For now, we'll allow all logged-in users
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-indigo-950 via-purple-900 to-pink-900">
-            {/* Stars */}
-            <div className="fixed inset-0 overflow-hidden pointer-events-none">
-                {[...Array(30)].map((_, i) => (
-                    <div
-                        key={i}
-                        className="absolute rounded-full bg-white opacity-20"
-                        style={{
-                            width: Math.random() * 3 + 1 + "px",
-                            height: Math.random() * 3 + 1 + "px",
-                            top: Math.random() * 100 + "%",
-                            left: Math.random() * 100 + "%",
-                        }}
-                    />
-                ))}
-            </div>
+        <div className="min-h-[100dvh] bg-slate-950 flex flex-col relative overflow-hidden">
+            {/* Ambient background glow */}
+            <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-amber-500/10 blur-[120px] rounded-full pointer-events-none" />
+            <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-purple-500/10 blur-[120px] rounded-full pointer-events-none" />
 
-            <div className="relative z-10 container mx-auto px-4 py-12 max-w-3xl">
-                <div className="text-center mb-10">
-                    <h1 className="text-4xl font-bold text-white mb-3">
-                        Tadbir ma'lumotlari
+            <div className="relative z-10 w-full max-w-xl mx-auto px-4 py-8 sm:py-16 flex-1 flex flex-col">
+                <div className="text-center mb-8">
+                    <h1 className="text-3xl sm:text-4xl font-bold text-white mb-2 tracking-tight">
+                        Taklifnoma Yaratish
                     </h1>
-                    <p className="text-white/70 text-lg">
-                        Taklifnomangizni tayyorlash uchun kerakli ma'lumotlarni kiriting
+                    <p className="text-white/60 text-sm sm:text-base">
+                        Atigi 3 qadamda orzuingizdagi dizaynni kashf eting
                     </p>
                 </div>
 
-                <EventCreateForm user={{
-                    id: user.id,
-                    email: user.email,
-                    name: user.name,
-                    role: user.role,
-                    plan: user.plan
-                }} />
+                <div className="flex-1 flex flex-col items-center justify-center">
+                    <EventCreateForm user={{
+                        id: user.id,
+                        email: user.email,
+                        name: user.name,
+                        role: user.role,
+                        plan: user.plan
+                    }} />
+                </div>
             </div>
         </div>
     );
