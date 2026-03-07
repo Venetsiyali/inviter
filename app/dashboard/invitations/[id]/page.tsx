@@ -2,6 +2,7 @@ import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { redirect, notFound } from "next/navigation";
 import Link from "next/link";
+import CopyButton from "@/components/CopyButton";
 
 export default async function InvitationDetailPage({
     params,
@@ -51,8 +52,8 @@ export default async function InvitationDetailPage({
                     <div className="flex items-center gap-2 mb-1">
                         <h1 className="text-2xl font-bold text-white">{invitation.brideGroom}</h1>
                         <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${invitation.isPublished
-                                ? "bg-emerald-500/10 text-emerald-400"
-                                : "bg-white/5 text-white/40"
+                            ? "bg-emerald-500/10 text-emerald-400"
+                            : "bg-white/5 text-white/40"
                             }`}>
                             {invitation.isPublished ? "Ommaviy" : "Qoralama"}
                         </span>
@@ -158,25 +159,14 @@ export default async function InvitationDetailPage({
 }
 
 // ─── Client Components ──────────────────────────────────
-function CopyButton({ text }: { text: string }) {
-    return (
-        <button
-            onClick={() => { navigator.clipboard.writeText(text); }}
-            className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-500 text-black text-sm font-semibold hover:opacity-90 transition-opacity shrink-0"
-        >
-            Nusxa
-        </button>
-    );
-}
-
 function PublishButton({ invitationId, isPublished }: { invitationId: string; isPublished: boolean }) {
     return (
         <form action={`/api/invitation/${invitationId}/publish`} method="POST">
             <button
                 type="submit"
                 className={`px-4 py-2 rounded-xl text-sm font-medium transition-colors ${isPublished
-                        ? "bg-white/5 border border-white/10 text-white/60 hover:bg-white/10"
-                        : "gradient-btn !py-2 !rounded-xl"
+                    ? "bg-white/5 border border-white/10 text-white/60 hover:bg-white/10"
+                    : "gradient-btn !py-2 !rounded-xl"
                     }`}
             >
                 {isPublished ? "Yopish" : "🚀 Nashr qilish"}
