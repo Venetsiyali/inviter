@@ -1,16 +1,24 @@
-<!DOCTYPE html>
-<html lang="uz">
+import { TemplateData } from "./index";
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aziza & Jasur - Taklifnoma</title>
+export function roseGarden(data: TemplateData): string {
+    const {
+        brideGroom, formattedDate, eventTime, venue, venueAddress,
+        venueLat, venueLng, phone, giftEnabled, photoEnabled
+    } = data;
+
+    const part1 = brideGroom.split(/ & | va | \+ /i)[0] || brideGroom;
+    const part2 = brideGroom.split(/ & | va | \+ /i)[1] || '';
+
+    return `
+<div class="template-wrapper">
     <style>
+        
+        ${String.raw`
         /* FONTS */
         @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Nunito:wght@300;400;600;700&display=swap');
 
         /* CSS VARIABLES */
-        :root {
+        .template-wrapper {
             --primary: #E8547A;
             --secondary: #FFE4E8;
             --bg: #FFFFFF;
@@ -21,13 +29,9 @@
         }
 
         /* RESET & BASE */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        
 
-        body {
+        .template-wrapper {
             background-color: #fce4ec;
             font-family: 'Nunito', sans-serif;
             color: var(--text-main);
@@ -346,7 +350,7 @@
 
         /* RESPONSIVE DESIGN - MOBILE */
         @media screen and (max-width: 480px) {
-            body {
+            .template-wrapper {
                 padding: 0;
                 background: var(--bg);
             }
@@ -376,10 +380,10 @@
                 padding: 14px 20px;
             }
         }
+    `}
     </style>
-</head>
-
-<body>
+    
+    
 
     <div class="invitation-card">
         <div class="frame"></div>
@@ -393,19 +397,19 @@
 
         <div class="hero-section">
             <div class="badge">Nikoh To'yi</div>
-            <h1>Aziza<br>&<br>Jasur</h1>
+            <h1>${brideGroom}</h1>
         </div>
 
         <div class="divider">❦</div>
 
         <div class="date-time">
-            <div class="date">2026 yil 15 iyun, Shanba</div>
-            <div class="time">🕒 Soat 12:00 da</div>
+            <div class="date">${formattedDate}</div>
+            <div class="time">🕒 ${eventTime ? `SOAT ${eventTime}` : ""} da</div>
         </div>
 
         <div class="venue">
-            <h3>Guliston Banquet Hall</h3>
-            <p class="address">Toshkent sh., Yunusobod tumani,<br>14-mavze</p>
+            <h3>${venue || "To'yxona"}</h3>
+            <p class="address">${venueAddress || ""}</p>
         </div>
 
         <div class="qr-placeholder">
@@ -413,16 +417,16 @@
         </div>
 
         <div class="actions">
-            <button class="btn gift-btn">💝 Hadya yuborish</button>
-            <button class="btn photo-btn">📸 Rasm yuklash</button>
+            ${giftEnabled ? `<button class="btn gift-btn" id="trigger-gift">💝 Hadya Yuborish</button>` : ""}
+            ${photoEnabled ? `<button class="btn photo-btn" id="trigger-photo">📸 Rasm Yuklash</button>` : ""}
         </div>
 
         <div class="footer">
-            <a href="tel:+998901234567" class="phone">📞 +998 90 123 45 67</a><br>
+            <a href="tel:+998901234567" class="phone">📞 ${phone || ""}</a><br>
             <button class="share-btn">📤 Do'stlarga ulashish</button>
         </div>
     </div>
 
-</body>
 
-</html>
+</div>`;
+}

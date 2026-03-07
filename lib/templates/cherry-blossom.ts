@@ -1,14 +1,22 @@
-<!DOCTYPE html>
-<html lang="uz">
+import { TemplateData } from "./index";
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aziza & Jasur - Taklifnoma</title>
+export function cherryBlossom(data: TemplateData): string {
+    const {
+        brideGroom, formattedDate, eventTime, venue, venueAddress,
+        venueLat, venueLng, phone, giftEnabled, photoEnabled
+    } = data;
+
+    const part1 = brideGroom.split(/ & | va | \+ /i)[0] || brideGroom;
+    const part2 = brideGroom.split(/ & | va | \+ /i)[1] || '';
+
+    return `
+<div class="template-wrapper">
     <style>
+        
+        ${String.raw`
         @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;600;900&family=Noto+Sans:wght@300;400;600&display=swap');
 
-        :root {
+        .template-wrapper {
             --primary: #FFB7C5;
             /* Sakura Pink */
             --secondary: #FFFFFF;
@@ -21,13 +29,9 @@
             --border: #FCE4EC;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        
 
-        body {
+        .template-wrapper {
             background-color: #f7e6e9;
             font-family: 'Noto Sans', sans-serif;
             color: var(--text-main);
@@ -349,7 +353,7 @@
 
         /* MOBILE RESPONSIVE */
         @media screen and (max-width: 480px) {
-            body {
+            .template-wrapper {
                 padding: 0;
                 background: var(--bg);
             }
@@ -372,10 +376,10 @@
                 padding: 20px 0;
             }
         }
+    `}
     </style>
-</head>
-
-<body>
+    
+    
 
     <!-- Background Sakuras -->
     <div class="sakura s1"></div>
@@ -389,21 +393,21 @@
         <div class="hanko-stamp">愛</div>
 
         <div class="hero-section">
-            <h1>AZIZA</h1>
+            <h1>${part1}</h1>
             <span class="ampersand">+</span>
-            <h1>JASUR</h1>
+            <h1>${part2}</h1>
         </div>
 
         <div class="divider"></div>
 
         <div class="date-time">
-            <div class="date">ON BESHINCHI IYUN, 2026</div>
-            <div class="time">12:00</div>
+            <div class="date">${formattedDate}</div>
+            <div class="time">${eventTime || ""}</div>
         </div>
 
         <div class="venue">
-            <h3>GULISTON BANQUET</h3>
-            <p>Toshkent sh., Yunusobod tumani,<br>14-mavze</p>
+            <h3>${venue || "TO'YXONA"}</h3>
+            <p>${venueAddress || ""}</p>
         </div>
 
         <div class="qr-placeholder">
@@ -411,16 +415,16 @@
         </div>
 
         <div class="actions">
-            <button class="btn gift-btn">💝 HADYA YUBORISH</button>
-            <button class="btn photo-btn">📸 RASM YUKLASH</button>
+            ${giftEnabled ? `<button class="btn gift-btn" id="trigger-gift">💝 Hadya Yuborish</button>` : ""}
+            ${photoEnabled ? `<button class="btn photo-btn" id="trigger-photo">📸 Rasm Yuklash</button>` : ""}
         </div>
 
         <div class="footer">
-            <a href="tel:+998901234567" class="phone">+998 90 123 45 67</a>
+            <a href="tel:+998901234567" class="phone">${phone || ""}</a>
             <button class="share-btn">ULASHISH</button>
         </div>
     </div>
 
-</body>
 
-</html>
+</div>`;
+}

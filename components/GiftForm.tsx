@@ -6,12 +6,14 @@ export default function GiftForm({
     invitationId,
     primaryColor,
     secondaryColor,
+    isModal,
 }: {
     invitationId: string;
     primaryColor: string;
     secondaryColor: string;
+    isModal?: boolean;
 }) {
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(isModal || false);
     const [name, setName] = useState("");
     const [phone, setPhone] = useState("");
     const [message, setMessage] = useState("");
@@ -66,7 +68,7 @@ export default function GiftForm({
         return (
             <button
                 onClick={() => setOpen(true)}
-                className="w-full py-4 rounded-2xl font-semibold text-sm transition-all hover:opacity-90"
+                className="w-full py-4 rounded-2xl font-semibold text-sm transition-all hover:opacity-90 mt-4"
                 style={{ background: `${secondaryColor}20`, color: secondaryColor, border: `1px solid ${secondaryColor}30` }}
             >
                 💰 Hadya yuborish
@@ -135,13 +137,15 @@ export default function GiftForm({
             />
 
             <div className="flex gap-2">
-                <button
-                    onClick={() => setOpen(false)}
-                    className="flex-1 py-3 rounded-xl text-sm font-medium"
-                    style={{ color: `${secondaryColor}88`, border: `1px solid ${secondaryColor}20` }}
-                >
-                    Bekor
-                </button>
+                {!isModal && (
+                    <button
+                        onClick={() => setOpen(false)}
+                        className="flex-1 py-3 rounded-xl text-sm font-medium"
+                        style={{ color: `${secondaryColor}88`, border: `1px solid ${secondaryColor}20` }}
+                    >
+                        Bekor
+                    </button>
+                )}
                 <button
                     onClick={handleSubmit}
                     disabled={loading || !name.trim() || !amount}

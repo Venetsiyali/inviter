@@ -1,14 +1,22 @@
-<!DOCTYPE html>
-<html lang="uz">
+import { TemplateData } from "./index";
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aziza & Jasur - Taklifnoma</title>
+export function azureDream(data: TemplateData): string {
+    const {
+        brideGroom, formattedDate, eventTime, venue, venueAddress,
+        venueLat, venueLng, phone, giftEnabled, photoEnabled
+    } = data;
+
+    const part1 = brideGroom.split(/ & | va | \+ /i)[0] || brideGroom;
+    const part2 = brideGroom.split(/ & | va | \+ /i)[1] || '';
+
+    return `
+<div class="template-wrapper">
     <style>
+        
+        ${String.raw`
         @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,700;1,300&family=Open+Sans:wght@300;400;600&display=swap');
 
-        :root {
+        .template-wrapper {
             --primary: #1565C0;
             --secondary: #E3F2FD;
             --accent: #2196F3;
@@ -17,13 +25,9 @@
             --text-muted: #627D98;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        
 
-        body {
+        .template-wrapper {
             background: linear-gradient(135deg, #BBDEFB 0%, #E3F2FD 100%);
             font-family: 'Open Sans', sans-serif;
             color: var(--text-main);
@@ -157,7 +161,7 @@
         }
 
         /* CONTENT BODY */
-        .card-body {
+        .card-.template-wrapper {
             padding: 0 30px 40px;
         }
 
@@ -307,7 +311,7 @@
 
         /* MOBILE RESPONSIVE */
         @media screen and (max-width: 480px) {
-            body {
+            .template-wrapper {
                 padding: 0;
                 background: var(--bg);
             }
@@ -327,10 +331,10 @@
                 font-size: 14px;
             }
         }
+    `}
     </style>
-</head>
-
-<body>
+    
+    
 
     <div class="invitation-card">
         <div class="sky-header">
@@ -340,22 +344,22 @@
         </div>
 
         <div class="hero-section">
-            <h1>Aziza</h1>
+            <h1>${part1}</h1>
             <span class="ampersand">&</span>
-            <h1>Jasur</h1>
+            <h1>${part2}</h1>
         </div>
 
         <div class="birds">🕊 🕊</div>
 
         <div class="card-body">
             <div class="date-time">
-                <div class="date">15 Iyun, 2026 - Shanba</div>
-                <div class="time">Soat 12:00 da osh tortiladi</div>
+                <div class="date">${formattedDate}</div>
+                <div class="time">${eventTime ? `Soat ${eventTime} da osh tortiladi` : ""}</div>
             </div>
 
             <div class="venue">
-                <h3>Guliston Banquet Hall</h3>
-                <p>Toshkent sh., Yunusobod tumani,<br>14-mavze</p>
+                <h3>${venue || "To'yxona"}</h3>
+                <p>${venueAddress || ""}</p>
             </div>
 
             <div class="qr-placeholder">
@@ -363,17 +367,17 @@
             </div>
 
             <div class="actions">
-                <button class="btn gift-btn">💝 Hadya Yuborish</button>
-                <button class="btn photo-btn">📸 Rasm Yuklash</button>
+                ${giftEnabled ? `<button class="btn gift-btn" id="trigger-gift">💝 Hadya Yuborish</button>` : ""}
+                ${photoEnabled ? `<button class="btn photo-btn" id="trigger-photo">📸 Rasm Yuklash</button>` : ""}
             </div>
 
             <div class="footer">
-                <a href="tel:+998901234567" class="phone">📞 +998 90 123 45 67</a><br>
+                <a href="tel:+998901234567" class="phone">📞 ${phone || ""}</a><br>
                 <button class="share-btn">Ulashish</button>
             </div>
         </div>
     </div>
 
-</body>
 
-</html>
+</div>`;
+}

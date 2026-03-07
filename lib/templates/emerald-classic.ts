@@ -1,14 +1,22 @@
-<!DOCTYPE html>
-<html lang="uz">
+import { TemplateData } from "./index";
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aziza & Jasur - Taklifnoma</title>
+export function emeraldClassic(data: TemplateData): string {
+    const {
+        brideGroom, formattedDate, eventTime, venue, venueAddress,
+        venueLat, venueLng, phone, giftEnabled, photoEnabled
+    } = data;
+
+    const part1 = brideGroom.split(/ & | va | \+ /i)[0] || brideGroom;
+    const part2 = brideGroom.split(/ & | va | \+ /i)[1] || '';
+
+    return `
+<div class="template-wrapper">
     <style>
+        
+        ${String.raw`
         @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Jost:wght@300;400;500;600&display=swap');
 
-        :root {
+        .template-wrapper {
             --primary: #0F4C3A;
             /* Deep Emerald */
             --secondary: #D4AF37;
@@ -23,13 +31,9 @@
             /* Medium Grey */
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        
 
-        body {
+        .template-wrapper {
             background-color: #E8ECEB;
             font-family: 'Jost', sans-serif;
             color: var(--text-main);
@@ -349,7 +353,7 @@
 
         /* MOBILE RESPONSIVE */
         @media screen and (max-width: 480px) {
-            body {
+            .template-wrapper {
                 padding: 0;
                 background: var(--bg);
             }
@@ -386,10 +390,10 @@
                 font-size: 24px;
             }
         }
+    `}
     </style>
-</head>
-
-<body>
+    
+    
 
     <div class="invitation-card">
 
@@ -399,19 +403,19 @@
 
         <div class="hero-section">
             <div class="badge">Shukuhli Oqshom</div>
-            <h1>Aziza</h1>
+            <h1>${part1}</h1>
             <span class="ampersand">&amp;</span>
-            <h1>Jasur</h1>
+            <h1>${part2}</h1>
         </div>
 
         <div class="date-time">
-            <div class="date">O'N BESHINCHI IYUN, 2026</div>
-            <div class="time">SOAT 12:00 DA TASHRIF BUYURING</div>
+            <div class="date">${formattedDate}</div>
+            <div class="time">${eventTime ? `SOAT ${eventTime} DA TASHRIF BUYURING` : ""}</div>
         </div>
 
         <div class="venue">
-            <h3>Guliston Banquet Hall</h3>
-            <p>Toshkent shahri, Yunusobod tumani,<br>14-mavze, Oltin tepa ko'chasi</p>
+            <h3>${venue || "To'yxona"}</h3>
+            <p>${venueAddress || ""}</p>
         </div>
 
         <div class="qr-placeholder">
@@ -419,18 +423,18 @@
         </div>
 
         <div class="actions">
-            <button class="btn gift-btn">💝 HADYA YUBORISH</button>
-            <button class="btn photo-btn">📸 RASM YUKLASH</button>
+            ${giftEnabled ? `<button class="btn gift-btn" id="trigger-gift">💝 Hadya Yuborish</button>` : ""}
+            ${photoEnabled ? `<button class="btn photo-btn" id="trigger-photo">📸 Rasm Yuklash</button>` : ""}
         </div>
 
         <div class="footer">
-            <a href="tel:+998901234567" class="phone">+998 90 123 45 67</a>
+            <a href="tel:+998901234567" class="phone">${phone || ""}</a>
             <button class="share-btn">Mehmonlarga Ulashish</button>
         </div>
 
         <div class="accent-bar accent-bottom"></div>
     </div>
 
-</body>
 
-</html>
+</div>`;
+}

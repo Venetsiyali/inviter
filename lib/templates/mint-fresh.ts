@@ -1,14 +1,22 @@
-<!DOCTYPE html>
-<html lang="uz">
+import { TemplateData } from "./index";
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aziza & Jasur - Taklifnoma</title>
+export function mintFresh(data: TemplateData): string {
+    const {
+        brideGroom, formattedDate, eventTime, venue, venueAddress,
+        venueLat, venueLng, phone, giftEnabled, photoEnabled
+    } = data;
+
+    const part1 = brideGroom.split(/ & | va | \+ /i)[0] || brideGroom;
+    const part2 = brideGroom.split(/ & | va | \+ /i)[1] || '';
+
+    return `
+<div class="template-wrapper">
     <style>
+        
+        ${String.raw`
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
-        :root {
+        .template-wrapper {
             --primary: #00897B;
             --secondary: #E0F2F1;
             --bg: #FFFFFF;
@@ -17,13 +25,9 @@
             --accent: #FFCA28;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        
 
-        body {
+        .template-wrapper {
             background-color: #f0f7f6;
             font-family: 'Poppins', sans-serif;
             color: var(--text-main);
@@ -324,7 +328,7 @@
 
         /* MOBILE RESPONSIVE */
         @media screen and (max-width: 480px) {
-            body {
+            .template-wrapper {
                 padding: 0;
                 background: var(--bg);
             }
@@ -344,27 +348,27 @@
                 padding: 25px 15px;
             }
         }
+    `}
     </style>
-</head>
-
-<body>
+    
+    
 
     <div class="invitation-card">
         <div class="hero-section">
             <div class="badge">Nikoh To'yi</div>
-            <h1>Aziza</h1>
+            <h1>${part1}</h1>
             <span class="ampersand">&</span>
-            <h1>Jasur</h1>
+            <h1>${part2}</h1>
         </div>
 
         <div class="content-card">
             <div class="date-time">
-                <div class="date">15 Iyun, 2026 - Shanba</div>
-                <div class="time">Soat 12:00 da</div>
+                <div class="date">${formattedDate}</div>
+                <div class="time">${eventTime ? `SOAT ${eventTime}` : ""} da</div>
             </div>
 
             <div class="venue">
-                <h3>Guliston Banquet Hall</h3>
+                <h3>${venue || "To'yxona"}</h3>
                 <p>Toshkent sh., Yunusobod tumani, 14-mavze</p>
             </div>
         </div>
@@ -374,16 +378,16 @@
         </div>
 
         <div class="actions">
-            <button class="btn gift-btn">💝 Hadya yuborish</button>
-            <button class="btn photo-btn">📸 Rasm yuklash</button>
+            ${giftEnabled ? `<button class="btn gift-btn" id="trigger-gift">💝 Hadya Yuborish</button>` : ""}
+            ${photoEnabled ? `<button class="btn photo-btn" id="trigger-photo">📸 Rasm Yuklash</button>` : ""}
         </div>
 
         <div class="footer">
-            <a href="tel:+998901234567" class="phone">📞 +998 90 123 45 67</a><br>
+            <a href="tel:+998901234567" class="phone">📞 ${phone || ""}</a><br>
             <button class="share-btn">Ulashish</button>
         </div>
     </div>
 
-</body>
 
-</html>
+</div>`;
+}

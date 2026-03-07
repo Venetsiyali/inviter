@@ -1,16 +1,24 @@
-<!DOCTYPE html>
-<html lang="uz">
+import { TemplateData } from "./index";
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aziza & Jasur - Taklifnoma</title>
+export function sageBotanical(data: TemplateData): string {
+    const {
+        brideGroom, formattedDate, eventTime, venue, venueAddress,
+        venueLat, venueLng, phone, giftEnabled, photoEnabled
+    } = data;
+
+    const part1 = brideGroom.split(/ & | va | \+ /i)[0] || brideGroom;
+    const part2 = brideGroom.split(/ & | va | \+ /i)[1] || '';
+
+    return `
+<div class="template-wrapper">
     <style>
+        
+        ${String.raw`
         /* FONTS */
         @import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Serif+Pro:wght@300;400;600&display=swap');
 
         /* CSS VARIABLES */
-        :root {
+        .template-wrapper {
             --primary: #6B7C59;
             /* Sage Green */
             --secondary: #E3E9E0;
@@ -25,13 +33,9 @@
         }
 
         /* RESET & BASE */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        
 
-        body {
+        .template-wrapper {
             background-color: #E8E2DA;
             font-family: 'Source Serif Pro', serif;
             color: var(--text-main);
@@ -309,7 +313,7 @@
 
         /* RESPONSIVE DESIGN - MOBILE */
         @media screen and (max-width: 480px) {
-            body {
+            .template-wrapper {
                 padding: 0;
                 background: var(--bg);
             }
@@ -341,10 +345,10 @@
                 max-width: 100%;
             }
         }
+    `}
     </style>
-</head>
-
-<body>
+    
+    
 
     <div class="invitation-card">
         <!-- Botanical Decors -->
@@ -352,21 +356,21 @@
 
         <div class="hero-section">
             <div class="badge">Nikoh Oqshomi</div>
-            <h1>Aziza</h1>
+            <h1>${part1}</h1>
             <span class="ampersand">va</span>
-            <h1>Jasur</h1>
+            <h1>${part2}</h1>
         </div>
 
         <div class="divider"></div>
 
         <div class="date-time">
-            <div class="date">15 Iyun, Shanba • 2026</div>
-            <div class="time-box">🕰 12:00</div>
+            <div class="date">${formattedDate}</div>
+            <div class="time-box">${eventTime ? `🕰 ${eventTime}` : ""}</div>
         </div>
 
         <div class="venue">
-            <h3>Guliston Banquet Hall</h3>
-            <p>Toshkent sh., Yunusobod tumani,<br>14-mavze, Oltin tepa</p>
+            <h3>${venue || "To'yxona"}</h3>
+            <p>${venueAddress || ""}</p>
         </div>
 
         <div class="qr-placeholder">
@@ -374,16 +378,16 @@
         </div>
 
         <div class="actions">
-            <button class="btn gift-btn">💝 Hadya yuborish</button>
-            <button class="btn photo-btn">📸 Rasm yuklash</button>
+            ${giftEnabled ? `<button class="btn gift-btn" id="trigger-gift">💝 Hadya Yuborish</button>` : ""}
+            ${photoEnabled ? `<button class="btn photo-btn" id="trigger-photo">📸 Rasm Yuklash</button>` : ""}
         </div>
 
         <div class="footer">
-            <a href="tel:+998901234567" class="phone">📞 +998 90 123 45 67</a><br>
+            <a href="tel:+998901234567" class="phone">📞 ${phone || ""}</a><br>
             <button class="share-btn">Mehmonlarga ulashish</button>
         </div>
     </div>
 
-</body>
 
-</html>
+</div>`;
+}

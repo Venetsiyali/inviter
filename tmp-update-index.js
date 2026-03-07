@@ -1,14 +1,8 @@
-// ============================================================
-// Template Registry — All HTML templates
-// ============================================================
+const fs = require('fs');
+const indexFile = 'lib/templates/index.ts';
+let content = fs.readFileSync(indexFile, 'utf8');
 
-import { InvitationData } from "../generate-invitation";
-import { weddingClassic } from "./wedding-classic";
-import { weddingModern } from "./wedding-modern";
-import { oshTraditional } from "./osh-traditional";
-import { birthdayFun } from "./birthday-fun";
-import { engagementElegant } from "./engagement-elegant";
-import { sunnatCelebration } from "./sunnat-celebration";
+const newImports = `
 import { royalGold } from "./royal-gold";
 import { roseGarden } from "./rose-garden";
 import { orientalSilk } from "./oriental-silk";
@@ -21,61 +15,24 @@ import { cherryBlossom } from "./cherry-blossom";
 import { velvetPurple } from "./velvet-purple";
 import { sandyBeach } from "./sandy-beach";
 import { emeraldClassic } from "./emerald-classic";
+`;
 
+const newTemplates = `
+    "royal-gold": royalGold,
+    "rose-garden": roseGarden,
+    "oriental-silk": orientalSilk,
+    "mint-fresh": mintFresh,
+    "midnight-luxury": midnightLuxury,
+    "sage-botanical": sageBotanical,
+    "azure-dream": azureDream,
+    "terracotta-boho": terracottaBoho,
+    "cherry-blossom": cherryBlossom,
+    "velvet-purple": velvetPurple,
+    "sandy-beach": sandyBeach,
+    "emerald-classic": emeraldClassic,
+`;
 
-export type TemplateData = InvitationData & {
-    formattedDate: string;
-};
-
-export type TemplateFunction = (data: TemplateData) => string;
-
-export const TEMPLATES: Record<string, TemplateFunction> = {
-    "wedding-classic": weddingClassic,
-    "wedding-modern": weddingModern,
-    "osh-traditional": oshTraditional,
-    "birthday-fun": birthdayFun,
-    "engagement-elegant": engagementElegant,
-    "sunnat-celebration": sunnatCelebration,
-};
-
-export const TEMPLATE_LIST = [
-    {
-        id: "wedding-classic",
-        name: "Klassik To'y",
-        eventTypes: ["WEDDING", "ENGAGEMENT"],
-        preview: "Hashamatli, an'anaviy uslubda to'y taklifnomasi",
-    },
-    {
-        id: "wedding-modern",
-        name: "Zamonaviy To'y",
-        eventTypes: ["WEDDING", "ENGAGEMENT"],
-        preview: "Minimal, zamonaviy uslubda to'y taklifnomasi",
-    },
-    {
-        id: "osh-traditional",
-        name: "An'anaviy Osh",
-        eventTypes: ["OSH", "SUNNAT", "OTHER"],
-        preview: "O'zbek an'anaviy uslubida osh/marosim taklifnomasi",
-    },
-    {
-        id: "birthday-fun",
-        name: "Tug'ilgan Kun",
-        eventTypes: ["BIRTHDAY", "OTHER"],
-        preview: "Quvnoq, yorqin tug'ilgan kun taklifnomasi",
-    },
-    {
-        id: "engagement-elegant",
-        name: "Nafis Unashtiruv",
-        eventTypes: ["ENGAGEMENT", "WEDDING"],
-        preview: "Nafis va zamonaviy unashtiruv taklifnomasi",
-    },
-    {
-        id: "sunnat-celebration",
-        name: "Sunnat To'yi",
-        eventTypes: ["SUNNAT", "OTHER"],
-        preview: "Bayramona sunnat to'yi taklifnomasi",
-    },
-
+const newListItems = `
     {
         id: "royal-gold",
         name: "Hashamatli Oltin",
@@ -148,4 +105,14 @@ export const TEMPLATE_LIST = [
         eventTypes: ["WEDDING", "OSH"],
         preview: "Klassik zumrad yashil va tilla, monogrammali"
     },
-];
+`;
+
+if (!content.includes('royalGold')) {
+    content = content.replace('import { sunnatCelebration } from "./sunnat-celebration";', 'import { sunnatCelebration } from "./sunnat-celebration";' + newImports);
+    content = content.replace('"sunnat-celebration": sunnatCelebration,\n};', '"sunnat-celebration": sunnatCelebration,' + newTemplates + '\n};');
+    content = content.replace(/];\s*$/, newListItems + '];\n');
+    fs.writeFileSync(indexFile, content);
+    console.log("Index updated successfully");
+} else {
+    console.log("Already updated");
+}
