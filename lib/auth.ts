@@ -1,12 +1,12 @@
-import { PrismaAdapter } from "@auth/prisma-adapter";
 import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
 import Credentials from "next-auth/providers/credentials";
 import { prisma } from "@/lib/db";
 import bcrypt from "bcryptjs";
+import { authConfig } from "@/lib/auth.config";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
-    adapter: PrismaAdapter(prisma),
+    ...authConfig,
     session: { strategy: "jwt" },
 
     providers: [
@@ -42,7 +42,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
                     id: user.id,
                     email: user.email,
                     name: user.name,
-                    image: user.image,
+                    image: (user as any).image || null,
                 };
             },
         }),
@@ -54,10 +54,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
                 // First login — attach plan info
                 const dbUser = await prisma.user.findUnique({
                     where: { id: user.id },
-                    select: { plan: true, planExpiry: true, role: true },
                 });
                 token.plan = dbUser?.plan || "FREE";
-                token.planExpiry = dbUser?.planExpiry?.toISOString() || null;
+                token.planExpiry = (dbUser as any)?.planExpiry?.toISOString() || (dbUser as any)?.premiumValidUntil?.toISOString() || null;
                 token.role = dbUser?.role || "USER";
             }
             return token;

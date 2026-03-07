@@ -1,57 +1,34 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { getToken } from "next-auth/jwt";
+import NextAuth from "next-auth";
+
+// Edge-compatible config without Prisma
+const edgeConfig = {
+    providers: [],
+    secret: process.env.AUTH_SECRET || process.env.NEXTAUTH_SECRET,
+};
+const { auth } = NextAuth(edgeConfig);
 
 /**
- * Edge-safe middleware:
- * 1. /dashboard/* → login required
- * 2. /dashboard/create → PRO plan required
- * 3. /i/[slug] → always public
- * 4. /api/auth/* → always public
+ * Edge-safe middleware
  */
-export async function middleware(request: NextRequest) {
-    const pathname = request.nextUrl.pathname;
+export default auth((req) => {
+    const pathname = req.nextUrl.pathname;
 
-    // ─── Always public routes ───────────────────────
-    const publicPrefixes = [
-        "/",
-        "/pricing",
-        "/about",
-        "/privacy",
-        "/terms",
-        "/login",
-        "/signup",
-        "/i/",
-        "/api/auth",
-        "/api/payment",
-        "/api/gift",
-        "/api/photo",
-        "/api/invitation/public",
-    ];
-
-    // Exact match for "/" or prefix match for others
-    if (pathname === "/") return NextResponse.next();
-    if (publicPrefixes.some((p) => p !== "/" && pathname.startsWith(p))) {
-        return NextResponse.next();
-    }
 
     // ─── Auth check for /dashboard and /api/* ───────
-    const token = await getToken({
-        req: request,
-        secret: process.env.AUTH_SECRET || process.env.NEXTAUTH_SECRET,
-    });
-
-    if (!token) {
+    if (!req.auth) {
         // Not logged in → redirect to login
-        const loginUrl = new URL("/login", request.url);
+        const loginUrl = new URL("/login", req.url);
         loginUrl.searchParams.set("callbackUrl", pathname);
         return NextResponse.redirect(loginUrl);
     }
 
     // ─── PRO plan check for /dashboard/create ───────
     if (pathname.startsWith("/dashboard/create")) {
-        const plan = token.plan as string;
-        const planExpiry = token.planExpiry as string | null;
+        const plan = (req.auth.user as any)?.plan as string;
+        const planExpiry = (req.auth.user as any)?.planExpiry as string | null;
 
         const isPro =
             plan === "PRO" &&
@@ -64,7 +41,7 @@ export async function middleware(request: NextRequest) {
     }
 
     return NextResponse.next();
-}
+});
 
 export const config = {
     matcher: [
