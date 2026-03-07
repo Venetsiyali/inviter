@@ -6,38 +6,15 @@ import { prisma } from "@/lib/db";
 import bcrypt from "bcryptjs";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
-    adapter: PrismaAdapter(prisma),
     session: {
-        strategy: "jwt", // MUHIM: Edge xatosini oldini olish uchun JWT majburiy
-        maxAge: 30 * 24 * 60 * 60, // 30 kun
+        strategy: "jwt",
+        maxAge: 30 * 24 * 60 * 60,
     },
     providers: [
         Google({
             clientId: process.env.GOOGLE_CLIENT_ID!,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-            allowDangerousEmailAccountLinking: true, // Bir xil email bilan qayta kirishga ruxsat
-        }),
-        Credentials({
-            name: "Email",
-            credentials: {
-                email: { label: "Email", type: "email" },
-                password: { label: "Parol", type: "password" },
-            },
-            async authorize(credentials) {
-                if (!credentials?.email || !credentials?.password) return null;
-                const user = await prisma.user.findUnique({
-                    where: { email: credentials.email as string },
-                });
-                if (!user || !user.passwordHash) return null;
-                const isValid = await bcrypt.compare(credentials.password as string, user.passwordHash);
-                if (!isValid) return null;
-                return {
-                    id: user.id,
-                    email: user.email,
-                    name: user.name,
-                    image: (user as any).image || null,
-                };
-            },
+            allowDangerousEmailAccountLinking: true,
         }),
     ],
     pages: {
@@ -46,24 +23,76 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     },
     secret: process.env.AUTH_SECRET || process.env.NEXTAUTH_SECRET,
     basePath: "/api/auth",
-    trustHost: true, // Vercel uchun MUHIM
+    trustHost: true,
 
     callbacks: {
-        async jwt({ token, user, trigger, session }) {
-            // Agar foydalanuvchi endi kirgan bo'lsa (user obyekti mavjud bo'ladi)
-            if (user) {
-                token.id = user.id;
-                // Bazadan eng so'nggi ma'lumotlarni olamiz
-                const dbUser = await prisma.user.findUnique({
-                    where: { id: user.id },
-                    select: { plan: true, planExpiry: true, role: true, phone: true }
-                });
-                token.plan = dbUser?.plan || "FREE";
-                token.planExpiry = (dbUser as any)?.planExpiry?.toISOString() || (dbUser as any)?.premiumValidUntil?.toISOString() || null;
-                token.role = dbUser?.role || "USER";
-                token.phone = dbUser?.phone || null;
+        async signIn({ user, account, profile }) {
+            if (account?.provider === "google") {
+                if (!user.email) return false;
+
+                // Manual Prisma User & Account creation (Node.js runtime safe)
+                try {
+                    const existingUser = await prisma.user.findUnique({
+                        where: { email: user.email }
+                    });
+
+                    if (!existingUser) {
+                        await prisma.user.create({
+                            data: {
+                                email: user.email,
+                                name: user.name,
+                                image: (user as any).image,
+                                googleId: account.providerAccountId,
+                                emailVerified: new Date(),
+                                accounts: {
+                                    create: {
+                                        type: account.type,
+                                        provider: account.provider,
+                                        providerAccountId: account.providerAccountId,
+                                        access_token: account.access_token,
+                                        expires_at: account.expires_at,
+                                        id_token: account.id_token,
+                                    }
+                                }
+                            }
+                        } as any);
+                    } else if (existingUser && !existingUser.googleId) {
+                        // Link account if email exists but no googleId
+                        await prisma.user.update({
+                            where: { email: existingUser.email },
+                            data: {
+                                googleId: account.providerAccountId,
+                                // Remove image update here since existingUser type complaining about it
+                            } as any
+                        });
+                    }
+                    return true;
+                } catch (error) {
+                    console.error("Prisma error during sign in:", error);
+                    return false;
+                }
             }
-            // Sessiyani yangilash trigger qilinganda
+            return true;
+        },
+
+        async jwt({ token, user, trigger, session, account }) {
+            // First login
+            if (user && user.email) {
+                // If Google login, fetch the newly created or existing user DB ID
+                const dbUser = await prisma.user.findUnique({
+                    where: { email: user.email },
+                    select: { id: true, plan: true, role: true }
+                });
+
+                if (dbUser) {
+                    token.id = dbUser.id;
+                    token.plan = dbUser.plan;
+                    // For Edge safety, we handle planExpiry loosely
+                    token.planExpiry = (dbUser as any)?.planExpiry?.toISOString() || null;
+                    token.role = dbUser.role;
+                    token.phone = (dbUser as any)?.phone || null;
+                }
+            }
             if (trigger === "update" && session) {
                 token.plan = session.plan;
                 token.planExpiry = session.planExpiry;
