@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aziza & Jasur - Taklifnoma</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,700;1,300&family=Open+Sans:wght@300;400;600&display=swap');
+
+        :root {
+            --primary: #1565C0;
+            --secondary: #E3F2FD;
+            --accent: #2196F3;
+            --bg: #FFFFFF;
+            --text-main: #334E68;
+            --text-muted: #627D98;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #BBDEFB 0%, #E3F2FD 100%);
+            font-family: 'Open Sans', sans-serif;
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px 0;
+            overflow-x: hidden;
+        }
+
+        .invitation-card {
+            background: var(--bg);
+            width: 100%;
+            max-width: 480px;
+            min-height: 90vh;
+            position: relative;
+            border-radius: 30px;
+            padding: 0;
+            box-shadow: 0 15px 40px rgba(21, 101, 192, 0.15);
+            text-align: center;
+            overflow: hidden;
+            animation: floatUp 1s ease-out;
+            z-index: 1;
+        }
+
+        @keyframes floatUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* HEADER / SKY PATTERN */
+        .sky-header {
+            background: linear-gradient(180deg, var(--secondary) 0%, rgba(255, 255, 255, 0) 100%);
+            padding: 40px 30px 20px;
+            position: relative;
+        }
+
+        /* Animated Clouds using CSS */
+        .cloud {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 50px;
+            animation: float-cloud linear infinite;
+            z-index: 0;
+        }
+
+        .c1 {
+            width: 80px;
+            height: 30px;
+            top: 20px;
+            left: -80px;
+            animation-duration: 25s;
+            filter: blur(2px);
+        }
+
+        .c2 {
+            width: 120px;
+            height: 40px;
+            top: 60px;
+            right: -120px;
+            animation-duration: 35s;
+            animation-direction: reverse;
+            filter: blur(4px);
+        }
+
+        @keyframes float-cloud {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(600px);
+            }
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            padding: 6px 16px;
+            border-radius: 20px;
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 4px 10px rgba(21, 101, 192, 0.3);
+        }
+
+        .hero-section {
+            padding: 0 30px;
+            margin-bottom: 35px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-section h1 {
+            font-family: 'Merriweather', serif;
+            font-size: 46px;
+            font-weight: 700;
+            color: var(--primary);
+            line-height: 1.2;
+        }
+
+        .ampersand {
+            display: block;
+            color: var(--accent);
+            font-size: 32px;
+            font-style: italic;
+            margin: -5px 0;
+            font-weight: 300;
+        }
+
+        /* FLYING BIRDS (CSS Unicode) */
+        .birds {
+            font-size: 24px;
+            color: var(--text-muted);
+            opacity: 0.3;
+            letter-spacing: 15px;
+            margin: -10px auto 30px;
+        }
+
+        /* CONTENT BODY */
+        .card-body {
+            padding: 0 30px 40px;
+        }
+
+        .date-time {
+            margin-bottom: 30px;
+            background: rgba(227, 242, 253, 0.4);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px dashed var(--accent);
+        }
+
+        .date-time .date {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .date-time .time {
+            font-size: 15px;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+        }
+
+        /* VENUE */
+        .venue {
+            margin-bottom: 35px;
+        }
+
+        .venue h3 {
+            font-family: 'Merriweather', serif;
+            font-size: 20px;
+            color: var(--primary);
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .venue p {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-muted);
+        }
+
+        /* QR PLACEHOLDER */
+        .qr-placeholder {
+            width: 150px;
+            height: 150px;
+            background: #E5E7EB;
+            border: 2px solid white;
+            outline: 2px solid var(--secondary);
+            border-radius: 16px;
+            margin: 0 auto 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 14px;
+            box-shadow: 0 10px 20px rgba(21, 101, 192, 0.1);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .qr-placeholder:hover {
+            transform: scale(1.05);
+        }
+
+        /* BUTTONS */
+        .actions {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            padding: 16px;
+            border-radius: 12px;
+            font-family: 'Open Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .gift-btn {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 6px 15px rgba(21, 101, 192, 0.3);
+        }
+
+        .gift-btn:active,
+        .gift-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(21, 101, 192, 0.4);
+            background: #0D47A1;
+        }
+
+        .photo-btn {
+            background: var(--secondary);
+            color: var(--primary);
+        }
+
+        .photo-btn:active,
+        .photo-btn:hover {
+            transform: translateY(-2px);
+            background: #BBDEFB;
+        }
+
+        /* FOOTER */
+        .footer {
+            border-top: 1px solid var(--secondary);
+            padding-top: 20px;
+        }
+
+        .footer .phone {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--primary);
+            text-decoration: none;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        .footer .share-btn {
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+
+        .footer .share-btn:hover {
+            background: var(--accent);
+            color: white;
+        }
+
+        /* MOBILE RESPONSIVE */
+        @media screen and (max-width: 480px) {
+            body {
+                padding: 0;
+                background: var(--bg);
+            }
+
+            .invitation-card {
+                border-radius: 0;
+                box-shadow: none;
+                min-height: 100vh;
+                padding-bottom: 30px;
+            }
+
+            .hero-section h1 {
+                font-size: 42px;
+            }
+
+            .btn {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="invitation-card">
+        <div class="sky-header">
+            <div class="cloud c1"></div>
+            <div class="cloud c2"></div>
+            <div class="badge">Uylanish To'yi</div>
+        </div>
+
+        <div class="hero-section">
+            <h1>Aziza</h1>
+            <span class="ampersand">&</span>
+            <h1>Jasur</h1>
+        </div>
+
+        <div class="birds">🕊 🕊</div>
+
+        <div class="card-body">
+            <div class="date-time">
+                <div class="date">15 Iyun, 2026 - Shanba</div>
+                <div class="time">Soat 12:00 da osh tortiladi</div>
+            </div>
+
+            <div class="venue">
+                <h3>Guliston Banquet Hall</h3>
+                <p>Toshkent sh., Yunusobod tumani,<br>14-mavze</p>
+            </div>
+
+            <div class="qr-placeholder">
+                QR Kod
+            </div>
+
+            <div class="actions">
+                <button class="btn gift-btn">💝 Hadya Yuborish</button>
+                <button class="btn photo-btn">📸 Rasm Yuklash</button>
+            </div>
+
+            <div class="footer">
+                <a href="tel:+998901234567" class="phone">📞 +998 90 123 45 67</a><br>
+                <button class="share-btn">Ulashish</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

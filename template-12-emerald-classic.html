@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aziza & Jasur - Taklifnoma</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Jost:wght@300;400;500;600&display=swap');
+
+        :root {
+            --primary: #0F4C3A;
+            /* Deep Emerald */
+            --secondary: #D4AF37;
+            /* Metallic Gold */
+            --bg: #FFFFFF;
+            /* Pure White */
+            --bg-alt: #F8F9FA;
+            /* Light Grey */
+            --text-main: #1A1A1A;
+            /* Near Black */
+            --text-muted: #595959;
+            /* Medium Grey */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #E8ECEB;
+            font-family: 'Jost', sans-serif;
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px 0;
+            overflow-x: hidden;
+        }
+
+        .invitation-card {
+            background-color: var(--bg);
+            width: 100%;
+            max-width: 480px;
+            min-height: 90vh;
+            position: relative;
+            border-radius: 0;
+            /* Classic Sharp Edges */
+            padding: 50px 30px;
+            box-shadow: 0 25px 50px rgba(15, 76, 58, 0.15);
+            text-align: center;
+            overflow: hidden;
+            animation: elegantFade 1.5s ease-out;
+            z-index: 1;
+        }
+
+        @keyframes elegantFade {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ELEGANT DOUBLE BORDER */
+        .invitation-card::before,
+        .invitation-card::after {
+            content: '';
+            position: absolute;
+            pointer-events: none;
+        }
+
+        .invitation-card::before {
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            bottom: 15px;
+            border: 1px solid var(--primary);
+            z-index: 0;
+        }
+
+        .invitation-card::after {
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            border: 1px solid rgba(15, 76, 58, 0.3);
+            z-index: 0;
+        }
+
+        /* TOP/BOTTOM EMERALD ACCENTS */
+        .accent-bar {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 4px;
+            background: var(--primary);
+            z-index: 2;
+        }
+
+        .accent-top {
+            top: 0;
+        }
+
+        .accent-bottom {
+            bottom: 0;
+        }
+
+        /* MONOGRAM LOGO */
+        .monogram {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 30px;
+            border: 1px solid var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 28px;
+            color: var(--primary);
+            position: relative;
+            background: var(--bg);
+            z-index: 2;
+        }
+
+        .monogram::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            border: 1px dashed var(--secondary);
+            border-radius: 50%;
+            animation: spin-slow 20s linear infinite;
+        }
+
+        @keyframes spin-slow {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* HERO SECTION */
+        .hero-section {
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .badge {
+            display: inline-block;
+            color: var(--text-muted);
+            font-size: 10px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            margin-bottom: 25px;
+        }
+
+        .hero-section h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 48px;
+            font-weight: 600;
+            color: var(--primary);
+            line-height: 1.1;
+            letter-spacing: 1px;
+        }
+
+        .ampersand {
+            display: block;
+            color: var(--secondary);
+            font-size: 32px;
+            font-style: italic;
+            font-family: 'Cormorant Garamond', serif;
+            margin: 5px 0;
+            font-weight: 400;
+        }
+
+        /* DATETIME BLOCK */
+        .date-time {
+            margin-bottom: 35px;
+            position: relative;
+            z-index: 2;
+            padding: 20px 0;
+            border-top: 1px solid rgba(15, 76, 58, 0.2);
+            border-bottom: 1px solid rgba(15, 76, 58, 0.2);
+        }
+
+        .date-time .date {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 20px;
+            color: var(--text-main);
+            margin-bottom: 8px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .date-time .time {
+            font-size: 14px;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+        }
+
+        /* VENUE */
+        .venue {
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .venue h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 20px;
+            color: var(--primary);
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .venue p {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-muted);
+        }
+
+        /* QR PLACEHOLDER */
+        .qr-placeholder {
+            width: 130px;
+            height: 130px;
+            background: var(--bg-alt);
+            border: 1px solid var(--secondary);
+            margin: 0 auto 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-size: 12px;
+            letter-spacing: 2px;
+            position: relative;
+            z-index: 2;
+            transition: all 0.4s ease;
+        }
+
+        .qr-placeholder:hover {
+            background: var(--primary);
+            color: var(--secondary);
+            border-color: var(--primary);
+        }
+
+        /* BUTTONS */
+        .actions {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 35px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .btn {
+            padding: 16px;
+            border-radius: 0;
+            font-family: 'Jost', sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .gift-btn {
+            background: var(--primary);
+            color: var(--bg);
+        }
+
+        .gift-btn:hover {
+            background: var(--bg);
+            color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .photo-btn {
+            background: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        .photo-btn:hover {
+            background: var(--secondary);
+            color: var(--bg);
+            border-color: var(--secondary);
+        }
+
+        /* FOOTER */
+        .footer {
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer .phone {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-main);
+            text-decoration: none;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        .footer .share-btn {
+            display: block;
+            margin: 0 auto;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            border-bottom: 1px solid var(--text-muted);
+            padding-bottom: 2px;
+            transition: 0.3s;
+        }
+
+        .footer .share-btn:hover {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        /* MOBILE RESPONSIVE */
+        @media screen and (max-width: 480px) {
+            body {
+                padding: 0;
+                background: var(--bg);
+            }
+
+            .invitation-card {
+                border-radius: 0;
+                border: none;
+                min-height: 100vh;
+                padding: 40px 20px;
+                box-shadow: none;
+            }
+
+            .invitation-card::before {
+                top: 10px;
+                left: 10px;
+                right: 10px;
+                bottom: 10px;
+            }
+
+            .invitation-card::after {
+                top: 15px;
+                left: 15px;
+                right: 15px;
+                bottom: 15px;
+            }
+
+            .hero-section h1 {
+                font-size: 42px;
+            }
+
+            .monogram {
+                width: 60px;
+                height: 60px;
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="invitation-card">
+
+        <div class="accent-bar accent-top"></div>
+
+        <div class="monogram">A&J</div>
+
+        <div class="hero-section">
+            <div class="badge">Shukuhli Oqshom</div>
+            <h1>Aziza</h1>
+            <span class="ampersand">&amp;</span>
+            <h1>Jasur</h1>
+        </div>
+
+        <div class="date-time">
+            <div class="date">O'N BESHINCHI IYUN, 2026</div>
+            <div class="time">SOAT 12:00 DA TASHRIF BUYURING</div>
+        </div>
+
+        <div class="venue">
+            <h3>Guliston Banquet Hall</h3>
+            <p>Toshkent shahri, Yunusobod tumani,<br>14-mavze, Oltin tepa ko'chasi</p>
+        </div>
+
+        <div class="qr-placeholder">
+            QR KOD
+        </div>
+
+        <div class="actions">
+            <button class="btn gift-btn">💝 HADYA YUBORISH</button>
+            <button class="btn photo-btn">📸 RASM YUKLASH</button>
+        </div>
+
+        <div class="footer">
+            <a href="tel:+998901234567" class="phone">+998 90 123 45 67</a>
+            <button class="share-btn">Mehmonlarga Ulashish</button>
+        </div>
+
+        <div class="accent-bar accent-bottom"></div>
+    </div>
+
+</body>
+
+</html>

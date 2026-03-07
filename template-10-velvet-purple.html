@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aziza & Jasur - Taklifnoma</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Montserrat:wght@300;400;600;700&display=swap');
+
+        :root {
+            --primary: #4A148C;
+            --secondary: #E1BEE7;
+            --bg: #1B0033;
+            --text-main: #FFFFFF;
+            --text-muted: #D1C4E9;
+            --gold: #FFD54F;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0b001a;
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px 0;
+            overflow-x: hidden;
+        }
+
+        .invitation-card {
+            background: linear-gradient(135deg, var(--bg) 0%, var(--primary) 100%);
+            width: 100%;
+            max-width: 480px;
+            min-height: 90vh;
+            position: relative;
+            border-radius: 10px;
+            padding: 50px 30px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            overflow: hidden;
+            animation: fadeInScale 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+            border: 2px solid var(--gold);
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* ART DECO BORDERS */
+        .invitation-card::before,
+        .invitation-card::after {
+            content: '';
+            position: absolute;
+            border: 1px solid rgba(255, 213, 79, 0.4);
+            pointer-events: none;
+        }
+
+        .invitation-card::before {
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            bottom: 15px;
+        }
+
+        .invitation-card::after {
+            top: 25px;
+            left: 25px;
+            right: 25px;
+            bottom: 25px;
+        }
+
+        /* GEOMETRIC DIAMOND */
+        .diamond-decor {
+            width: 30px;
+            height: 30px;
+            background: rgba(255, 213, 79, 0.1);
+            border: 1px solid var(--gold);
+            transform: rotate(45deg);
+            margin: 0 auto 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .diamond-decor::after {
+            content: '';
+            width: 15px;
+            height: 15px;
+            background: var(--gold);
+        }
+
+        /* HERO SECTION */
+        .hero-section {
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .badge {
+            display: inline-block;
+            color: var(--gold);
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            margin-bottom: 20px;
+        }
+
+        .hero-section h1 {
+            font-family: 'Abril Fatface', serif;
+            font-size: 52px;
+            color: var(--gold);
+            line-height: 1.1;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .ampersand {
+            display: block;
+            color: var(--text-muted);
+            font-size: 30px;
+            font-style: italic;
+            font-family: 'Montserrat', sans-serif;
+            margin: 5px 0;
+            font-weight: 300;
+        }
+
+        /* DIVIDER */
+        .divider {
+            margin: 30px auto;
+            width: 60%;
+            height: 1px;
+            background: var(--gold);
+            position: relative;
+        }
+
+        .divider::before {
+            content: '◆';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--gold);
+            background: var(--bg);
+            padding: 0 10px;
+            font-size: 14px;
+        }
+
+        /* DATE & TIME */
+        .date-time {
+            margin-bottom: 35px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .date-time .date {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 4px;
+            color: var(--secondary);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .date-time .time {
+            font-size: 15px;
+            color: var(--gold);
+            letter-spacing: 2px;
+            border: 1px solid rgba(255, 213, 79, 0.3);
+            display: inline-block;
+            padding: 8px 20px;
+        }
+
+        /* VENUE */
+        .venue {
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .venue h3 {
+            font-family: 'Abril Fatface', serif;
+            font-size: 24px;
+            color: var(--gold);
+            margin-bottom: 12px;
+            letter-spacing: 1px;
+        }
+
+        .venue p {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+        }
+
+        /* QR PLACEHOLDER */
+        .qr-placeholder {
+            width: 140px;
+            height: 140px;
+            background: #111;
+            border: 2px solid var(--gold);
+            margin: 0 auto 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            font-size: 13px;
+            letter-spacing: 3px;
+            font-weight: 700;
+            position: relative;
+            z-index: 2;
+            transition: transform 0.3s;
+        }
+
+        .qr-placeholder:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        /* BUTTONS */
+        .actions {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .btn {
+            padding: 18px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .gift-btn {
+            background: var(--gold);
+            color: var(--primary);
+        }
+
+        .gift-btn:hover {
+            background: #FFF;
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(255, 213, 79, 0.4);
+        }
+
+        .photo-btn {
+            background: transparent;
+            color: var(--gold);
+            border: 1px solid var(--gold);
+        }
+
+        .photo-btn:hover {
+            background: rgba(255, 213, 79, 0.1);
+        }
+
+        /* FOOTER */
+        .footer {
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer .phone {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--secondary);
+            text-decoration: none;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+
+        .footer .share-btn {
+            display: block;
+            margin: 0 auto;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .footer .share-btn:hover {
+            color: var(--gold);
+        }
+
+        /* MOBILE RESPONSIVE */
+        @media screen and (max-width: 480px) {
+            body {
+                padding: 0;
+                background: var(--bg);
+            }
+
+            .invitation-card {
+                border-radius: 0;
+                border: none;
+                border-top: 2px solid var(--gold);
+                min-height: 100vh;
+                padding: 40px 20px;
+            }
+
+            .invitation-card::before,
+            .invitation-card::after {
+                display: none;
+            }
+
+            .hero-section h1 {
+                font-size: 46px;
+            }
+
+            .venue h3 {
+                font-size: 20px;
+            }
+
+            .btn {
+                padding: 16px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="invitation-card">
+
+        <div class="diamond-decor"></div>
+
+        <div class="hero-section">
+            <div class="badge">N I K O H &nbsp; T O' Y I</div>
+            <h1>Aziza</h1>
+            <span class="ampersand">&</span>
+            <h1>Jasur</h1>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="date-time">
+            <div class="date">15 IYUN, 2026</div>
+            <div class="time">SOAT 12:00</div>
+        </div>
+
+        <div class="venue">
+            <h3>GULISTON BANQUET</h3>
+            <p>Toshkent sh., Yunusobod tumani,<br>14-mavze</p>
+        </div>
+
+        <div class="qr-placeholder">
+            QR KOD
+        </div>
+
+        <div class="actions">
+            <button class="btn gift-btn">💝 HADYA YUBORISH</button>
+            <button class="btn photo-btn">📸 RASM YUKLASH</button>
+        </div>
+
+        <div class="footer">
+            <a href="tel:+998901234567" class="phone">+998 90 123 45 67</a><br>
+            <button class="share-btn">ULASHISH</button>
+        </div>
+    </div>
+
+</body>
+
+</html>
