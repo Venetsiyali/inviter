@@ -1,35 +1,30 @@
 "use client";
 
-import { motion } from "framer-motion";
+import Link from "next/link";
 
 export default function Error({
-    error,
     reset,
 }: {
     error: Error & { digest?: string };
     reset: () => void;
 }) {
     return (
-        <div className="min-h-screen flex flex-col items-center justify-center bg-[#0a0a0f] text-white px-4">
-            <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="text-center max-w-md"
-            >
-                <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-red-500/10 flex items-center justify-center">
-                    <span className="text-4xl">⚠️</span>
-                </div>
-                <h2 className="text-2xl font-bold mb-3">Xatolik yuz berdi</h2>
-                <p className="text-slate-400 mb-8 leading-relaxed">
-                    Sahifani yuklab bo&apos;lmadi. Iltimos sahifani yangilang yoki keyinroq urinib ko&apos;ring.
+        <div className="min-h-screen bg-[var(--color-bg)] flex items-center justify-center px-4">
+            <div className="text-center">
+                <div className="text-7xl mb-6">⚠️</div>
+                <h1 className="text-2xl font-bold text-white mb-3">Xatolik yuz berdi</h1>
+                <p className="text-white/50 mb-8 max-w-sm mx-auto">
+                    Nimadir noto'g'ri ketdi. Iltimos, qayta urinib ko'ring.
                 </p>
-                <button
-                    onClick={reset}
-                    className="bg-amber-500 hover:bg-amber-600 text-black px-8 py-3.5 rounded-xl font-semibold transition-colors shadow-lg shadow-amber-500/20"
-                >
-                    Qayta Urinish
-                </button>
-            </motion.div>
+                <div className="flex gap-3 justify-center">
+                    <button onClick={reset} className="gradient-btn !py-3 !px-6 !text-sm">
+                        Qayta urinish
+                    </button>
+                    <Link href="/" className="py-3 px-6 rounded-full border border-white/10 text-white/60 text-sm hover:bg-white/5 transition-colors">
+                        Bosh sahifa
+                    </Link>
+                </div>
+            </div>
         </div>
     );
 }

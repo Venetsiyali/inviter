@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/db";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
+import GiftForm from "@/components/GiftForm";
 
 // ─── OG Meta Tags (for WhatsApp/Telegram preview) ────────
 export async function generateMetadata({
@@ -202,6 +203,17 @@ export default async function GuestPage({
                                 </a>
                             )}
                         </div>
+                    </div>
+                )}
+
+                {/* Gift Form */}
+                {invitation.giftEnabled && (
+                    <div className="relative z-10 px-6 mt-6">
+                        <GiftForm
+                            invitationId={invitation.id}
+                            primaryColor={invitation.primaryColor}
+                            secondaryColor={invitation.secondaryColor}
+                        />
                     </div>
                 )}
 

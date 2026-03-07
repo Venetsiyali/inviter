@@ -7,6 +7,8 @@ import { weddingClassic } from "./wedding-classic";
 import { weddingModern } from "./wedding-modern";
 import { oshTraditional } from "./osh-traditional";
 import { birthdayFun } from "./birthday-fun";
+import { engagementElegant } from "./engagement-elegant";
+import { sunnatCelebration } from "./sunnat-celebration";
 
 export type TemplateData = InvitationData & {
     formattedDate: string;
@@ -19,6 +21,8 @@ export const TEMPLATES: Record<string, TemplateFunction> = {
     "wedding-modern": weddingModern,
     "osh-traditional": oshTraditional,
     "birthday-fun": birthdayFun,
+    "engagement-elegant": engagementElegant,
+    "sunnat-celebration": sunnatCelebration,
 };
 
 export const TEMPLATE_LIST = [
@@ -46,4 +50,17 @@ export const TEMPLATE_LIST = [
         eventTypes: ["BIRTHDAY", "OTHER"],
         preview: "Quvnoq, yorqin tug'ilgan kun taklifnomasi",
     },
+    {
+        id: "engagement-elegant",
+        name: "Nafis Unashtiruv",
+        eventTypes: ["ENGAGEMENT", "WEDDING"],
+        preview: "Nafis va zamonaviy unashtiruv taklifnomasi",
+    },
+    {
+        id: "sunnat-celebration",
+        name: "Sunnat To'yi",
+        eventTypes: ["SUNNAT", "OTHER"],
+        preview: "Bayramona sunnat to'yi taklifnomasi",
+    },
 ];
+
