@@ -78,5 +78,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         error: "/login",
     },
 
+    secret: process.env.AUTH_SECRET || process.env.NEXTAUTH_SECRET,
+    basePath: "/api/auth",
     trustHost: true,
 });
