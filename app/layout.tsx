@@ -1,42 +1,26 @@
 import type { Metadata } from "next";
-import { Inter, Cormorant_Garamond } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
-import { StructuredData } from "@/components/StructuredData";
 import { Toaster } from "react-hot-toast";
 
-const inter = Inter({
-    subsets: ["latin", "cyrillic"],
-    weight: ["300", "400", "500", "600", "700"],
-    variable: "--font-sans",
-});
-
-const cormorant = Cormorant_Garamond({
-    subsets: ["latin", "cyrillic"],
-    weight: ["400", "500", "600", "700"],
-    variable: "--font-serif",
-});
+const inter = Inter({ subsets: ["latin", "cyrillic"] });
 
 export const metadata: Metadata = {
     title: {
-        default: "inviter.uz — To'yingiz uchun eng chiroyli taklifnoma | AI Yordamida",
+        default: "inviter.uz — Raqamli taklifnomalar platformasi",
         template: "%s | inviter.uz",
     },
     description:
-        "O'zbekistondagi ilk AI yordamida taklifnoma yaratish platformasi. To'y, osh, tug'ilgan kun uchun professional raqamli taklifnomalar. QR kod, GPS manzil, online hadya va rasm galereyasi — hammasi bir joyda.",
+        "To'y, osh, tug'ilgan kun va barcha marosimlar uchun chiroyli raqamli taklifnomalar yarating. QR kod, xarita, hadya va rasm galereyasi — barchasi bir joyda.",
     keywords: [
-        "taklifnoma", "online taklifnoma", "inviter uz", "to'y taklifnomasi",
-        "raqamli taklifnoma", "o'zbekcha taklifnomalar", "onlayn taklifnoma yaratish",
-        "AI taklifnoma", "tug'ilgan kun taklifnomasi", "nikoh taklifnomasi",
-        "sunnat to'yi", "osh marosimi", "digital invitation", "uzbekistan invitation",
+        "taklifnoma", "online taklifnoma", "raqamli taklifnoma",
+        "to'y taklifnomasi", "osh taklifnomasi", "QR kod taklifnoma",
+        "inviter.uz", "O'zbekiston",
     ],
-    authors: [{ name: "Inviter.uz Team" }],
-    creator: "Inviter.uz",
-    publisher: "Inviter.uz",
-    metadataBase: new URL("https://inviter.uz"),
-    alternates: { canonical: "/" },
+    metadataBase: new URL(process.env.NEXT_PUBLIC_URL || "https://inviter.uz"),
     openGraph: {
-        title: "inviter.uz — Professional To'y Taklifnomalari",
-        description: "AI yordamida 1 daqiqada mukammal taklifnoma. QR kod + GPS + Online hadya + Rasm galereyasi.",
+        title: "inviter.uz — Raqamli taklifnomalar platformasi",
+        description: "To'y, osh, tug'ilgan kun uchun chiroyli online taklifnomalar yarating. Bepul boshlang!",
         url: "https://inviter.uz",
         siteName: "inviter.uz",
         locale: "uz_UZ",
@@ -44,29 +28,13 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: "summary_large_image",
-        title: "inviter.uz — AI Yordamida Taklifnomalar",
-        description: "Professional raqamli taklifnomalar 60 soniyada yarating",
+        title: "inviter.uz — Raqamli taklifnomalar",
+        description: "Marosimlar uchun zamonaviy online taklifnomalar platformasi",
     },
     robots: {
         index: true,
         follow: true,
-        googleBot: {
-            index: true,
-            follow: true,
-            "max-video-preview": -1,
-            "max-image-preview": "large",
-            "max-snippet": -1,
-        },
     },
-    icons: {
-        icon: [
-            { url: "/favicon-96x96.png", sizes: "96x96", type: "image/png" },
-            { url: "/favicon.svg", type: "image/svg+xml" },
-        ],
-        shortcut: "/favicon.ico",
-        apple: "/apple-touch-icon.png",
-    },
-    manifest: "/manifest.json",
 };
 
 export default function RootLayout({
@@ -75,11 +43,22 @@ export default function RootLayout({
     children: React.ReactNode;
 }) {
     return (
-        <html lang="uz" className={`scroll-smooth ${inter.variable} ${cormorant.variable}`}>
+        <html lang="uz" suppressHydrationWarning>
             <body className={inter.className}>
-                <StructuredData />
                 {children}
-                <Toaster position="bottom-center" toastOptions={{ className: 'font-medium text-sm' }} />
+                <Toaster
+                    position="bottom-center"
+                    toastOptions={{
+                        duration: 3000,
+                        style: {
+                            background: "#1a1a2e",
+                            color: "#fff",
+                            borderRadius: "12px",
+                            fontSize: "14px",
+                            padding: "12px 20px",
+                        },
+                    }}
+                />
             </body>
         </html>
     );

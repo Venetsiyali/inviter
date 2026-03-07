@@ -1,3 +1,8 @@
+// ============================================================
+// inviter.uz — Database Schema
+// PostgreSQL + Prisma ORM
+// ============================================================
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -7,144 +12,186 @@ generator client {
   provider = "prisma-client-js"
 }
 
-// SQLite doesn't support enums - using String with defaults instead
-// UserRole: 'ADMIN' | 'USER'
-// UserPlan: 'FREE' | 'PREMIUM'
-
+// ─── USER ─────────────────────────────────────────────────────
 model User {
-  id                      String    @id @default(cuid())
-  email                   String    @unique
-  name                    String?
-  passwordHash            String?
-  emailVerified           Boolean   @default(false)
-  role                    String    @default("USER")
-  plan                    String    @default("FREE")
-  googleId                String?   @unique
-  premiumValidUntil       DateTime?
-  telegramChatId          String?
-  telegramUsername        String?
-  createdAt               DateTime  @default(now())
-  updatedAt               DateTime  @updatedAt
-  
-  sessions                Session[]
-  events                  Event[]
-  emailVerificationCodes  EmailVerificationCode[]
-  posts                   Post[]
-  
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String?
+  phone         String?
+  passwordHash  String?
+  image         String?
+  emailVerified DateTime?
+  googleId      String?   @unique
+
+  // Subscription
+  plan          String    @default("FREE") // FREE | PRO
+  planExpiry    DateTime?
+
+  // Admin
+  role          String    @default("USER") // USER | ADMIN
+
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // Relations
+  accounts      Account[]
+  sessions      AuthSession[]
+  invitations   Invitation[]
+  payments      Payment[]
+
   @@index([email])
 }
 
-model Session {
-  id        String   @id
-  userId    String
-  expiresAt DateTime
-  
-  user      User     @relation(references: [id], fields: [userId], onDelete: Cascade)
-  
+// ─── NEXTAUTH MODELS ──────────────────────────────────────────
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
   @@index([userId])
 }
 
-model EmailVerificationCode {
-  id        String   @id @default(cuid())
-  code      String
-  userId    String
-  eventType String   @default("wedding") // wedding, birthday, engagement, etc.
-  email     String
-  expiresAt DateTime
-  createdAt DateTime @default(now())
-  
-  user      User     @relation(references: [id], fields: [userId], onDelete: Cascade)
-  
-  @@unique([userId, email])
+model AuthSession {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
   @@index([userId])
+  @@map("Session")
 }
 
-model Event {
-  id            String   @id @default(cuid())
-  slug          String   @default(cuid()) @unique
-  userId        String
-  type          String   // 'wedding', 'osh', 'birthday', 'lutf', 'engagement', 'circumcision', 'anniversary'
-  title         String
-  date          DateTime
-  time          String?
-  location      String?
-  venueAddress  String?  // Full venue address
-  venueLat      Float?   // Venue latitude for Google Maps
-  venueLng      Float?   // Venue longitude for Google Maps
-  description   String?
-  locale        String   @default("UZ_LAT") // 'UZ_LAT', 'UZ_CYR', 'RU'
-  contentJson   String   // Event-specific content (JSON as string)
-  designConfig  String   // AI-generated design configuration (JSON as string)
-  imageUrl      String?  // Event image from Supabase Storage
-  giftEnabled   Boolean  @default(false)  // Enable gift/donation feature
-  photoEnabled  Boolean  @default(true)   // Enable photo gallery
-  isPublished   Boolean  @default(false)
-  views         Int      @default(0)
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-  
-  user          User     @relation(references: [id], fields: [userId], onDelete: Cascade)
-  guests        Guest[]
-  mediaUploads  MediaUpload[]
-  
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+// ─── INVITATION (Core Business Model) ─────────────────────────
+model Invitation {
+  id              String   @id @default(cuid())
+  slug            String   @unique @default(cuid())
+  userId          String
+
+  // Event info
+  eventType       String   // WEDDING, OSH, BIRTHDAY, ENGAGEMENT, SUNNAT, OTHER
+  brideGroom      String   // "Alisher & Madina" or event title
+  eventDate       DateTime
+  eventTime       String?  // "18:00"
+  venue           String?  // "Navruz" restaurant name
+  venueAddress    String?  // Full address text
+  venueLat        Float?
+  venueLng        Float?
+  phone           String?  // Contact phone
+
+  // Design
+  templateId      String   // e.g. "wedding-classic"
+  primaryColor    String   @default("#1E3A5F")
+  secondaryColor  String   @default("#C9A96E")
+  coverImageUrl   String?  // Custom cover image (R2)
+  htmlContent     String?  @db.Text // Pre-rendered HTML
+
+  // QR Code
+  qrCodeUrl       String?  // Generated QR image URL
+
+  // Features
+  giftEnabled     Boolean  @default(false)
+  giftClickId     String?  // Click merchant service ID for gifts
+  photoEnabled    Boolean  @default(false)
+
+  // Publishing
+  isPublished     Boolean  @default(false)
+  viewCount       Int      @default(0)
+  qrScanCount     Int      @default(0)
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  // Relations
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  gifts           Gift[]
+  photos          Photo[]
+
   @@index([userId])
   @@index([slug])
+  @@index([eventType])
 }
 
-model Guest {
-  id                    String   @id @default(cuid())
-  eventId               String
-  name                  String
-  phone                 String?
-  email                 String?
-  rsvpStatus            String   @default("pending") // 'pending', 'confirmed', 'declined', 'maybe'
-  message               String?
-  rsvpAt                DateTime?
-  donationAmount        Float?
-  paymentProvider       String?  // 'click', 'payme', 'stripe'
-  paymentTransactionId  String?
-  paymentStatus         String   @default("pending") // 'pending', 'completed', 'failed'
-  createdAt             DateTime @default(now())
-  updatedAt             DateTime @updatedAt
-  
-  event                 Event    @relation(references: [id], fields: [eventId], onDelete: Cascade)
-  
-  @@index([eventId])
-  @@index([rsvpStatus])
+// ─── GIFT (Donations from guests) ─────────────────────────────
+model Gift {
+  id              String   @id @default(cuid())
+  invitationId    String
+
+  guestName       String
+  guestPhone      String?
+  message         String?  @db.Text
+
+  amount          Int      // Amount in UZS (tiyin)
+  currency        String   @default("UZS")
+  status          String   @default("PENDING") // PENDING | COMPLETED | FAILED | REFUNDED
+  provider        String?  // "click" | "payme"
+  transactionId   String?  // External payment transaction ID
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  invitation      Invitation @relation(fields: [invitationId], references: [id], onDelete: Cascade)
+
+  @@index([invitationId])
+  @@index([status])
 }
 
-model MediaUpload {
-  id            String   @id @default(cuid())
-  eventId       String
-  uploaderName  String
-  imageUrl      String
-  caption       String?
-  createdAt     DateTime @default(now())
-  
-  event         Event    @relation(references: [id], fields: [eventId], onDelete: Cascade)
-  
-  @@index([eventId])
+// ─── PHOTO (Guest-uploaded photos) ────────────────────────────
+model Photo {
+  id              String   @id @default(cuid())
+  invitationId    String
+
+  uploaderName    String
+  url             String   // Full-size image URL (R2)
+  thumbnailUrl    String?  // Thumbnail URL (R2)
+  fileSize        Int?     // Bytes
+  approved        Boolean  @default(true)
+
+  createdAt       DateTime @default(now())
+
+  invitation      Invitation @relation(fields: [invitationId], references: [id], onDelete: Cascade)
+
+  @@index([invitationId])
 }
 
-model Post {
-  id          String   @id @default(cuid())
-  slug        String   @unique
-  title       String
-  excerpt     String
-  content     String   @db.Text
-  author      String
-  authorId    String?
-  category    String
-  keywords    String[]
-  readTime    String
-  published   Boolean  @default(true)
-  views       Int      @default(0)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  
-  user        User?    @relation(references: [id], fields: [authorId], onDelete: SetNull)
-  
-  @@index([slug])
-  @@index([published])
-  @@index([authorId])
+// ─── PAYMENT (PRO subscription purchases) ─────────────────────
+model Payment {
+  id              String   @id @default(cuid())
+  userId          String
+
+  amount          Int      // Amount in UZS (tiyin)
+  currency        String   @default("UZS")
+  status          String   @default("PENDING") // PENDING | COMPLETED | FAILED | REFUNDED
+  provider        String   // "click" | "payme"
+  transactionId   String?  // External payment ID
+  description     String?
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([status])
 }

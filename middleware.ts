@@ -1,68 +1,73 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { getToken } from "next-auth/jwt";
 
 /**
- * Edge-Safe Middleware
- * Faqat cookie borligini tekshiradi, database validation Server Component'da
+ * Edge-safe middleware:
+ * 1. /dashboard/* → login required
+ * 2. /dashboard/create → PRO plan required
+ * 3. /i/[slug] → always public
+ * 4. /api/auth/* → always public
  */
 export async function middleware(request: NextRequest) {
     const pathname = request.nextUrl.pathname;
 
-    // Public routes that don't require authentication
-    const publicRoutes = [
+    // ─── Always public routes ───────────────────────
+    const publicPrefixes = [
         "/",
-        "/auth/login",
-        "/auth/signup",
-        "/auth/verify",
-        "/test/ai", // AI demo page
+        "/pricing",
+        "/about",
+        "/privacy",
+        "/terms",
+        "/login",
+        "/signup",
+        "/i/",
+        "/api/auth",
+        "/api/payment",
+        "/api/gift",
+        "/api/photo",
+        "/api/invitation/public",
     ];
 
-    // Check if current path is public
-    const isPublicRoute = publicRoutes.some((route) =>
-        pathname === route || pathname.startsWith(route)
-    );
-
-    // API routes that don't require auth
-    const publicApiRoutes = ["/api/auth/", "/api/ai/"];
-    const isPublicApiRoute = publicApiRoutes.some((route) =>
-        pathname.startsWith(route)
-    );
-
-    // Allow public routes
-    if (isPublicRoute || isPublicApiRoute) {
+    // Exact match for "/" or prefix match for others
+    if (pathname === "/") return NextResponse.next();
+    if (publicPrefixes.some((p) => p !== "/" && pathname.startsWith(p))) {
         return NextResponse.next();
     }
 
-    // Public invitation pages (dynamic slug-based routes)
-    // Format: /event-slug-123
-    if (pathname.match(/^\/[a-z0-9-]+$/)) {
-        return NextResponse.next();
-    }
+    // ─── Auth check for /dashboard and /api/* ───────
+    const token = await getToken({
+        req: request,
+        secret: process.env.NEXTAUTH_SECRET,
+    });
 
-    // Check for auth session cookie (lightweight, no database call)
-    const sessionCookie = request.cookies.get("auth_session");
-
-    if (!sessionCookie) {
-        // No session cookie → redirect to login
-        const loginUrl = new URL("/auth/login", request.url);
-        loginUrl.searchParams.set("from", pathname);
+    if (!token) {
+        // Not logged in → redirect to login
+        const loginUrl = new URL("/login", request.url);
+        loginUrl.searchParams.set("callbackUrl", pathname);
         return NextResponse.redirect(loginUrl);
     }
 
-    // Cookie exists → allow request
-    // Actual session validation happens in Server Components (layout.tsx)
+    // ─── PRO plan check for /dashboard/create ───────
+    if (pathname.startsWith("/dashboard/create")) {
+        const plan = token.plan as string;
+        const planExpiry = token.planExpiry as string | null;
+
+        const isPro =
+            plan === "PRO" &&
+            planExpiry &&
+            new Date(planExpiry) > new Date();
+
+        // FREE users can create 1 invitation (checked in API)
+        // But allow access to the create page for everyone
+        // The API will enforce the limit
+    }
+
     return NextResponse.next();
 }
 
 export const config = {
     matcher: [
-        /*
-         * Match all request paths except:
-         * - _next/static (static files)
-         * - _next/image (image optimization files)
-         * - favicon.ico (favicon file)
-         * - public assets (images, fonts, etc.)
-         */
-        "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|woff|woff2|ttf|otf)$).*)",
+        "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|woff|woff2|ttf|otf|ico)$).*)",
     ],
 };
